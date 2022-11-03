@@ -22,6 +22,11 @@ struct TwoVariableSimultaneousEquationView: View {
     
     @State var showAnswers: Bool = false
     
+    @State var animateLogo: Bool = false
+    @State var showMenu: Bool = false
+    @State var menuOpacity: Bool = false
+    @State var width: CGFloat = UIScreen.main.bounds.width / 8
+    
     //    var variableMatrix: [[Double]] = [
     //        [0.00, 0.00],
     //        [0.00, 0.00]
@@ -38,144 +43,151 @@ struct TwoVariableSimultaneousEquationView: View {
     
     
     var body: some View {
-        VStack {
-            HStack {
-                Button{
-                    withAnimation{
-                        twoVarSimulEqn = false
-                    }
-                } label: {
-                    Image(systemName: "chevron.left")
-                    Text("Back")
-                }
-                .padding(.leading)
-                
-                Spacer()
-            }
-            
-            VStack{
-                Text("Input the values from the equations below.")
-                    .padding(.vertical)
-                    .padding(.top, 30)
-                
+        ZStack {
+            VStack {
                 HStack {
-                    Text("Equation1: ")
-                    
-                    TextField("0", text: $eqn1var1)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                        .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        .focused($isFocused)
-                        .keyboardType(.numberPad)
-                    
-                    Text("x + ")
-                    
-                    TextField("0", text: $eqn1var2)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                        .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        .keyboardType(.numberPad)
-                        .focused($isFocused)
-                    
-                    Text("y = ")
-                    
-                    TextField("0", text: $eqn1var3)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                        .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        .keyboardType(.numberPad)
-                        .focused($isFocused)
-                    
-                    
-                }
-                
-                HStack {
-                    Text("Equation2: ")
-                    
-                    TextField("0", text: $eqn2var1)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                        .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        .keyboardType(.numberPad)
-                        .focused($isFocused)
-                    Text("x + ")
-                    
-                    TextField("0", text: $eqn2var2)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                        .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        .keyboardType(.numberPad)
-                        .focused($isFocused)
-                    Text("y = ")
-                    
-                    TextField("0", text: $eqn2var3)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                        .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        .keyboardType(.numberPad)
-                        .focused($isFocused)
-                    
-                    
-                }
-                HStack {
-                    
-                    Spacer()
-                    
                     Button{
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            withAnimation {
-                                getMatrices(eqn1var1: eqn1var1, eqn1var2: eqn1var2, eqn1var3: eqn1var3, eqn2var1: eqn2var1, eqn2var2: eqn2var2, eqn2var3: eqn2var3)
-                                
-                                showAnswers = true
-                                isFocused = false
-                            }
+                        withAnimation{
+                            twoVarSimulEqn = false
                         }
-                        
                     } label: {
-                        Text("Solve")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color("solve"))
+                        Image(systemName: "chevron.left")
+                        Text("Back")
+                    }
+                    .padding(.leading)
+                    
+                    Spacer()
+                }
+
+                Spacer(minLength: 30)
+                
+                VStack{
+                    Text("Input the values from the equations below.")
+                        .padding(.vertical)
+                        .padding(.top, 30)
+                    
+                    HStack {
+                        Text("Equation1: ")
+                        
+                        TextField("0", text: $eqn1var1)
+                            .multilineTextAlignment(.trailing)
                             .padding()
-                            .background(RoundedRectangle(cornerRadius: 15)
-                                .foregroundColor(Color("standardOperator")))
+                            .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
+                            .background(.gray.opacity(0.3))
+                            .cornerRadius(15)
+                            .focused($isFocused)
+                            .keyboardType(.numberPad)
+                        
+                        Text("x + ")
+                        
+                        TextField("0", text: $eqn1var2)
+                            .multilineTextAlignment(.trailing)
+                            .padding()
+                            .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
+                            .background(.gray.opacity(0.3))
+                            .cornerRadius(15)
+                            .keyboardType(.numberPad)
+                            .focused($isFocused)
+                        
+                        Text("y = ")
+                        
+                        TextField("0", text: $eqn1var3)
+                            .multilineTextAlignment(.trailing)
+                            .padding()
+                            .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
+                            .background(.gray.opacity(0.3))
+                            .cornerRadius(15)
+                            .keyboardType(.numberPad)
+                            .focused($isFocused)
+                        
+                        
+                    }
+                    
+                    HStack {
+                        Text("Equation2: ")
+                        
+                        TextField("0", text: $eqn2var1)
+                            .multilineTextAlignment(.trailing)
+                            .padding()
+                            .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
+                            .background(.gray.opacity(0.3))
+                            .cornerRadius(15)
+                            .keyboardType(.numberPad)
+                            .focused($isFocused)
+                        Text("x + ")
+                        
+                        TextField("0", text: $eqn2var2)
+                            .multilineTextAlignment(.trailing)
+                            .padding()
+                            .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
+                            .background(.gray.opacity(0.3))
+                            .cornerRadius(15)
+                            .keyboardType(.numberPad)
+                            .focused($isFocused)
+                        Text("y = ")
+                        
+                        TextField("0", text: $eqn2var3)
+                            .multilineTextAlignment(.trailing)
+                            .padding()
+                            .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
+                            .background(.gray.opacity(0.3))
+                            .cornerRadius(15)
+                            .keyboardType(.numberPad)
+                            .focused($isFocused)
+                        
+                        
+                    }
+                    HStack {
+                        
+                        Spacer()
+                        
+                        Button{
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                withAnimation {
+                                    getMatrices(eqn1var1: eqn1var1, eqn1var2: eqn1var2, eqn1var3: eqn1var3, eqn2var1: eqn2var1, eqn2var2: eqn2var2, eqn2var3: eqn2var3)
+                                    
+                                    showAnswers = true
+                                    isFocused = false
+                                }
+                            }
+                            
+                        } label: {
+                            Text("Solve")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color("solve"))
+                                .padding()
+                                .background(RoundedRectangle(cornerRadius: 15)
+                                    .foregroundColor(Color("standardOperator")))
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 3)
+                    
+                    HStack{
+                        Spacer()
+                        
+                        Text("Answers".uppercased())
+                            .font(.title)
+                        
+                        Spacer()
+                        
+                    }
+                    .frame(height: QuadraticEquationView().textfieldWidth())
+                    .background(Color.gray.opacity(0.3))
+                    
+                    //            Text("x = \(answerMatrix.x) \ny = \(answerMatrix.y)")
+                    if showAnswers {
+                        Text(String(format: "x = %.4f \ny = %.4f", answerMatrix.x, answerMatrix.y))
                     }
                 }
-                .padding(.horizontal)
-                .padding(.bottom, 3)
+                Spacer()
                 
-                HStack{
-                    Spacer()
-                    
-                    Text("Answers".uppercased())
-                        .font(.title)
-                    
-                    Spacer()
-                    
-                }
-                .frame(height: QuadraticEquationView().textfieldWidth())
-                .background(Color.gray.opacity(0.3))
-                
-                //            Text("x = \(answerMatrix.x) \ny = \(answerMatrix.y)")
-                if showAnswers {
-                    Text(String(format: "x = %.4f \ny = %.4f", answerMatrix.x, answerMatrix.y))
-                }
+//                SectionPickerView()
             }
-            Spacer()
+            .opacity(showMenu ? 0.2 : 1)
             
-            SectionPickerView()
+            LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
         }
     }
     

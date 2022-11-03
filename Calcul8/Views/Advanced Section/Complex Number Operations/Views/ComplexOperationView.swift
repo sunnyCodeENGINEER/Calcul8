@@ -27,69 +27,37 @@ struct ComplexOperationView: View {
     
     @AppStorage("complexNumber") var complexNumber: Bool = false
     
+    @State var animateLogo: Bool = false
+    @State var showMenu: Bool = false
+    @State var menuOpacity: Bool = false
+    @State var width: CGFloat = UIScreen.main.bounds.width / 8
+    
     @FocusState var isFocused: Bool
     
     var body: some View {
-        VStack {
-            HStack {
-                Button{
-                    withAnimation{
-                        complexNumber = false
-                    }
-                } label: {
-                    Image(systemName: "chevron.left")
-                    Text("Back")
-                }
-                .padding(.leading)
-                
-                Spacer()
-            }
-            
-            Text("Enter the first complex number")
-                .padding(.top)
-            
-            HStack {
-                TextField("0", text: $number1StringReal)
-                    .multilineTextAlignment(.trailing)
-                    .padding()
-                    .frame(width: textfieldWidth(), height: textfieldWidth())
-                    .background(.gray.opacity(0.3))
-                    .cornerRadius(15)
-                    .keyboardType(.numberPad)
-                    .focused($isFocused)
-                Text(" + ")
-                
-                TextField("0", text: $number1StringImaginary)
-                    .multilineTextAlignment(.trailing)
-                    .padding()
-                    .frame(width: textfieldWidth(), height: textfieldWidth())
-                    .background(.gray.opacity(0.3))
-                    .cornerRadius(15)
-                    .keyboardType(.numberPad)
-                    .focused($isFocused)
-                Text("i")
-                    .font(.title)
-                    .fontWeight(.heavy)
-            }
-            
-            HStack {
-                Text("Choose an operation to perform: ")
-                
-                //                Spacer()
-                
-                Picker(selection: $operation, label: Text("Operation")) {
-                    Text("Addition").tag(ComplexNumberOperation.addition)
-                    Text("Subtraction").tag(ComplexNumberOperation.subtraction)
-                    Text("Multiplication").tag(ComplexNumberOperation.multiplication)
-                    Text("Division").tag(ComplexNumberOperation.division)
-                    Text("Convert To Polar Form").tag(ComplexNumberOperation.convertToPolarForm)
-                }
-                
-            }
-            
-            if operation != .convertToPolarForm {
+        ZStack {
+            VStack {
                 HStack {
-                    TextField("0", text: $number2StringReal)
+                    Button{
+                        withAnimation{
+                            complexNumber = false
+                        }
+                    } label: {
+                        Image(systemName: "chevron.left")
+                        Text("Back")
+                    }
+                    .padding(.leading)
+                    
+                    Spacer()
+                }
+                
+                Spacer(minLength: 30)
+                
+                Text("Enter the first complex number")
+                    .padding(.top)
+                
+                HStack {
+                    TextField("0", text: $number1StringReal)
                         .multilineTextAlignment(.trailing)
                         .padding()
                         .frame(width: textfieldWidth(), height: textfieldWidth())
@@ -99,7 +67,7 @@ struct ComplexOperationView: View {
                         .focused($isFocused)
                     Text(" + ")
                     
-                    TextField("0", text: $number2StringImaginary)
+                    TextField("0", text: $number1StringImaginary)
                         .multilineTextAlignment(.trailing)
                         .padding()
                         .frame(width: textfieldWidth(), height: textfieldWidth())
@@ -111,76 +79,120 @@ struct ComplexOperationView: View {
                         .font(.title)
                         .fontWeight(.heavy)
                 }
-            }
-            else {
+                
                 HStack {
-                    Text("Choose a unit: ")
+                    Text("Choose an operation to perform: ")
                     
-                    Picker(selection: $unit, label: Text("Unit")) {
-                        Text("𝞹 Rad").tag(Unit.piRadians)
-                        Text("Radians").tag(Unit.radians)
-                        Text("Degrees").tag(Unit.degrees)
+                    //                Spacer()
+                    
+                    Picker(selection: $operation, label: Text("Operation")) {
+                        Text("Addition").tag(ComplexNumberOperation.addition)
+                        Text("Subtraction").tag(ComplexNumberOperation.subtraction)
+                        Text("Multiplication").tag(ComplexNumberOperation.multiplication)
+                        Text("Division").tag(ComplexNumberOperation.division)
+                        Text("Convert To Polar Form").tag(ComplexNumberOperation.convertToPolarForm)
                     }
                     
-                }            }
-            
-            HStack {
-                Spacer()
-                
-                Button{
-                    withAnimation {
-                    isFocused = false
-                    show = true
-                    }
-                    
-                    if operation != .convertToPolarForm {
-                        withAnimation{
-                            solveComplexNumberOperation()
-                        }
-                    } else {
-                        withAnimation {
-                        solveConversionToPolarForm()
-                        }
-                    }
-                    
-                } label: {
-                    Text("Solve")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color("solve"))
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(Color("standardOperator")))
                 }
-                .padding(.bottom)
-            }
-            
-            VStack {
-                Divider()
                 
-                if show {
-                    VStack {
-                        Text("Answer".uppercased())
+                if operation != .convertToPolarForm {
+                    HStack {
+                        TextField("0", text: $number2StringReal)
+                            .multilineTextAlignment(.trailing)
+                            .padding()
+                            .frame(width: textfieldWidth(), height: textfieldWidth())
+                            .background(.gray.opacity(0.3))
+                            .cornerRadius(15)
+                            .keyboardType(.numberPad)
+                            .focused($isFocused)
+                        Text(" + ")
+                        
+                        TextField("0", text: $number2StringImaginary)
+                            .multilineTextAlignment(.trailing)
+                            .padding()
+                            .frame(width: textfieldWidth(), height: textfieldWidth())
+                            .background(.gray.opacity(0.3))
+                            .cornerRadius(15)
+                            .keyboardType(.numberPad)
+                            .focused($isFocused)
+                        Text("i")
                             .font(.title)
+                            .fontWeight(.heavy)
+                    }
+                }
+                else {
+                    HStack {
+                        Text("Choose a unit: ")
+                        
+                        Picker(selection: $unit, label: Text("Unit")) {
+                            Text("𝞹 Rad").tag(Unit.piRadians)
+                            Text("Radians").tag(Unit.radians)
+                            Text("Degrees").tag(Unit.degrees)
+                        }
+                        
+                    }            }
+                
+                HStack {
+                    Spacer()
+                    
+                    Button{
+                        withAnimation {
+                        isFocused = false
+                        show = true
+                        }
                         
                         if operation != .convertToPolarForm {
-                            Text(String(format: " %.4f + %.4f i", answer.realPart, answer.imaginaryPart))
+                            withAnimation{
+                                solveComplexNumberOperation()
+                            }
                         } else {
-                            if unit == .piRadians {
-                                
-                                Text(String(format: " %.4f (cos(%.4f 𝞹 ) + sin(%.4f 𝞹 ))", convertedAnswer.magnitude, convertedAnswer.realPart, convertedAnswer.imaginaryPart))
+                            withAnimation {
+                            solveConversionToPolarForm()
+                            }
+                        }
+                        
+                    } label: {
+                        Text("Solve")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color("solve"))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 15)
+                                .foregroundColor(Color("standardOperator")))
+                    }
+                    .padding(.bottom)
+                }
+                
+                VStack {
+                    Divider()
+                    
+                    if show {
+                        VStack {
+                            Text("Answer".uppercased())
+                                .font(.title)
+                            
+                            if operation != .convertToPolarForm {
+                                Text(String(format: " %.4f + %.4f i", answer.realPart, answer.imaginaryPart))
                             } else {
-                                Text(String(format: " %.4f (cos(%.4f) + sin(%.4f ))", convertedAnswer.magnitude, convertedAnswer.realPart, convertedAnswer.imaginaryPart))
-                                
+                                if unit == .piRadians {
+                                    
+                                    Text(String(format: " %.4f (cos(%.4f 𝞹 ) + sin(%.4f 𝞹 ))", convertedAnswer.magnitude, convertedAnswer.realPart, convertedAnswer.imaginaryPart))
+                                } else {
+                                    Text(String(format: " %.4f (cos(%.4f) + sin(%.4f ))", convertedAnswer.magnitude, convertedAnswer.realPart, convertedAnswer.imaginaryPart))
+                                    
+                                }
                             }
                         }
                     }
                 }
+                
+                Spacer()
+                
+//                SectionPickerView()
             }
+            .opacity(showMenu ? 0.2 : 1)
             
-            Spacer()
-            
-            SectionPickerView()
+            LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
         }
     }
     

@@ -19,10 +19,10 @@ struct InputFieldView: View {
                 HStack {
                     Text("Last Recorded Answer:")
                     
-                    Spacer()
-                    
                     Text(previousAnswer)
                         .font(.headline)
+                    
+                    Spacer()
                 }
                 .frame(height: 20)
                 .padding(.horizontal)

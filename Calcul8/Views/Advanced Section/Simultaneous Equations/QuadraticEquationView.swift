@@ -24,114 +24,125 @@ struct QuadraticEquationView: View {
     @AppStorage("decimal") var decimal: Bool = true
     @AppStorage("quadraticSection") var quadraticSection: Bool = false
 
+    @State var animateLogo: Bool = false
+    @State var showMenu: Bool = false
+    @State var menuOpacity: Bool = false
+    @State var width: CGFloat = UIScreen.main.bounds.width / 8
     
     var body: some View {
-        VStack {
-            HStack {
-                Button{
-                    withAnimation{
-                        quadraticSection = false
-                    }
-                } label: {
-                    Image(systemName: "chevron.left")
-                    Text("Back")
-                }
-                .padding(.leading)
-                
-                Spacer()
-            }
-            
-            Text("Input the values into boxes provided below.")
-                .padding(.top)
-            
-            HStack {
-//                quadraticTextField(term: firstTerm)
-                TextField("0", text: $firstTerm)
-                    .multilineTextAlignment(.trailing)
-                    .padding()
-                    .frame(width: textfieldWidth(), height: textfieldWidth())
-                    .background(.gray.opacity(0.3))
-                    .cornerRadius(15)
-                    .keyboardType(.numberPad)
-                    .focused($isFocused)
-                Text("x²")
-                
-                Text("+")
-                
-//                quadraticTextField(term: secondTerm)
-                TextField("0", text: $secondTerm)
-                    .multilineTextAlignment(.trailing)
-                    .padding()
-                    .frame(width: textfieldWidth(), height: textfieldWidth())
-                    .background(.gray.opacity(0.3))
-                    .cornerRadius(15)
-                    .keyboardType(.numberPad)
-                    .focused($isFocused)
-                Text("x")
-                
-                Text("+")
-                
-//                quadraticTextField(term: thirdTerm)
-                TextField("0", text: $thirdTerm)
-                    .multilineTextAlignment(.trailing)
-                    .padding()
-                    .frame(width: textfieldWidth(), height: textfieldWidth())
-                    .background(.gray.opacity(0.3))
-                    .cornerRadius(15)
-                    .keyboardType(.numberPad)
-                    .focused($isFocused)
-                Text("= 0")
-                
-            }
-            HStack {
-                
-                Spacer()
-                
-                Button{
-                    isFocused = false
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        withAnimation {
-                            solveQuadratic(term1: firstTerm, term2: secondTerm, term3: thirdTerm)
-                        }
-                    }
-                   
-                } label: {
-                    Text("Solve")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color("solve"))
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(Color("standardOperator")))
-                }
-            }
-            .padding(.horizontal)
-            .padding(.bottom, 3)
-            
-            HStack {
-                Toggle(isOn: $decimal) {
-                    Text("Decimal Form")
-                }
-            }
-            .padding()
-            .background(Color.gray.opacity(0.3))
-            
+        ZStack {
             VStack {
                 HStack {
-                    Text(rootType)
-                        .font(.title)
+                    Button{
+                        withAnimation{
+                            quadraticSection = false
+                        }
+                    } label: {
+                        Image(systemName: "chevron.left")
+                        Text("Back")
+                    }
+                    .padding(.leading)
+                    
+                    Spacer()
                 }
-                .frame(height: 100)
                 
-                Divider()
+                Spacer(minLength: 30)
                 
-                Text(roots)
-            }
-            Spacer()
+                Text("Input the values into boxes provided below.")
+                    .padding(.top)
+                
+                HStack {
+    //                quadraticTextField(term: firstTerm)
+                    TextField("0", text: $firstTerm)
+                        .multilineTextAlignment(.trailing)
+                        .padding()
+                        .frame(width: textfieldWidth(), height: textfieldWidth())
+                        .background(.gray.opacity(0.3))
+                        .cornerRadius(15)
+                        .keyboardType(.numberPad)
+                        .focused($isFocused)
+                    Text("x²")
+                    
+                    Text("+")
+                    
+    //                quadraticTextField(term: secondTerm)
+                    TextField("0", text: $secondTerm)
+                        .multilineTextAlignment(.trailing)
+                        .padding()
+                        .frame(width: textfieldWidth(), height: textfieldWidth())
+                        .background(.gray.opacity(0.3))
+                        .cornerRadius(15)
+                        .keyboardType(.numberPad)
+                        .focused($isFocused)
+                    Text("x")
+                    
+                    Text("+")
+                    
+    //                quadraticTextField(term: thirdTerm)
+                    TextField("0", text: $thirdTerm)
+                        .multilineTextAlignment(.trailing)
+                        .padding()
+                        .frame(width: textfieldWidth(), height: textfieldWidth())
+                        .background(.gray.opacity(0.3))
+                        .cornerRadius(15)
+                        .keyboardType(.numberPad)
+                        .focused($isFocused)
+                    Text("= 0")
+                    
+                }
+                HStack {
+                    
+                    Spacer()
+                    
+                    Button{
+                        isFocused = false
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            withAnimation {
+                                solveQuadratic(term1: firstTerm, term2: secondTerm, term3: thirdTerm)
+                            }
+                        }
+                       
+                    } label: {
+                        Text("Solve")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color("solve"))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 15)
+                                .foregroundColor(Color("standardOperator")))
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 3)
+                
+                HStack {
+                    Toggle(isOn: $decimal) {
+                        Text("Decimal Form")
+                    }
+                }
+                .padding()
+                .background(Color.gray.opacity(0.3))
+                
+                VStack {
+                    HStack {
+                        Text(rootType)
+                            .font(.title)
+                    }
+                    .frame(height: 100)
+                    
+                    Divider()
+                    
+                    Text(roots)
+                }
+                Spacer()
 
-            SectionPickerView()
+//                SectionPickerView()
+                
+            }
+            .opacity(showMenu ? 0.2 : 1)
             
+            LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
         }
     }
     

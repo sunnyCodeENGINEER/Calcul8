@@ -29,122 +29,37 @@ struct PolarFormOperationView: View {
     
     @AppStorage("polarForm") var polarForm: Bool = false
     
+    @State var animateLogo: Bool = false
+    @State var showMenu: Bool = false
+    @State var menuOpacity: Bool = false
+    @State var width: CGFloat = UIScreen.main.bounds.width / 8
+    
     @FocusState var isFocused: Bool
     
     var body: some View {
-        VStack {
-            HStack {
-                Button{
-                    withAnimation{
-                        polarForm = false
+        ZStack {
+            VStack {
+                HStack {
+                    Button{
+                        withAnimation{
+                            polarForm = false
+                        }
+                    } label: {
+                        Image(systemName: "chevron.left")
+                        Text("Back")
                     }
-                } label: {
-                    Image(systemName: "chevron.left")
-                    Text("Back")
+                    .padding(.leading)
+                    
+                    Spacer()
                 }
-                .padding(.leading)
+                Spacer(minLength: 30)
                 
-                Spacer()
-            }
-            
-            Text("Enter the first complex number")
-                .padding(.top)
-            
-            if unit != .piRadians {
-                HStack {
-                    TextField("0", text: $number1StringMagnitude)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                        .frame(width: textfieldWidth(), height: textfieldWidth())
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        .keyboardType(.numberPad)
-                        .focused($isFocused)
-                    Text(" (")
-                        .font(.title)
-                        .fontWeight(.heavy)
-                    Text("cos(")
-                    
-                    TextField("0", text: $number1StringReal)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                        .frame(width: textfieldWidth(), height: textfieldWidth())
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        .keyboardType(.numberPad)
-                        .focused($isFocused)
-                    Text(") + sin(")
-                    
-                    TextField("0", text: $number1StringReal)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                        .frame(width: textfieldWidth(), height: textfieldWidth())
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        .keyboardType(.numberPad)
-                        .focused($isFocused)
-                    Text(")")
-                    Text(")")
-                        .font(.title)
-                        .fontWeight(.heavy)
-                }
-            }
-            else {
-                HStack {
-                    TextField("0", text: $number1StringMagnitude)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                        .frame(width: textfieldWidth(), height: textfieldWidth())
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        .keyboardType(.numberPad)
-                        .focused($isFocused)
-                    Text(" (")
-                        .font(.title)
-                        .fontWeight(.heavy)
-                    Text("cos(")
-                    
-                    TextField("0", text: $number1StringReal)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                        .frame(width: textfieldWidth(), height: textfieldWidth())
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        .keyboardType(.numberPad)
-                        .focused($isFocused)
-                    Text("𝞹) + sin(")
-                    
-                    TextField("0", text: $number1StringReal)
-                        .multilineTextAlignment(.trailing)
-                        .padding()
-                        .frame(width: textfieldWidth(), height: textfieldWidth())
-                        .background(.gray.opacity(0.3))
-                        .cornerRadius(15)
-                        .keyboardType(.numberPad)
-                        .focused($isFocused)
-                    Text("𝞹)")
-                    Text(")")
-                        .font(.title)
-                        .fontWeight(.heavy)
-                }            }
-            
-            HStack {
-                Text("Choose an operation to perform: ")
+                Text("Enter the first complex number")
+                    .padding(.top)
                 
-                Picker(selection: $operation, label: Text("Operation")) {
-                    //                    Text("Addition").tag(ComplexNumberOperation.addition)
-                    //                    Text("Subtraction").tag(ComplexNumberOperation.subtraction)
-                    Text("Multiplication").tag(PolarFormOperation.multiplication)
-                    Text("Division").tag(PolarFormOperation.division)
-                    Text("Convert To Rectangular form").tag(PolarFormOperation.convertToComplexForm)
-                }
-                
-            }
-            
-            if operation != .convertToComplexForm {
                 if unit != .piRadians {
                     HStack {
-                        TextField("0", text: $number2StringMagnitude)
+                        TextField("0", text: $number1StringMagnitude)
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: textfieldWidth(), height: textfieldWidth())
@@ -157,7 +72,7 @@ struct PolarFormOperationView: View {
                             .fontWeight(.heavy)
                         Text("cos(")
                         
-                        TextField("0", text: $number2StringReal)
+                        TextField("0", text: $number1StringReal)
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: textfieldWidth(), height: textfieldWidth())
@@ -167,7 +82,7 @@ struct PolarFormOperationView: View {
                             .focused($isFocused)
                         Text(") + sin(")
                         
-                        TextField("0", text: $number2StringReal)
+                        TextField("0", text: $number1StringReal)
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: textfieldWidth(), height: textfieldWidth())
@@ -183,7 +98,7 @@ struct PolarFormOperationView: View {
                 }
                 else {
                     HStack {
-                        TextField("0", text: $number2StringMagnitude)
+                        TextField("0", text: $number1StringMagnitude)
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: textfieldWidth(), height: textfieldWidth())
@@ -196,7 +111,7 @@ struct PolarFormOperationView: View {
                             .fontWeight(.heavy)
                         Text("cos(")
                         
-                        TextField("0", text: $number2StringReal)
+                        TextField("0", text: $number1StringReal)
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: textfieldWidth(), height: textfieldWidth())
@@ -206,7 +121,7 @@ struct PolarFormOperationView: View {
                             .focused($isFocused)
                         Text("𝞹) + sin(")
                         
-                        TextField("0", text: $number2StringReal)
+                        TextField("0", text: $number1StringReal)
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: textfieldWidth(), height: textfieldWidth())
@@ -218,82 +133,178 @@ struct PolarFormOperationView: View {
                         Text(")")
                             .font(.title)
                             .fontWeight(.heavy)
-                    }                }
-            }
-            
-            HStack {
-                Text("Choose a unit: ")
+                    }            }
                 
-                //                Spacer()
-                
-                Picker(selection: $unit, label: Text("Unit")) {
-                    //                    Text("Addition").tag(ComplexNumberOperation.addition)
-                    //                    Text("Subtraction").tag(ComplexNumberOperation.subtraction)
-                    Text("𝞹 Rad").tag(Unit.piRadians)
-                    Text("Radians").tag(Unit.radians)
-                    Text("Degrees").tag(Unit.degrees)
-                }
-                
-            }
-            
-            HStack {
-                Spacer()
-                
-                Button{
-                    withAnimation {
-                    isFocused = false
-                    show = true
+                HStack {
+                    Text("Choose an operation to perform: ")
+                    
+                    Picker(selection: $operation, label: Text("Operation")) {
+                        //                    Text("Addition").tag(ComplexNumberOperation.addition)
+                        //                    Text("Subtraction").tag(ComplexNumberOperation.subtraction)
+                        Text("Multiplication").tag(PolarFormOperation.multiplication)
+                        Text("Division").tag(PolarFormOperation.division)
+                        Text("Convert To Rectangular form").tag(PolarFormOperation.convertToComplexForm)
                     }
                     
-                    if operation != .convertToComplexForm {
-                        withAnimation{
-                            solvePolarformoperations()
+                }
+                
+                if operation != .convertToComplexForm {
+                    if unit != .piRadians {
+                        HStack {
+                            TextField("0", text: $number2StringMagnitude)
+                                .multilineTextAlignment(.trailing)
+                                .padding()
+                                .frame(width: textfieldWidth(), height: textfieldWidth())
+                                .background(.gray.opacity(0.3))
+                                .cornerRadius(15)
+                                .keyboardType(.numberPad)
+                                .focused($isFocused)
+                            Text(" (")
+                                .font(.title)
+                                .fontWeight(.heavy)
+                            Text("cos(")
+                            
+                            TextField("0", text: $number2StringReal)
+                                .multilineTextAlignment(.trailing)
+                                .padding()
+                                .frame(width: textfieldWidth(), height: textfieldWidth())
+                                .background(.gray.opacity(0.3))
+                                .cornerRadius(15)
+                                .keyboardType(.numberPad)
+                                .focused($isFocused)
+                            Text(") + sin(")
+                            
+                            TextField("0", text: $number2StringReal)
+                                .multilineTextAlignment(.trailing)
+                                .padding()
+                                .frame(width: textfieldWidth(), height: textfieldWidth())
+                                .background(.gray.opacity(0.3))
+                                .cornerRadius(15)
+                                .keyboardType(.numberPad)
+                                .focused($isFocused)
+                            Text(")")
+                            Text(")")
+                                .font(.title)
+                                .fontWeight(.heavy)
                         }
                     }
                     else {
-                        withAnimation{
-                            solveConversionToRectangularForm()
-                        }
+                        HStack {
+                            TextField("0", text: $number2StringMagnitude)
+                                .multilineTextAlignment(.trailing)
+                                .padding()
+                                .frame(width: textfieldWidth(), height: textfieldWidth())
+                                .background(.gray.opacity(0.3))
+                                .cornerRadius(15)
+                                .keyboardType(.numberPad)
+                                .focused($isFocused)
+                            Text(" (")
+                                .font(.title)
+                                .fontWeight(.heavy)
+                            Text("cos(")
+                            
+                            TextField("0", text: $number2StringReal)
+                                .multilineTextAlignment(.trailing)
+                                .padding()
+                                .frame(width: textfieldWidth(), height: textfieldWidth())
+                                .background(.gray.opacity(0.3))
+                                .cornerRadius(15)
+                                .keyboardType(.numberPad)
+                                .focused($isFocused)
+                            Text("𝞹) + sin(")
+                            
+                            TextField("0", text: $number2StringReal)
+                                .multilineTextAlignment(.trailing)
+                                .padding()
+                                .frame(width: textfieldWidth(), height: textfieldWidth())
+                                .background(.gray.opacity(0.3))
+                                .cornerRadius(15)
+                                .keyboardType(.numberPad)
+                                .focused($isFocused)
+                            Text("𝞹)")
+                            Text(")")
+                                .font(.title)
+                                .fontWeight(.heavy)
+                        }                }
+                }
+                
+                HStack {
+                    Text("Choose a unit: ")
+                    
+                    //                Spacer()
+                    
+                    Picker(selection: $unit, label: Text("Unit")) {
+                        //                    Text("Addition").tag(ComplexNumberOperation.addition)
+                        //                    Text("Subtraction").tag(ComplexNumberOperation.subtraction)
+                        Text("𝞹 Rad").tag(Unit.piRadians)
+                        Text("Radians").tag(Unit.radians)
+                        Text("Degrees").tag(Unit.degrees)
                     }
                     
-                } label: {
-                    Text("Solve")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color("solve"))
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(Color("standardOperator")))
                 }
-                .padding(.bottom)
-            }
-            
-            VStack {
-                Divider()
                 
-                if show {
-                    VStack {
-                        Text("Answer".uppercased())
-                            .font(.title)
+                HStack {
+                    Spacer()
+                    
+                    Button{
+                        withAnimation {
+                        isFocused = false
+                        show = true
+                        }
                         
-                        if operation == .convertToComplexForm {
-                            Text(String(format: " %.4f + %.4f i", convertedAnswer.realPart, convertedAnswer.imaginaryPart))
-                        } else {
-                            if unit == .piRadians {
-                                
-                                Text(String(format: " %.4f (cos(%.4f 𝞹 ) + sin(%.4f 𝞹 ))", answer.magnitude, answer.realPart, answer.imaginaryPart))
+                        if operation != .convertToComplexForm {
+                            withAnimation{
+                                solvePolarformoperations()
+                            }
+                        }
+                        else {
+                            withAnimation{
+                                solveConversionToRectangularForm()
+                            }
+                        }
+                        
+                    } label: {
+                        Text("Solve")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color("solve"))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 15)
+                                .foregroundColor(Color("standardOperator")))
+                    }
+                    .padding(.bottom)
+                }
+                
+                VStack {
+                    Divider()
+                    
+                    if show {
+                        VStack {
+                            Text("Answer".uppercased())
+                                .font(.title)
+                            
+                            if operation == .convertToComplexForm {
+                                Text(String(format: " %.4f + %.4f i", convertedAnswer.realPart, convertedAnswer.imaginaryPart))
                             } else {
-                                Text(String(format: " %.4f (cos(%.4f) + sin(%.4f ))", answer.magnitude, answer.realPart, answer.imaginaryPart))
-                                
+                                if unit == .piRadians {
+                                    
+                                    Text(String(format: " %.4f (cos(%.4f 𝞹 ) + sin(%.4f 𝞹 ))", answer.magnitude, answer.realPart, answer.imaginaryPart))
+                                } else {
+                                    Text(String(format: " %.4f (cos(%.4f) + sin(%.4f ))", answer.magnitude, answer.realPart, answer.imaginaryPart))
+                                    
+                                }
                             }
                         }
                     }
                 }
+                
+                Spacer()
+                
+//                SectionPickerView()
             }
+            .opacity(showMenu ? 0.2 : 1)
             
-            Spacer()
-            
-            SectionPickerView()
+            LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
         }
     }
     

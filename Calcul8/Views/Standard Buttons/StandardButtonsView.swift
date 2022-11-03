@@ -29,57 +29,71 @@ struct StandardButtonsView: View {
         [.sqrRoot, .otherRoot, .logarithm, .exponen],
     ]
     
+    @State var animateLogo: Bool = false
+    @State var showMenu: Bool = false
+    @State var menuOpacity: Bool = false
+    @State var width: CGFloat = UIScreen.main.bounds.width / 8
+    
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
+    @AppStorage("standardButton") var standardButton: String = "standardButton"
+    
     var body: some View {
-        VStack{
-            InputFieldView(output: output, previousAnswer: String(runnungNumber))
-            
-            HStack{
-                ScrollView(showsIndicators: false) {
-                    ForEach(standardButtons, id: \.self) {row in
-                        HStack {
-                            ForEach(row, id: \.self) { item in
-                                Button{
-                                    //button action
-                                    self.didTap(button: item)
-                                } label: {
-                                    Text(item.rawValue)
-                                        .font(.system(size: 32))
-                                        .frame(width: self.buttonWidth(item: item),
-                                               height: self.buttonHeightt())
-                                        .background(item.standardButtonsColor)
-                                        .foregroundColor(Color("buttonText"))
-                                        .cornerRadius(self.buttonWidth(item: item)/3)
+        ZStack {
+            VStack{
+                InputFieldView(output: output, previousAnswer: String(runnungNumber))
+                
+                HStack{
+                    ScrollView(showsIndicators: false) {
+                        ForEach(standardButtons, id: \.self) {row in
+                            HStack {
+                                ForEach(row, id: \.self) { item in
+                                    Button{
+                                        //button action
+                                        self.didTap(button: item)
+                                    } label: {
+                                        Text(item.rawValue)
+                                            .font(.system(size: 32))
+                                            .frame(width: self.buttonWidth(item: item),
+                                                   height: self.buttonHeightt())
+                                            .background(item.standardButtonsColor)
+                                            .foregroundColor(Color("buttonText"))
+                                            .cornerRadius(self.buttonWidth(item: item)/3)
+                                    }
                                 }
                             }
+                            .padding(.bottom, 3)
                         }
-                        .padding(.bottom, 3)
-                    }
-                    
-                    ForEach(advancedButtons, id: \.self) {row in
-                        HStack {
-                            ForEach(row, id: \.self) { item in
-                                Button{
-                                    //button action
-                                    self.didTap2(button: item)
-                                } label: {
-                                    Text(item.rawValue)
-                                        .font(.system(size: 20))
-                                        .frame(width: self.buttonWidthAdvanced(item: item),
-                                               height: self.buttonHeightt())
-                                        .background(item.advancedButtonsColor)
-                                        .foregroundColor(Color("buttonText"))
-                                        .cornerRadius(self.buttonWidthAdvanced(item: item)/3)
+                        
+                        ForEach(advancedButtons, id: \.self) {row in
+                            HStack {
+                                ForEach(row, id: \.self) { item in
+                                    Button{
+                                        //button action
+                                        self.didTap2(button: item)
+                                    } label: {
+                                        Text(item.rawValue)
+                                            .font(.system(size: 20))
+                                            .frame(width: self.buttonWidthAdvanced(item: item),
+                                                   height: self.buttonHeightt())
+                                            .background(item.advancedButtonsColor)
+                                            .foregroundColor(Color("buttonText"))
+                                            .cornerRadius(self.buttonWidthAdvanced(item: item)/3)
+                                    }
                                 }
                             }
+                            .padding(.bottom, 3)
                         }
-                        .padding(.bottom, 3)
-                    }
-                    
-                    SectionPickerView()
+                        
+//                        SectionPickerView()
 
+                    }
                 }
+                
             }
+            .opacity(showMenu ? 0.2 : 1)
             
+            LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
+                .padding(.horizontal)
         }
         
         

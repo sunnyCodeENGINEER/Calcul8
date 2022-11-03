@@ -28,7 +28,7 @@ struct SectionPickerView: View {
     var label3: String = "Advanced Calculations"
     
     var body: some View {
-        HStack {
+        VStack {
             if !basicSection {
                 Button{
                     withAnimation{
@@ -109,7 +109,7 @@ struct sectionButton: View {
 
     
     func buttonWidthAdvanced() -> CGFloat {
-        return (UIScreen.main.bounds.width - (3*12)) / 2
+        return (UIScreen.main.bounds.width * 0.7)
     }
 
 }

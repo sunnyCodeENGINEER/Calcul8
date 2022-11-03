@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		252947232912EDAD00010D4F /* LogoMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252947222912EDAD00010D4F /* LogoMenu.swift */; };
 		252EDC57280F069A00601A54 /* AdvancedButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252EDC56280F069A00601A54 /* AdvancedButtons.swift */; };
 		252EDC59280F100400601A54 /* AdvancedButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252EDC58280F100400601A54 /* AdvancedButtonsView.swift */; };
 		252EDC5B280F134100601A54 /* AdvancedOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252EDC5A280F134100601A54 /* AdvancedOperation.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		252947222912EDAD00010D4F /* LogoMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoMenu.swift; sourceTree = "<group>"; };
 		252EDC56280F069A00601A54 /* AdvancedButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedButtons.swift; sourceTree = "<group>"; };
 		252EDC58280F100400601A54 /* AdvancedButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedButtonsView.swift; sourceTree = "<group>"; };
 		252EDC5A280F134100601A54 /* AdvancedOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedOperation.swift; sourceTree = "<group>"; };
@@ -80,6 +82,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		252947212912ED9000010D4F /* Logo Menu */ = {
+			isa = PBXGroup;
+			children = (
+				252947222912EDAD00010D4F /* LogoMenu.swift */,
+			);
+			name = "Logo Menu";
+			sourceTree = "<group>";
+		};
 		252EDC55280F061800601A54 /* Advanced Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +150,7 @@
 		257F2CB0280D7C52009F7DB2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				252947212912ED9000010D4F /* Logo Menu */,
 				258369FB28105E5D009A6428 /* Advanced Section */,
 				252EDC55280F061800601A54 /* Advanced Buttons */,
 				257F2CB5280D8EFD009F7DB2 /* Main View */,
@@ -306,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				257F2CAC280D7AE0009F7DB2 /* StandardButtons.swift in Sources */,
+				252947232912EDAD00010D4F /* LogoMenu.swift in Sources */,
 				25836A0E28183FE6009A6428 /* ComplexNumber.swift in Sources */,
 				252EDC5B280F134100601A54 /* AdvancedOperation.swift in Sources */,
 				25836A0428115F12009A6428 /* TwoVariableSimultaneousEquationView.swift in Sources */,
