@@ -36,6 +36,8 @@ struct StandardButtonsView: View {
     
     @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
     @AppStorage("standardButton") var standardButton: String = "standardButton"
+    @AppStorage("specialButton") var specialButton: String = "specialButton"
+    @AppStorage("buttonRadius") var buttonRadius: Double = 0.0
     
     var body: some View {
         ZStack {
@@ -55,9 +57,11 @@ struct StandardButtonsView: View {
                                             .font(.system(size: 32))
                                             .frame(width: self.buttonWidth(item: item),
                                                    height: self.buttonHeightt())
-                                            .background(item.standardButtonsColor)
+                                            .background(setStandardColor(color: item.standardButtonsColor))
+//                                            .background(item.standardButtonsColor)
                                             .foregroundColor(Color("buttonText"))
-                                            .cornerRadius(self.buttonWidth(item: item)/3)
+                                            .cornerRadius(buttonRadius)
+//                                            .cornerRadius(self.buttonWidth(item: item)/3)
                                     }
                                 }
                             }
@@ -75,20 +79,18 @@ struct StandardButtonsView: View {
                                             .font(.system(size: 20))
                                             .frame(width: self.buttonWidthAdvanced(item: item),
                                                    height: self.buttonHeightt())
-                                            .background(item.advancedButtonsColor)
+                                            .background(setStandardColor(color: item.advancedButtonsColor))
+//                                            .background(item.advancedButtonsColor)
                                             .foregroundColor(Color("buttonText"))
-                                            .cornerRadius(self.buttonWidthAdvanced(item: item)/3)
+//                                            .cornerRadius(self.buttonWidthAdvanced(item: item)/3)
+                                            .cornerRadius(buttonRadius)
                                     }
                                 }
                             }
                             .padding(.bottom, 3)
                         }
-                        
-//                        SectionPickerView()
-
                     }
                 }
-                
             }
             .opacity(showMenu ? 0.2 : 1)
             
@@ -98,6 +100,20 @@ struct StandardButtonsView: View {
         
         
     }
+    func setStandardColor(color: Color) -> Color {
+        var setColor = Color(.black)
+        if color == Color("standardOperator") {
+            setColor = Color(standardOperator)
+        } else if color == Color(.lightGray) {
+            setColor = Color(specialButton)
+        }
+        else {
+            setColor = Color(standardButton)
+        }
+        
+        return setColor
+    }
+    
     func didTap(button: StandardButtons) {
         switch button {
         case .addition, .subtract, .multiply, .divide, .equal:

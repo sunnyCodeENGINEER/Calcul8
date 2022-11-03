@@ -10,6 +10,8 @@ import SwiftUI
 struct AdvancedCalculationDeciderView: View {
     @AppStorage("complexNumber") var complexNumber: Bool = false
     @AppStorage("polarForm") var polarForm: Bool = false
+    
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
 
     var body: some View {
         VStack {
@@ -27,7 +29,7 @@ struct AdvancedCalculationDeciderView: View {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 20)
                         .frame(width: buttonWidth())
-                        .foregroundColor(Color("standardOperator")))
+                        .foregroundColor(Color(standardOperator)))
                 
             }
             .padding(.bottom)
@@ -43,7 +45,7 @@ struct AdvancedCalculationDeciderView: View {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 20)
                         .frame(width: buttonWidth())
-                        .foregroundColor(Color("standardOperator")))
+                        .foregroundColor(Color(standardOperator)))
             }
             .padding(.bottom)
         }
@@ -51,7 +53,7 @@ struct AdvancedCalculationDeciderView: View {
     
     func buttonWidth() -> CGFloat {
         
-        return (UIScreen.main.bounds.width - (2*12)) / 1
+        return (UIScreen.main.bounds.width ) / 2
     }
 }
 

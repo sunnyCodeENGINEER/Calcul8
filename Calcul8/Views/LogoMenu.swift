@@ -8,6 +8,16 @@
 import SwiftUI
 
 struct LogoMenu: View {
+    @AppStorage("basicSection") var basicSection: Bool = true
+    @AppStorage("quadraticSection") var quadraticSection: Bool = false
+    @AppStorage("simultaneousSection") var simultaneousSection: Bool = false
+    @AppStorage("complexNumberOperation") var complexNumberOperation: Bool = false
+    @AppStorage("equationsection") var equationSection: Bool = false
+    
+    @AppStorage("twoVarSimulEqn") var twoVarSimulEqn: Bool = false
+    @AppStorage("threeVarSimulEqn") var threeVarSimulEqn: Bool = false
+    @AppStorage("complexNumber") var complexNumber: Bool = false
+    @AppStorage("polarForm") var polarForm: Bool = false
     
     @AppStorage("appLogo") var appLogo: String = "appLogo"
     @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
@@ -72,9 +82,31 @@ struct LogoMenu: View {
                             Spacer()
                         }
                     }
-    //                if !showMenu {
                         Spacer()
-    //                }
+                    
+                    if showMenu {
+                        Button {
+                            withAnimation{
+                                basicSection = false
+                                equationSection = false
+                                complexNumberOperation = false
+                                twoVarSimulEqn = false
+                                threeVarSimulEqn = false
+                                complexNumber = false
+                                polarForm = false
+                                quadraticSection = false
+                            }
+                        } label: {
+                            Image(systemName: "gearshape.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(Color(standardOperator))
+                                .frame(width: UIScreen.main.bounds.width / 7)
+                        }
+                        .opacity(menuOpacity ? 1 : 0)
+                        .animation(.easeOut(duration: 1.2), value: menuOpacity)
+                        .padding()
+                    }
                 }
                 .padding()
             }

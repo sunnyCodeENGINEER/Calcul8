@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct EquationDeciderView: View {
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
+    
     @AppStorage("twoVarSimulEqn") var twoVarSimulEqn: Bool = false
     @AppStorage("threeVarSimulEqn") var threeVarSimulEqn: Bool = false
     @AppStorage("quadraticSection") var quadraticSection: Bool = false
@@ -26,7 +28,7 @@ struct EquationDeciderView: View {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 20)
                         .frame(width: buttonWidth())
-                        .foregroundColor(Color("standardOperator")))
+                        .foregroundColor(Color(standardOperator)))
                 
             }
             .padding(.bottom)
@@ -41,9 +43,11 @@ struct EquationDeciderView: View {
                 Text("Simultaneous Equation with two variables")
                     .foregroundColor(Color("solve"))
                     .padding()
+                    .padding(.horizontal)
+                    .padding(.horizontal)
                     .background(RoundedRectangle(cornerRadius: 20)
                         .frame(width: buttonWidth())
-                        .foregroundColor(Color("standardOperator")))
+                        .foregroundColor(Color(standardOperator)))
                 
             }
             .padding(.bottom)
@@ -58,9 +62,11 @@ struct EquationDeciderView: View {
                 Text("Simultaneous Equation with three variables")
                     .foregroundColor(Color("solve"))
                     .padding()
+                .padding(.horizontal)
+                .padding(.horizontal)
                     .background(RoundedRectangle(cornerRadius: 20)
                         .frame(width: buttonWidth())
-                        .foregroundColor(Color("standardOperator")))
+                        .foregroundColor(Color(standardOperator)))
             }
             .padding(.bottom)
         }
@@ -68,7 +74,7 @@ struct EquationDeciderView: View {
     
     func buttonWidth() -> CGFloat {
         
-        return (UIScreen.main.bounds.width - (2*12)) / 1
+        return (UIScreen.main.bounds.width) / 1.2
     }
 }
 

@@ -20,6 +20,7 @@
 		257F2CB4280D8BF0009F7DB2 /* InputFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F2CB3280D8BF0009F7DB2 /* InputFieldView.swift */; };
 		257F2CB7280D8F11009F7DB2 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F2CB6280D8F11009F7DB2 /* MainAppView.swift */; };
 		257F2CB9280DA4E8009F7DB2 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F2CB8280DA4E8009F7DB2 /* Operation.swift */; };
+		258245AC2913455A00740D57 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258245AB2913455A00740D57 /* SettingsView.swift */; };
 		258369FD28105FC8009A6428 /* QuadraticEquationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258369FC28105FC8009A6428 /* QuadraticEquationView.swift */; };
 		258369FF2810C05B009A6428 /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258369FE2810C05A009A6428 /* SectionPickerView.swift */; };
 		25836A022810C656009A6428 /* SectionDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25836A012810C656009A6428 /* SectionDecider.swift */; };
@@ -53,6 +54,7 @@
 		257F2CB3280D8BF0009F7DB2 /* InputFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFieldView.swift; sourceTree = "<group>"; };
 		257F2CB6280D8F11009F7DB2 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
 		257F2CB8280DA4E8009F7DB2 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
+		258245AB2913455A00740D57 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		258369FC28105FC8009A6428 /* QuadraticEquationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadraticEquationView.swift; sourceTree = "<group>"; };
 		258369FE2810C05A009A6428 /* SectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionPickerView.swift; sourceTree = "<group>"; };
 		25836A012810C656009A6428 /* SectionDecider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDecider.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 		257F2CB0280D7C52009F7DB2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				258245AA2913425700740D57 /* Settings View */,
 				252947212912ED9000010D4F /* Logo Menu */,
 				258369FB28105E5D009A6428 /* Advanced Section */,
 				252EDC55280F061800601A54 /* Advanced Buttons */,
@@ -182,6 +185,14 @@
 				257F2CB6280D8F11009F7DB2 /* MainAppView.swift */,
 			);
 			path = "Main View";
+			sourceTree = "<group>";
+		};
+		258245AA2913425700740D57 /* Settings View */ = {
+			isa = PBXGroup;
+			children = (
+				258245AB2913455A00740D57 /* SettingsView.swift */,
+			);
+			name = "Settings View";
 			sourceTree = "<group>";
 		};
 		258369FB28105E5D009A6428 /* Advanced Section */ = {
@@ -337,6 +348,7 @@
 				257F2CA0280D79DD009F7DB2 /* ContentView.swift in Sources */,
 				252EDC59280F100400601A54 /* AdvancedButtonsView.swift in Sources */,
 				25836A022810C656009A6428 /* SectionDecider.swift in Sources */,
+				258245AC2913455A00740D57 /* SettingsView.swift in Sources */,
 				257F2C9E280D79DD009F7DB2 /* Calcul8App.swift in Sources */,
 				252EDC57280F069A00601A54 /* AdvancedButtons.swift in Sources */,
 				257F2CB4280D8BF0009F7DB2 /* InputFieldView.swift in Sources */,

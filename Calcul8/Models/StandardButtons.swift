@@ -41,3 +41,14 @@ enum StandardButtons: String {
     }
 
 }
+
+//func setStandardColor(button: StandardButtons) -> Color {
+//    switch StandardButtons {
+//    case .addition, .multiply, .divide, .equal, .subtract :
+//        return Color("standardOperator")
+//    case .clear, .negative, .backspace :
+//        return Color(.lightGray)
+//    default:
+//        return Color("standardButton")
+//    }
+//}

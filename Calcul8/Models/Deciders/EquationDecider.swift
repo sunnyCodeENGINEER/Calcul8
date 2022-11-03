@@ -9,8 +9,6 @@ import Foundation
 import SwiftUI
 
 struct EquationDecider : View {
-    //    @State var twoVarSimulEqn: Bool = false
-    //    @State var threeVarSimulEqn: Bool = false
     
     @AppStorage("twoVarSimulEqn") var twoVarSimulEqn: Bool = false
     @AppStorage("threeVarSimulEqn") var threeVarSimulEqn: Bool = false

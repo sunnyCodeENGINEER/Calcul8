@@ -22,16 +22,16 @@ struct SectionDecider: View {
         else {
             if complexNumberOperation {
                 withAnimation{
-//                    QuadraticEquationView()
                     ComplexformDecider()
                 }
             }
             else if equationSection {
                 withAnimation{
-//                    SectionPickerView()
-//                    TwoVariableSimultaneousEquationView()
                     EquationDecider()
                 }
+            }
+            else {
+                SettingsView()
             }
         }
     }
