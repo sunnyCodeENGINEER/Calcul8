@@ -16,6 +16,7 @@ struct SettingsView: View {
     @State var showMenu: Bool = false
     @State var menuOpacity: Bool = false
     @State var width: CGFloat = UIScreen.main.bounds.width / 8
+    @State var selectTheme: Bool = false
     
     var body: some View {
         ZStack {
@@ -54,11 +55,19 @@ struct SettingsView: View {
                             
                         }
                         
-                        Text("Select a new theme.")
-                            .padding()
-                            .frame(width: UIScreen.main.bounds.width * 0.8)
-                            .background(Color.gray)
-                            .cornerRadius(30)
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                selectTheme.toggle()
+                            }
+                            
+                        } label: {
+                            Text(selectTheme ? "Done" : "Select a new theme.")
+                                .padding()
+                                .foregroundColor(Color("buttonText"))
+                                .frame(width: UIScreen.main.bounds.width * 0.8)
+                                .background(Color.gray)
+                                .cornerRadius(30)
+                        }
                     }
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 30)
@@ -66,7 +75,14 @@ struct SettingsView: View {
                         .overlay(RoundedRectangle(cornerRadius: 30)
                             .stroke(Color("solve"), lineWidth: 2)
                             .shadow(color: .black, radius: 30))
-                           )
+                    )
+                    if selectTheme {
+                        HStack {
+                            Spacer()
+                            SelectColorView()
+                            Spacer()
+                        }
+                    }
                     
                     VStack{
                         HStack{
@@ -93,17 +109,17 @@ struct SettingsView: View {
                         .overlay(RoundedRectangle(cornerRadius: 30)
                             .stroke(Color("solve"), lineWidth: 2)
                             .shadow(color: .black, radius: 30))
-                           )
+                    )
                     
                 }
                 .padding()
             }
             .opacity(showMenu ? 0.2 : 1)
-                   
-                   LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
-                       .padding(.horizontal)
+            
+            LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
+                .padding(.horizontal)
         }
-       
+        
         
     }
 }

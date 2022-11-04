@@ -90,6 +90,8 @@ struct SectionPickerView_Previews: PreviewProvider {
 }
 
 struct sectionButton: View {
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
+    
     var buttonLabel: String = ""
     
     var body: some View {
@@ -99,7 +101,7 @@ struct sectionButton: View {
                 .padding()
                 .frame(width: buttonWidthAdvanced(), height: buttonHeighttAdvanced())
                 .background(RoundedRectangle(cornerRadius: 20)
-                    .foregroundColor(Color("standardOperator")))
+                    .foregroundColor(Color(standardOperator)))
         }
     }
     

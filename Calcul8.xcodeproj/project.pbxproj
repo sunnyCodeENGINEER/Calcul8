@@ -21,6 +21,7 @@
 		257F2CB7280D8F11009F7DB2 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F2CB6280D8F11009F7DB2 /* MainAppView.swift */; };
 		257F2CB9280DA4E8009F7DB2 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F2CB8280DA4E8009F7DB2 /* Operation.swift */; };
 		258245AC2913455A00740D57 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258245AB2913455A00740D57 /* SettingsView.swift */; };
+		258245AE2914498F00740D57 /* SelectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258245AD2914498F00740D57 /* SelectColorView.swift */; };
 		258369FD28105FC8009A6428 /* QuadraticEquationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258369FC28105FC8009A6428 /* QuadraticEquationView.swift */; };
 		258369FF2810C05B009A6428 /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258369FE2810C05A009A6428 /* SectionPickerView.swift */; };
 		25836A022810C656009A6428 /* SectionDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25836A012810C656009A6428 /* SectionDecider.swift */; };
@@ -55,6 +56,7 @@
 		257F2CB6280D8F11009F7DB2 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
 		257F2CB8280DA4E8009F7DB2 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
 		258245AB2913455A00740D57 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		258245AD2914498F00740D57 /* SelectColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorView.swift; sourceTree = "<group>"; };
 		258369FC28105FC8009A6428 /* QuadraticEquationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadraticEquationView.swift; sourceTree = "<group>"; };
 		258369FE2810C05A009A6428 /* SectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionPickerView.swift; sourceTree = "<group>"; };
 		25836A012810C656009A6428 /* SectionDecider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDecider.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				258245AB2913455A00740D57 /* SettingsView.swift */,
+				258245AD2914498F00740D57 /* SelectColorView.swift */,
 			);
 			name = "Settings View";
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				252947232912EDAD00010D4F /* LogoMenu.swift in Sources */,
 				25836A0E28183FE6009A6428 /* ComplexNumber.swift in Sources */,
 				252EDC5B280F134100601A54 /* AdvancedOperation.swift in Sources */,
+				258245AE2914498F00740D57 /* SelectColorView.swift in Sources */,
 				25836A0428115F12009A6428 /* TwoVariableSimultaneousEquationView.swift in Sources */,
 				258369FD28105FC8009A6428 /* QuadraticEquationView.swift in Sources */,
 				25836A162818A058009A6428 /* ComplexOperationView.swift in Sources */,
