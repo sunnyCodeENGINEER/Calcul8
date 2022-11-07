@@ -15,6 +15,7 @@ struct CoordinateSystemsView: View {
     @State var vector2: Rectangular = Rectangular(xAxis: "4", yAxis: "9", zAxis: "2")
     @State var answer: Rectangular = Rectangular(xAxis: "", yAxis: "", zAxis: "")
     @State var scalarAnswer: String = ""
+    @State var doubleAnswer: Double = 0
     
     @State var show: Bool = false
     
@@ -81,9 +82,13 @@ struct CoordinateSystemsView: View {
                             answer = crossProduct()
                         }
                     case .magnitude:
-                        break
+                        withAnimation(.easeInOut) {
+                            doubleAnswer = magnitude()
+                        }
                     case .unitVector:
-                        break
+                        withAnimation(.easeInOut) {
+                            answer = unitVectot()
+                        }
                     case .curl:
                         break
                     case .divergence:
@@ -116,6 +121,7 @@ struct CoordinateSystemsView: View {
                             .foregroundColor(Color("standardOperator")))
                 }
                 .padding(.bottom)
+                .padding(.trailing)
             }
             
             VStack {
@@ -129,7 +135,10 @@ struct CoordinateSystemsView: View {
                     
                     if operation == .dotProduct {
                         Text(scalarAnswer)
-                    } else {
+                    }
+                    else if operation == .magnitude {
+                        Text(String(format: "%.4f", doubleAnswer))
+                    }else {
                         HStack{
                             Text(answer.xAxis)
                             Text("i ")
@@ -188,6 +197,28 @@ struct CoordinateSystemsView: View {
         cross.zAxis = String(((Double(vector1.xAxis)! ) * (Double(vector2.yAxis)! )) - ((Double(vector1.yAxis)! ) * (Double(vector2.xAxis)! )))
         
         return cross
+    }
+    
+    func magnitude()-> Double {
+        let magnitude = Double(sqrt((Double(vector1.xAxis)! * Double(vector1.xAxis)!) + (Double(vector1.yAxis)! * Double(vector1.yAxis)!) + (Double(vector1.zAxis)! * Double(vector1.zAxis)!)))
+        
+        return magnitude
+    }
+    
+    func unitVectot()-> Rectangular {
+        let magnitude = magnitude()
+        
+        var unitVector: Rectangular = Rectangular(xAxis: "", yAxis: "", zAxis: "")
+        
+        var xAxis = (Double(vector1.xAxis)! / magnitude)
+        var yAxis = (Double(vector1.yAxis)! / magnitude)
+        var zAxis = (Double(vector1.zAxis)! / magnitude)
+        
+        unitVector.xAxis = String(format: "%.4f", xAxis)
+        unitVector.yAxis = String(format: "%.4f", yAxis)
+        unitVector.zAxis = String(format: "%.4f", zAxis)
+        
+        return unitVector
     }
 }
 
