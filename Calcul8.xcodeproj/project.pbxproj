@@ -11,6 +11,10 @@
 		252EDC57280F069A00601A54 /* AdvancedButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252EDC56280F069A00601A54 /* AdvancedButtons.swift */; };
 		252EDC59280F100400601A54 /* AdvancedButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252EDC58280F100400601A54 /* AdvancedButtonsView.swift */; };
 		252EDC5B280F134100601A54 /* AdvancedOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252EDC5A280F134100601A54 /* AdvancedOperation.swift */; };
+		253AA199292034E80030A32C /* RectNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253AA196292034E80030A32C /* RectNavView.swift */; };
+		253AA19A292034E80030A32C /* RectVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253AA197292034E80030A32C /* RectVector.swift */; };
+		253AA19B292034E80030A32C /* RectVectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253AA198292034E80030A32C /* RectVectorView.swift */; };
+		253AA19D292036DF0030A32C /* RectangularVectorComponentDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253AA19C292036DF0030A32C /* RectangularVectorComponentDecider.swift */; };
 		257F2C9E280D79DD009F7DB2 /* Calcul8App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F2C9D280D79DD009F7DB2 /* Calcul8App.swift */; };
 		257F2CA0280D79DD009F7DB2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F2C9F280D79DD009F7DB2 /* ContentView.swift */; };
 		257F2CA2280D79E1009F7DB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257F2CA1280D79E1009F7DB2 /* Assets.xcassets */; };
@@ -48,6 +52,10 @@
 		252EDC56280F069A00601A54 /* AdvancedButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedButtons.swift; sourceTree = "<group>"; };
 		252EDC58280F100400601A54 /* AdvancedButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedButtonsView.swift; sourceTree = "<group>"; };
 		252EDC5A280F134100601A54 /* AdvancedOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedOperation.swift; sourceTree = "<group>"; };
+		253AA196292034E80030A32C /* RectNavView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectNavView.swift; sourceTree = "<group>"; };
+		253AA197292034E80030A32C /* RectVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectVector.swift; sourceTree = "<group>"; };
+		253AA198292034E80030A32C /* RectVectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectVectorView.swift; sourceTree = "<group>"; };
+		253AA19C292036DF0030A32C /* RectangularVectorComponentDecider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangularVectorComponentDecider.swift; sourceTree = "<group>"; };
 		257F2C9A280D79DD009F7DB2 /* Calcul8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calcul8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		257F2C9D280D79DD009F7DB2 /* Calcul8App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calcul8App.swift; sourceTree = "<group>"; };
 		257F2C9F280D79DD009F7DB2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +114,16 @@
 				252EDC58280F100400601A54 /* AdvancedButtonsView.swift */,
 			);
 			path = "Advanced Buttons";
+			sourceTree = "<group>";
+		};
+		253AA195292034E80030A32C /* Vector Terms */ = {
+			isa = PBXGroup;
+			children = (
+				253AA196292034E80030A32C /* RectNavView.swift */,
+				253AA197292034E80030A32C /* RectVector.swift */,
+				253AA198292034E80030A32C /* RectVectorView.swift */,
+			);
+			path = "Vector Terms";
 			sourceTree = "<group>";
 		};
 		257F2C91280D79DD009F7DB2 = {
@@ -217,8 +235,10 @@
 		258245B32916F0FD00740D57 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				253AA195292034E80030A32C /* Vector Terms */,
 				258245B42916F17F00740D57 /* CoordinateSystems.swift */,
 				258245B82916F4BD00740D57 /* RectangularCoordinateSystem.swift */,
+				253AA19C292036DF0030A32C /* RectangularVectorComponentDecider.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -355,6 +375,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				253AA19D292036DF0030A32C /* RectangularVectorComponentDecider.swift in Sources */,
 				257F2CAC280D7AE0009F7DB2 /* StandardButtons.swift in Sources */,
 				252947232912EDAD00010D4F /* LogoMenu.swift in Sources */,
 				25836A0E28183FE6009A6428 /* ComplexNumber.swift in Sources */,
@@ -369,8 +390,10 @@
 				25836A1028184C55009A6428 /* PolarForm.swift in Sources */,
 				258369FF2810C05B009A6428 /* SectionPickerView.swift in Sources */,
 				25836A0628155B51009A6428 /* ThreeVariableSimultaneousEquationView.swift in Sources */,
+				253AA19A292034E80030A32C /* RectVector.swift in Sources */,
 				25836A1A281AAE10009A6428 /* PolarFormOperationView.swift in Sources */,
 				25836A182818A716009A6428 /* ComplexNumberOperation.swift in Sources */,
+				253AA199292034E80030A32C /* RectNavView.swift in Sources */,
 				257F2CB7280D8F11009F7DB2 /* MainAppView.swift in Sources */,
 				25836A1228185AA3009A6428 /* Unit.swift in Sources */,
 				25836A1E281AC38B009A6428 /* AdvancedCalculationDeciderView.swift in Sources */,
@@ -381,6 +404,7 @@
 				258245AC2913455A00740D57 /* SettingsView.swift in Sources */,
 				257F2C9E280D79DD009F7DB2 /* Calcul8App.swift in Sources */,
 				252EDC57280F069A00601A54 /* AdvancedButtons.swift in Sources */,
+				253AA19B292034E80030A32C /* RectVectorView.swift in Sources */,
 				257F2CB4280D8BF0009F7DB2 /* InputFieldView.swift in Sources */,
 				25836A1C281AB215009A6428 /* PolarFormOperation.swift in Sources */,
 				257F2CAF280D7C4D009F7DB2 /* StandardButtonsView.swift in Sources */,

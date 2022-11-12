@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CoordinateSystemsView: View {
     @State var coordinteSystem: CoordinateSystems = .rectangular
-    @State var operation: VectorOperation = .addition
+    @Binding var operation: VectorOperation
     
     @State var vector1: Rectangular = Rectangular(xAxis: "3", yAxis: "-3", zAxis: "1")
     @State var vector2: Rectangular = Rectangular(xAxis: "4", yAxis: "9", zAxis: "2")
@@ -18,6 +18,7 @@ struct CoordinateSystemsView: View {
     @State var doubleAnswer: Double = 0
     
     @State var show: Bool = false
+    @FocusState var isFocused
     
     var body: some View {
         VStack{
@@ -60,7 +61,7 @@ struct CoordinateSystemsView: View {
                 
                 Button{
                     withAnimation {
-                        //                    isFocused = false
+                        isFocused = false
                         show = true
                     }
                     
@@ -210,9 +211,9 @@ struct CoordinateSystemsView: View {
         
         var unitVector: Rectangular = Rectangular(xAxis: "", yAxis: "", zAxis: "")
         
-        var xAxis = (Double(vector1.xAxis)! / magnitude)
-        var yAxis = (Double(vector1.yAxis)! / magnitude)
-        var zAxis = (Double(vector1.zAxis)! / magnitude)
+        let xAxis = (Double(vector1.xAxis)! / magnitude)
+        let yAxis = (Double(vector1.yAxis)! / magnitude)
+        let zAxis = (Double(vector1.zAxis)! / magnitude)
         
         unitVector.xAxis = String(format: "%.4f", xAxis)
         unitVector.yAxis = String(format: "%.4f", yAxis)
@@ -224,7 +225,7 @@ struct CoordinateSystemsView: View {
 
 struct RectangulsrCoordinateSystem_Previews: PreviewProvider {
     static var previews: some View {
-        CoordinateSystemsView()
+        CoordinateSystemsView(operation: .constant(.addition))
     }
 }
 
