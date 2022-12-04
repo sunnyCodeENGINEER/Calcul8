@@ -196,6 +196,7 @@ struct RectVectorView: View {
                     Text(answer.0)
                     ForEach(answer.1, id: \.base) { index in
                         HStack(alignment: .top, spacing: 1) {
+                            Text(answer.2 == .negative ? "-" : "")
                             Text(index.base)
                             Text(index.exponent)
                                 .font(.caption2)
@@ -260,12 +261,6 @@ struct RectVectorView: View {
         return (returnCoefficient, returnComponent, returnSign)
     }
 }
-
-//struct RectVectorView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RectVectorView()
-//    }
-//}
 
 enum ToFill {
     case xComp, yComp, zComp, none

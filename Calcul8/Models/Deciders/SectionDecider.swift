@@ -8,7 +8,21 @@
 import Foundation
 import SwiftUI
 
+enum SectionName: EnvironmentKey {
+    static let defaultValue: Binding<SectionName> = .constant(SectionName.basicSection)
+    
+    case basicSection, complexSection, equationSection
+}
+
+extension EnvironmentValues {
+    var section: Binding<SectionName> {
+        get { self[SectionName.self]}
+        set { self[SectionName.self] = newValue }
+    }
+}
+
 struct SectionDecider: View {
+    
     @AppStorage("basicSection") var basicSection: Bool = true
     @AppStorage("complexNumberOperation") var complexNumberOperation: Bool = false
     @AppStorage("equationsection") var equationSection: Bool = false
