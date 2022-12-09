@@ -45,6 +45,8 @@
 		25836A1C281AB215009A6428 /* PolarFormOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25836A1B281AB214009A6428 /* PolarFormOperation.swift */; };
 		25836A1E281AC38B009A6428 /* AdvancedCalculationDeciderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25836A1D281AC38B009A6428 /* AdvancedCalculationDeciderView.swift */; };
 		25836A20281AC586009A6428 /* ComplexformDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25836A1F281AC586009A6428 /* ComplexformDecider.swift */; };
+		25EB7F4129421BE300653340 /* AdvancedCalculationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F4029421BE300653340 /* AdvancedCalculationListView.swift */; };
+		25EB7F432942236800653340 /* AdvancedCalculationNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F422942236800653340 /* AdvancedCalculationNavigator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +89,8 @@
 		25836A1B281AB214009A6428 /* PolarFormOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarFormOperation.swift; sourceTree = "<group>"; };
 		25836A1D281AC38B009A6428 /* AdvancedCalculationDeciderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedCalculationDeciderView.swift; sourceTree = "<group>"; };
 		25836A1F281AC586009A6428 /* ComplexformDecider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexformDecider.swift; sourceTree = "<group>"; };
+		25EB7F4029421BE300653340 /* AdvancedCalculationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedCalculationListView.swift; sourceTree = "<group>"; };
+		25EB7F422942236800653340 /* AdvancedCalculationNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedCalculationNavigator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +262,8 @@
 			children = (
 				25836A1F281AC586009A6428 /* ComplexformDecider.swift */,
 				25836A012810C656009A6428 /* SectionDecider.swift */,
+				25EB7F4029421BE300653340 /* AdvancedCalculationListView.swift */,
+				25EB7F422942236800653340 /* AdvancedCalculationNavigator.swift */,
 				25836A072815665E009A6428 /* EquationDeciderView.swift */,
 				25836A09281569EE009A6428 /* EquationDecider.swift */,
 			);
@@ -382,6 +388,7 @@
 				258245B92916F4BD00740D57 /* RectangularCoordinateSystem.swift in Sources */,
 				252EDC5B280F134100601A54 /* AdvancedOperation.swift in Sources */,
 				258245AE2914498F00740D57 /* SelectColorView.swift in Sources */,
+				25EB7F432942236800653340 /* AdvancedCalculationNavigator.swift in Sources */,
 				25836A0428115F12009A6428 /* TwoVariableSimultaneousEquationView.swift in Sources */,
 				258369FD28105FC8009A6428 /* QuadraticEquationView.swift in Sources */,
 				25836A162818A058009A6428 /* ComplexOperationView.swift in Sources */,
@@ -393,6 +400,7 @@
 				253AA19A292034E80030A32C /* RectVector.swift in Sources */,
 				25836A1A281AAE10009A6428 /* PolarFormOperationView.swift in Sources */,
 				25836A182818A716009A6428 /* ComplexNumberOperation.swift in Sources */,
+				25EB7F4129421BE300653340 /* AdvancedCalculationListView.swift in Sources */,
 				253AA199292034E80030A32C /* RectNavView.swift in Sources */,
 				257F2CB7280D8F11009F7DB2 /* MainAppView.swift in Sources */,
 				25836A1228185AA3009A6428 /* Unit.swift in Sources */,

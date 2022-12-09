@@ -12,42 +12,64 @@ struct AdvancedCalculationDeciderView: View {
     @AppStorage("polarForm") var polarForm: Bool = false
     
     @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
+    
+    @Binding var selection: AdvancedCalculation
+    
+    
 
     var body: some View {
-        VStack {
-            Text("What form are the complex numbers in?")
-                .font(.title)
-            
-            Button{
-                withAnimation{
-                    complexNumber = false
-                    polarForm = true
+        ZStack {
+            VStack {
+                HStack {
+                    Button {
+                        withAnimation(.easeOut) {
+                            selection = .none
+                        }
+                    } label: {
+                        Text("Back")
+                            .padding()
+                    }
+                    Spacer()
                 }
-            } label: {
-                Text("Polar form")
-                    .foregroundColor(Color("solve"))
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 20)
-                        .frame(width: buttonWidth())
-                        .foregroundColor(Color(standardOperator)))
                 
+                Spacer()
             }
-            .padding(.bottom)
             
-            Button{
-                withAnimation{
-                    complexNumber = true
-                    polarForm = false
+            VStack {
+                Text("What form are the complex numbers in?")
+                    .font(.title)
+                
+                Button{
+                    withAnimation{
+                        complexNumber = false
+                        polarForm = true
+                    }
+                } label: {
+                    Text("Polar form")
+                        .foregroundColor(Color("solve"))
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 20)
+                            .frame(width: buttonWidth())
+                            .foregroundColor(Color(standardOperator)))
+                    
                 }
-            } label: {
-                Text("Rectangular Form")
-                    .foregroundColor(Color("solve"))
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 20)
-                        .frame(width: buttonWidth())
-                        .foregroundColor(Color(standardOperator)))
+                .padding(.bottom)
+                
+                Button{
+                    withAnimation{
+                        complexNumber = true
+                        polarForm = false
+                    }
+                } label: {
+                    Text("Rectangular Form")
+                        .foregroundColor(Color("solve"))
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 20)
+                            .frame(width: buttonWidth())
+                            .foregroundColor(Color(standardOperator)))
+                }
+                .padding(.bottom)
             }
-            .padding(.bottom)
         }
     }
     
@@ -59,6 +81,6 @@ struct AdvancedCalculationDeciderView: View {
 
 struct AdvancedCalculationDeciderView_Previews: PreviewProvider {
     static var previews: some View {
-        AdvancedCalculationDeciderView()
+        AdvancedCalculationDeciderView(selection: .constant(.complex))
     }
 }

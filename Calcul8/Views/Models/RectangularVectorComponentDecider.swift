@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RectangularVectorComponentDecider: View {
     @State var operation: VectorOperation = .addition
+    @Binding var selection: AdvancedCalculation
     
     var body: some View {
         VStack {
@@ -19,7 +20,7 @@ struct RectangularVectorComponentDecider: View {
             } else if operation == .gradient {
                 RectNavView(operation: $operation)
             } else {
-                CoordinateSystemsView(operation: $operation)
+                CoordinateSystemsView(operation: $operation, selection: $selection)
             }
         }
     }
@@ -27,6 +28,6 @@ struct RectangularVectorComponentDecider: View {
 
 struct RectangularVectorComponentDecider_Previews: PreviewProvider {
     static var previews: some View {
-        RectangularVectorComponentDecider()
+        RectangularVectorComponentDecider(selection: .constant(.none))
     }
 }

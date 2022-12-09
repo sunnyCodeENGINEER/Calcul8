@@ -36,7 +36,8 @@ struct SectionDecider: View {
         else {
             if complexNumberOperation {
                 withAnimation{
-                    ComplexformDecider()
+//                    ComplexformDecider() // work here
+                    AdvancedCalculationNavigator()
                 }
             }
             else if equationSection {

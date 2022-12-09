@@ -11,9 +11,11 @@ struct ComplexformDecider: View {
     @AppStorage("complexNumber") var complexNumber: Bool = false
     @AppStorage("polarForm") var polarForm: Bool = false
     
+    @Binding var selection: AdvancedCalculation
+    
     var body: some View {
         if !complexNumber && !polarForm {
-            AdvancedCalculationDeciderView()
+            AdvancedCalculationDeciderView(selection: $selection)
         }
         else {
             if complexNumber {
@@ -32,6 +34,6 @@ struct ComplexformDecider: View {
 
 struct ComplexformDecider_Previews: PreviewProvider {
     static var previews: some View {
-        ComplexformDecider()
+        ComplexformDecider(selection: .constant(.none))
     }
 }

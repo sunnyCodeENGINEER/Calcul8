@@ -10,6 +10,7 @@ import SwiftUI
 struct CoordinateSystemsView: View {
     @State var coordinteSystem: CoordinateSystems = .rectangular
     @Binding var operation: VectorOperation
+    @Binding var selection: AdvancedCalculation
     
     @State var vector1: Rectangular = Rectangular(xAxis: "3", yAxis: "-3", zAxis: "1")
     @State var vector2: Rectangular = Rectangular(xAxis: "4", yAxis: "9", zAxis: "2")
@@ -21,142 +22,157 @@ struct CoordinateSystemsView: View {
     @FocusState var isFocused
     
     var body: some View {
-        VStack{
-            HStack {
-                Text("Choose a coordinate system.")
-                
-                Picker(selection: $coordinteSystem, label: Text("Coordinate System") ){
-                    Text("Rectangular").tag(CoordinateSystems.rectangular)
-                    Text("Cylindrical").tag(CoordinateSystems.cylindrical)
-                    Text("Spherical").tag(CoordinateSystems.spherical)
-                }
-            }
-            
-            RectangularCoordinateSystem()
-            
-            HStack {
-                Text("Choose an operation.")
-                
-                Picker(selection: $operation, label: Text("Vector Operation") ){
-                    Text("Addition").tag(VectorOperation.addition)
-                    Text("Subtraction").tag(VectorOperation.subtraction)
-                    Text("Dot Product").tag(VectorOperation.dotProduct)
-                    Text("Cross Product").tag(VectorOperation.crossProduct)
-                    Text("Magnitude").tag(VectorOperation.magnitude)
-                    Text("Unit Vector").tag(VectorOperation.unitVector)
-                    Text("Curl").tag(VectorOperation.curl)
-                    Text("Divergence").tag(VectorOperation.divergence)
-                    Text("Gradient").tag(VectorOperation.gradient)
-                }
-            }
-            
-            if operation != .magnitude || operation != .unitVector {
-                withAnimation(.easeInOut) {
-                    RectangularCoordinateSystem()
-                }
-            }
-            
-            HStack {
-                Spacer()
-                
-                Button{
-                    withAnimation {
-                        isFocused = false
-                        show = true
-                    }
-                    
-                    switch operation {
-                    case .addition:
-                        withAnimation(.easeInOut) {
-                            answer = addition()
-                        }
-                    case .subtraction:
-                        withAnimation(.easeInOut) {
-                            answer = subtraction()
-                        }
-                    case .dotProduct:
-                        withAnimation(.easeInOut) {
-                            scalarAnswer = dotProduct()
-                        }
-                    case .crossProduct:
-                        withAnimation(.easeInOut) {
-                            answer = crossProduct()
-                        }
-                    case .magnitude:
-                        withAnimation(.easeInOut) {
-                            doubleAnswer = magnitude()
-                        }
-                    case .unitVector:
-                        withAnimation(.easeInOut) {
-                            answer = unitVectot()
-                        }
-                    case .curl:
-                        break
-                    case .divergence:
-                        break
-                    case .gradient:
-                        break
-                    }
-                    //                    if operation == .addition {
-                    //                        withAnimation(.easeInOut) {
-                    //                            answer = addition()
-                    //                        }
-                    //                    }
-                    //                    if operation != .convertToPolarForm {
-                    //                        withAnimation{
-                    //                            solveComplexNumberOperation()
-                    //                        }
-                    //                    } else {
-                    //                        withAnimation {
-                    //                        solveConversionToPolarForm()
-                    //                        }
-                    //                    }
-                    
-                } label: {
-                    Text("Solve")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color("solve"))
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(Color("standardOperator")))
-                }
-                .padding(.bottom)
-                .padding(.trailing)
-            }
-            
+        ZStack {
             VStack {
-                Divider()
-                
-                if show {
-                    VStack {
-                        Text("Answer".uppercased())
-                            .font(.title)
+                HStack {
+                    Button {
+                        selection = .none
+                    } label: {
+                        Text("Back")
+                            .padding()
                     }
+                    Spacer()
+                }
+                Spacer()
+            }
+            
+            VStack{
+                HStack {
+                    Text("Choose a coordinate system.")
                     
-                    if operation == .dotProduct {
-                        Text(scalarAnswer)
+                    Picker(selection: $coordinteSystem, label: Text("Coordinate System") ){
+                        Text("Rectangular").tag(CoordinateSystems.rectangular)
+                        Text("Cylindrical").tag(CoordinateSystems.cylindrical)
+                        Text("Spherical").tag(CoordinateSystems.spherical)
                     }
-                    else if operation == .magnitude {
-                        Text(String(format: "%.4f", doubleAnswer))
-                    }else {
-                        HStack{
-                            Text(answer.xAxis)
-                            Text("i ")
-                                .font(.title)
-                                .fontWeight(.bold)
-                            Text(Double(answer.yAxis)! >= 0 ? "+" : "")
-                            Text(" \(answer.yAxis)")
-                            Text("j")
-                                .font(.title)
-                                .fontWeight(.bold)
-                            Text(Double(answer.zAxis)! >= 0 ? "+" : "")
-                            Text(" \(answer.zAxis)")
-                            Text("k")
-                                .font(.title)
-                                .fontWeight(.bold)
+                }
+                
+                RectangularCoordinateSystem()
+                
+                HStack {
+                    Text("Choose an operation.")
+                    
+                    Picker(selection: $operation, label: Text("Vector Operation") ){
+                        Text("Addition").tag(VectorOperation.addition)
+                        Text("Subtraction").tag(VectorOperation.subtraction)
+                        Text("Dot Product").tag(VectorOperation.dotProduct)
+                        Text("Cross Product").tag(VectorOperation.crossProduct)
+                        Text("Magnitude").tag(VectorOperation.magnitude)
+                        Text("Unit Vector").tag(VectorOperation.unitVector)
+                        Text("Curl").tag(VectorOperation.curl)
+                        Text("Divergence").tag(VectorOperation.divergence)
+                        Text("Gradient").tag(VectorOperation.gradient)
+                    }
+                }
+                
+                if operation != .magnitude || operation != .unitVector {
+                    withAnimation(.easeInOut) {
+                        RectangularCoordinateSystem()
+                    }
+                }
+                
+                HStack {
+                    Spacer()
+                    
+                    Button{
+                        withAnimation {
+                            isFocused = false
+                            show = true
                         }
-                        .padding(.top)
+                        
+                        switch operation {
+                        case .addition:
+                            withAnimation(.easeInOut) {
+                                answer = addition()
+                            }
+                        case .subtraction:
+                            withAnimation(.easeInOut) {
+                                answer = subtraction()
+                            }
+                        case .dotProduct:
+                            withAnimation(.easeInOut) {
+                                scalarAnswer = dotProduct()
+                            }
+                        case .crossProduct:
+                            withAnimation(.easeInOut) {
+                                answer = crossProduct()
+                            }
+                        case .magnitude:
+                            withAnimation(.easeInOut) {
+                                doubleAnswer = magnitude()
+                            }
+                        case .unitVector:
+                            withAnimation(.easeInOut) {
+                                answer = unitVectot()
+                            }
+                        case .curl:
+                            break
+                        case .divergence:
+                            break
+                        case .gradient:
+                            break
+                        }
+                        //                    if operation == .addition {
+                        //                        withAnimation(.easeInOut) {
+                        //                            answer = addition()
+                        //                        }
+                        //                    }
+                        //                    if operation != .convertToPolarForm {
+                        //                        withAnimation{
+                        //                            solveComplexNumberOperation()
+                        //                        }
+                        //                    } else {
+                        //                        withAnimation {
+                        //                        solveConversionToPolarForm()
+                        //                        }
+                        //                    }
+                        
+                    } label: {
+                        Text("Solve")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color("solve"))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 15)
+                                .foregroundColor(Color("standardOperator")))
+                    }
+                    .padding(.bottom)
+                    .padding(.trailing)
+                }
+                
+                VStack {
+                    Divider()
+                    
+                    if show {
+                        VStack {
+                            Text("Answer".uppercased())
+                                .font(.title)
+                        }
+                        
+                        if operation == .dotProduct {
+                            Text(scalarAnswer)
+                        }
+                        else if operation == .magnitude {
+                            Text(String(format: "%.4f", doubleAnswer))
+                        }else {
+                            HStack{
+                                Text(answer.xAxis)
+                                Text("i ")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                Text(Double(answer.yAxis)! >= 0 ? "+" : "")
+                                Text(" \(answer.yAxis)")
+                                Text("j")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                Text(Double(answer.zAxis)! >= 0 ? "+" : "")
+                                Text(" \(answer.zAxis)")
+                                Text("k")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                            }
+                            .padding(.top)
+                        }
                     }
                 }
             }
@@ -225,7 +241,7 @@ struct CoordinateSystemsView: View {
 
 struct RectangulsrCoordinateSystem_Previews: PreviewProvider {
     static var previews: some View {
-        CoordinateSystemsView(operation: .constant(.addition))
+        CoordinateSystemsView(operation: .constant(.addition), selection: .constant(.none))
     }
 }
 

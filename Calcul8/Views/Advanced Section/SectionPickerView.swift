@@ -22,6 +22,7 @@ struct SectionPickerView: View {
     @AppStorage("threeVarSimulEqn") var threeVarSimulEqn: Bool = false
     @AppStorage("complexNumber") var complexNumber: Bool = false
     @AppStorage("polarForm") var polarForm: Bool = false
+    
 
     var label1: String = "Basic Functions"
     var label2: String = "Equation"
