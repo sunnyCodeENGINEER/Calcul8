@@ -20,6 +20,7 @@ struct AdvancedCalculationNavigator: View {
 //            CoordinateSystemsView(operation: $operation)
             RectangularVectorComponentDecider(selection: $selection)
         } else if selection == .algebra {
+            AlgebraViewRedo()
             
         }
     }

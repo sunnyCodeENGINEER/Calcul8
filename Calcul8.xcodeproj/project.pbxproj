@@ -47,6 +47,13 @@
 		25836A20281AC586009A6428 /* ComplexformDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25836A1F281AC586009A6428 /* ComplexformDecider.swift */; };
 		25EB7F4129421BE300653340 /* AdvancedCalculationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F4029421BE300653340 /* AdvancedCalculationListView.swift */; };
 		25EB7F432942236800653340 /* AdvancedCalculationNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F422942236800653340 /* AdvancedCalculationNavigator.swift */; };
+		25EB7F492944CD8100653340 /* CartesianCoordinateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F482944CD8100653340 /* CartesianCoordinateComponent.swift */; };
+		25EB7F512944CFB500653340 /* EnterAlgebraicExpressionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F4D2944CFB500653340 /* EnterAlgebraicExpressionButton.swift */; };
+		25EB7F522944CFB500653340 /* AlgebraViewRedo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F4E2944CFB500653340 /* AlgebraViewRedo.swift */; };
+		25EB7F532944CFB500653340 /* FactoredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F4F2944CFB500653340 /* FactoredView.swift */; };
+		25EB7F542944CFB500653340 /* MyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F502944CFB500653340 /* MyTextField.swift */; };
+		25EB7F562944D02800653340 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F552944D02800653340 /* Expression.swift */; };
+		25EB7F582944D08E00653340 /* AlgebraOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F572944D08E00653340 /* AlgebraOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +98,13 @@
 		25836A1F281AC586009A6428 /* ComplexformDecider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexformDecider.swift; sourceTree = "<group>"; };
 		25EB7F4029421BE300653340 /* AdvancedCalculationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedCalculationListView.swift; sourceTree = "<group>"; };
 		25EB7F422942236800653340 /* AdvancedCalculationNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedCalculationNavigator.swift; sourceTree = "<group>"; };
+		25EB7F482944CD8100653340 /* CartesianCoordinateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartesianCoordinateComponent.swift; sourceTree = "<group>"; };
+		25EB7F4D2944CFB500653340 /* EnterAlgebraicExpressionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterAlgebraicExpressionButton.swift; sourceTree = "<group>"; };
+		25EB7F4E2944CFB500653340 /* AlgebraViewRedo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgebraViewRedo.swift; sourceTree = "<group>"; };
+		25EB7F4F2944CFB500653340 /* FactoredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoredView.swift; sourceTree = "<group>"; };
+		25EB7F502944CFB500653340 /* MyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
+		25EB7F552944D02800653340 /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
+		25EB7F572944D08E00653340 /* AlgebraOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgebraOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +196,8 @@
 		257F2CB0280D7C52009F7DB2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				25EB7F4C2944CFB500653340 /* Algebra View */,
+				25EB7F442944CCD600653340 /* VectorRedo */,
 				258245B02916F00C00740D57 /* Vector Calculations */,
 				258245AA2913425700740D57 /* Settings View */,
 				252947212912ED9000010D4F /* Logo Menu */,
@@ -311,6 +327,51 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		25EB7F442944CCD600653340 /* VectorRedo */ = {
+			isa = PBXGroup;
+			children = (
+				25EB7F452944CD1700653340 /* Cartesian Coordinate System */,
+			);
+			path = VectorRedo;
+			sourceTree = "<group>";
+		};
+		25EB7F452944CD1700653340 /* Cartesian Coordinate System */ = {
+			isa = PBXGroup;
+			children = (
+				25EB7F472944CD4F00653340 /* Views */,
+				25EB7F462944CD4100653340 /* View Models */,
+			);
+			path = "Cartesian Coordinate System";
+			sourceTree = "<group>";
+		};
+		25EB7F462944CD4100653340 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				25EB7F482944CD8100653340 /* CartesianCoordinateComponent.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		25EB7F472944CD4F00653340 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		25EB7F4C2944CFB500653340 /* Algebra View */ = {
+			isa = PBXGroup;
+			children = (
+				25EB7F572944D08E00653340 /* AlgebraOperation.swift */,
+				25EB7F4D2944CFB500653340 /* EnterAlgebraicExpressionButton.swift */,
+				25EB7F4E2944CFB500653340 /* AlgebraViewRedo.swift */,
+				25EB7F4F2944CFB500653340 /* FactoredView.swift */,
+				25EB7F502944CFB500653340 /* MyTextField.swift */,
+				25EB7F552944D02800653340 /* Expression.swift */,
+			);
+			path = "Algebra View";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -396,18 +457,23 @@
 				25836A082815665E009A6428 /* EquationDeciderView.swift in Sources */,
 				25836A1028184C55009A6428 /* PolarForm.swift in Sources */,
 				258369FF2810C05B009A6428 /* SectionPickerView.swift in Sources */,
+				25EB7F582944D08E00653340 /* AlgebraOperation.swift in Sources */,
 				25836A0628155B51009A6428 /* ThreeVariableSimultaneousEquationView.swift in Sources */,
 				253AA19A292034E80030A32C /* RectVector.swift in Sources */,
 				25836A1A281AAE10009A6428 /* PolarFormOperationView.swift in Sources */,
 				25836A182818A716009A6428 /* ComplexNumberOperation.swift in Sources */,
 				25EB7F4129421BE300653340 /* AdvancedCalculationListView.swift in Sources */,
+				25EB7F542944CFB500653340 /* MyTextField.swift in Sources */,
 				253AA199292034E80030A32C /* RectNavView.swift in Sources */,
 				257F2CB7280D8F11009F7DB2 /* MainAppView.swift in Sources */,
 				25836A1228185AA3009A6428 /* Unit.swift in Sources */,
 				25836A1E281AC38B009A6428 /* AdvancedCalculationDeciderView.swift in Sources */,
 				25836A0A281569EE009A6428 /* EquationDecider.swift in Sources */,
 				257F2CA0280D79DD009F7DB2 /* ContentView.swift in Sources */,
+				25EB7F562944D02800653340 /* Expression.swift in Sources */,
+				25EB7F492944CD8100653340 /* CartesianCoordinateComponent.swift in Sources */,
 				252EDC59280F100400601A54 /* AdvancedButtonsView.swift in Sources */,
+				25EB7F532944CFB500653340 /* FactoredView.swift in Sources */,
 				25836A022810C656009A6428 /* SectionDecider.swift in Sources */,
 				258245AC2913455A00740D57 /* SettingsView.swift in Sources */,
 				257F2C9E280D79DD009F7DB2 /* Calcul8App.swift in Sources */,
@@ -415,6 +481,8 @@
 				253AA19B292034E80030A32C /* RectVectorView.swift in Sources */,
 				257F2CB4280D8BF0009F7DB2 /* InputFieldView.swift in Sources */,
 				25836A1C281AB215009A6428 /* PolarFormOperation.swift in Sources */,
+				25EB7F512944CFB500653340 /* EnterAlgebraicExpressionButton.swift in Sources */,
+				25EB7F522944CFB500653340 /* AlgebraViewRedo.swift in Sources */,
 				257F2CAF280D7C4D009F7DB2 /* StandardButtonsView.swift in Sources */,
 				25836A20281AC586009A6428 /* ComplexformDecider.swift in Sources */,
 				258245B52916F17F00740D57 /* CoordinateSystems.swift in Sources */,

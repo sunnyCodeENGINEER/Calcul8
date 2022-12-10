@@ -211,6 +211,10 @@ struct RectVectorView: View {
         answerZ = differentiate(base: "z", coefficient: vector1ZCoefficient, component: vector1ZComp, sign: vector1ZSign)
     }
     
+    func curl() {
+        
+    }
+    
     func differentiate(base: String, coefficient: String, component: [Variable], sign: Sign)-> (String, [Variable], Sign) {
         var returnCoefficient: String = coefficient
         var returnComponent: [Variable] = component
