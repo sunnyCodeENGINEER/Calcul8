@@ -43,7 +43,9 @@ struct RectVectorView: View {
     @State var trycoeff: String = "4"
     @State var trySign: Sign = .positive
     @State var showAnswer: Bool = false
-    @State var answer: (String, [Variable], Sign) = ("", [], .positive)
+    @State var answerX: (String, [Variable], Sign) = ("", [], .positive)
+    @State var answerY: (String, [Variable], Sign) = ("", [], .positive)
+    @State var answerZ: (String, [Variable], Sign) = ("", [], .positive)
     
     
     var body: some View {
@@ -182,7 +184,8 @@ struct RectVectorView: View {
                 
                 Button {
                     showAnswer = true
-                    answer = differentiate(base: "x".lowercased(), coefficient: trycoeff, component: tryComp, sign: trySign)
+//                    answerX = differentiate(base: "x".lowercased(), coefficient: trycoeff, component: tryComp, sign: trySign)
+                    divergence()
                 } label: {
                     Text("Solve")
                         .font(.title)
@@ -192,19 +195,20 @@ struct RectVectorView: View {
             Divider()
             
             if showAnswer {
-                HStack(alignment: .top, spacing: 1) {
-                    Text(answer.0)
-                    ForEach(answer.1, id: \.base) { index in
-                        HStack(alignment: .top, spacing: 1) {
-                            Text(answer.2 == .negative ? "-" : "")
-                            Text(index.base)
-                            Text(index.exponent)
-                                .font(.caption2)
-                        }
-                    }
+                HStack {
+                    RectangularVectorAnswers(answer: $answerX, axis: .constant("i"))
+                    Text("+")
+                    RectangularVectorAnswers(answer: $answerY, axis: .constant("j"))
+                    Text("+")
+                    RectangularVectorAnswers(answer: $answerZ, axis: .constant("k"))
                 }
             }
         }
+    }
+    func divergence() {
+        answerX = differentiate(base: "x", coefficient: vector1XCoefficient, component: vector1XComp, sign: vector1XSign)
+        answerY = differentiate(base: "y", coefficient: vector1YCoefficient, component: vector1YComp, sign: vector1YSign)
+        answerZ = differentiate(base: "z", coefficient: vector1ZCoefficient, component: vector1ZComp, sign: vector1ZSign)
     }
     
     func differentiate(base: String, coefficient: String, component: [Variable], sign: Sign)-> (String, [Variable], Sign) {
@@ -229,11 +233,11 @@ struct RectVectorView: View {
                 if returnComponent[returnIndex].base == base {
                     a = true
                     coeffIndex = returnIndex
-                    returnCoefficient = String(Int(returnCoefficient)! * Int(returnComponent[returnIndex].exponent)!)
-                    returnComponent[returnIndex].exponent = String(Int(returnComponent[returnIndex].exponent)! - 1)
+                    returnCoefficient = String(Double(returnCoefficient)! * Double(returnComponent[returnIndex].exponent)!)
+                    returnComponent[returnIndex].exponent = String(Double(returnComponent[returnIndex].exponent)! - 1)
                     
-                    if (String(Int(returnComponent[returnIndex].exponent)! - 1)) != "0" {
-                        mustReturn.append(Variable(base: returnComponent[returnIndex].base, exponent: String(Int(returnComponent[returnIndex].exponent)! - 1)))
+                    if (String(Double(returnComponent[returnIndex].exponent)! - 1)) != "0" {
+                        mustReturn.append(Variable(base: returnComponent[returnIndex].base, exponent: String(Double(returnComponent[returnIndex].exponent)! - 1)))
                     }
                 }
                 
@@ -253,7 +257,7 @@ struct RectVectorView: View {
                 returnIndex += 1
             }
             if a {
-                returnCoefficient = String(Int(coefficient)! * Int(component[coeffIndex].exponent)!)
+                returnCoefficient = String(Double(coefficient)! * Double(component[coeffIndex].exponent)!)
             } else {
                 returnCoefficient = "0"
             }
@@ -264,4 +268,32 @@ struct RectVectorView: View {
 
 enum ToFill {
     case xComp, yComp, zComp, none
+}
+
+struct RectangularVectorAnswers: View {
+    @Binding var answer: (String, [Variable], Sign)
+    @Binding var axis: String
+    
+    var body: some View {
+        HStack {
+            HStack(alignment: .top, spacing: 1) {
+                Text(answer.0)
+                ForEach(answer.1, id: \.base) { index in
+                    if index.exponent != "0.0" {
+                        HStack(alignment: .top, spacing: 1) {
+                            Text(answer.2 == .negative ? "-" : "")
+                            Text(index.base)
+                            if index.exponent != "1.0" {
+                                Text(index.exponent)
+                                    .font(.caption2)
+                            }
+                        }
+                    }
+                }
+            }
+            Text(axis)
+                .font(.title)
+                .fontWeight(.bold)
+        }
+    }
 }
