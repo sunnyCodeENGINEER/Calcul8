@@ -7,14 +7,52 @@
 
 import SwiftUI
 
-struct CartesianCoordinateComponent: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct CartesianCoordinateComponent {
+    var component: [CartesianTerms] = []
+    
+    subscript(index: Int) -> CartesianTerms {
+        get {
+            return component[index]
+        }
+        set {
+            component[index] = newValue
+        }
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
-    static var previews: some View {
-        CartesianCoordinateComponent()
+struct CartesianTerms: Identifiable {
+    let id = UUID()
+    var coefficient: String = ""
+    var terms: [Variable] = []
+    
+    subscript(number: Int) -> Variable {
+        get {
+            return terms[number]
+        }
+        set {
+            terms[number] = newValue
+        }
+    }
+    
+    func getBases() -> String {
+        var bases: String = ""
+        
+        terms.forEach { term in
+            bases.append(term.base)
+            
+        }
+        
+        return bases
+    }
+    func getExponents() -> String {
+        var exponents: String = ""
+        
+        terms.forEach { term in
+            exponents.append(term.exponent)
+            
+        }
+        
+        return exponents
     }
 }
+

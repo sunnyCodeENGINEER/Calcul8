@@ -258,59 +258,6 @@ struct AlgebraViewRedo: View {
         return (returnCoefficient, returnComponent)
     }
     
-    func differentiate2(base: String, coefficient: String, component: [Term])-> (String, [Term]) {
-        var returnCoefficient: String = coefficient
-        var returnComponent: [Term] = component
-        var returnIndex = 0
-        var mustReturn: [Term] = []
-        var a: Bool = false
-        var coeffIndex = 0
-        
-        // check if coefficient and component are empty
-        if coefficient.isEmpty && component.isEmpty {
-            returnComponent = rep
-            returnCoefficient = "0"
-            mustReturn = rep
-        } else {
-            while (returnIndex <= returnComponent.count) {
-                // if current iteration has the desired base
-                if returnComponent[returnIndex].base == base {
-                    a = true
-                    coeffIndex = returnIndex
-                    returnCoefficient = String((Double(returnCoefficient) ?? 1) * (Double(returnComponent[returnIndex].exponent) ?? 1))
-                    returnComponent[returnIndex].exponent = String(Double(returnComponent[returnIndex].exponent)! - 1)
-                    
-                    if (String(Double(returnComponent[returnIndex].exponent)! - 1)) != "0.0" {
-                        
-                        mustReturn.append(Term(base: returnComponent[returnIndex].base, exponent: String(Double(returnComponent[returnIndex].exponent)! - 1), sign: .constant(.positive)))
-                    }
-                }
-                
-                if returnComponent[returnIndex].base != base {
-                    mustReturn.append(returnComponent[returnIndex])
-                }
-                
-                if (returnIndex + 1 == returnComponent.count) {
-                    returnComponent = rep
-                    returnCoefficient = "0"
-                    if a {
-                        returnComponent = mustReturn
-                    }
-                    break
-                }
-                returnIndex += 1
-            }
-            if a {
-                returnCoefficient = String(Double(coefficient)! * Double(component[coeffIndex].exponent)!)
-            } else {
-                returnCoefficient = "0"
-            }
-        }
-        print(returnCoefficient)
-        print(returnComponent)
-        return (returnCoefficient, returnComponent)
-    }
-    
     func integrate(base: String, coefficient: String, component: [Term])-> (String, [Term]) {
         var returnCoefficient: String = ""
         var returnComponent: [Term] = []
@@ -730,17 +677,12 @@ struct AlgebraViewRedo: View {
                         } else {
                             successful = false
                             possibleAnswer.removeAll()
-                            //                            answerVars.append(contentsOf: firstTerm)
-                            //                            answerVars.append(contentsOf: secondTerm)
                             continueIter = false
                         }
-                        i += 1
-//                    }
-                    
+                    i += 1
                     answerVars.removeAll()
                     answerVars.append(contentsOf: possibleAnswer)
                     
-//                    i += 1
                 }
                 
                 continueIter = false

@@ -47,6 +47,10 @@ struct RectVectorView: View {
     @State var answerY: (String, [Variable], Sign) = ("", [], .positive)
     @State var answerZ: (String, [Variable], Sign) = ("", [], .positive)
     
+    @Binding var xComponent: CartesianCoordinateComponent
+    @Binding var yComponent: CartesianCoordinateComponent
+    @Binding var zComponent: CartesianCoordinateComponent
+    @State var toFillComponent: CartesianTerms = CartesianTerms()
     
     var body: some View {
         VStack {
@@ -107,6 +111,7 @@ struct RectVectorView: View {
                     Text(" i")
                         .font(.title)
                         .fontWeight(.bold)
+                    Text(String(xComponent.component.count))
                 }
                 
                 HStack{
@@ -141,6 +146,7 @@ struct RectVectorView: View {
                     Text(" j")
                         .font(.title)
                         .fontWeight(.bold)
+                    Text(String(yComponent.component.count))
                 }
                 
                 HStack{
@@ -176,6 +182,7 @@ struct RectVectorView: View {
                     Text("k")
                         .font(.title)
                         .fontWeight(.bold)
+                    Text(String(zComponent.component.count))
                 }
             }
             
@@ -213,6 +220,47 @@ struct RectVectorView: View {
     
     func curl() {
         
+    }
+    
+    func subtraction(coeff1: String, term1: [Variable],coeff2: String, term2: [Variable]) -> Bool {
+        var firstTerm = term1
+        var secondTerm = term2
+        var i = 0
+        var j = 0
+        var continueIter = true
+        var possibleAnswer: [Variable] = []
+        var successful = false
+        var answerVars: [Variable] = []
+        var answerCoefficient: String
+        
+        if firstTerm.count == secondTerm.count {
+            while continueIter {
+                while (i < firstTerm.count) {
+                        if firstTerm[i].base == secondTerm[j].base && firstTerm[i].exponent == secondTerm[j].exponent{
+                            possibleAnswer.append(Variable(base: firstTerm[i].base, exponent: String((Double(firstTerm[i].exponent) ?? 1))))
+                            
+                            firstTerm.remove(at: i)
+                            secondTerm.remove(at: j)
+                            i = -1
+                            j = 0
+                            answerCoefficient = String((Double(coeff1) ?? -1) + (Double(coeff2) ?? -1))
+                            successful = true
+                        } else {
+                            successful = false
+                            possibleAnswer.removeAll()
+                            continueIter = false
+                        }
+                        i += 1
+                    
+                    answerVars.removeAll()
+                    answerVars.append(contentsOf: possibleAnswer)
+                   }
+                
+                continueIter = false
+            }
+        }
+        
+        return successful
     }
     
     func differentiate(base: String, coefficient: String, component: [Variable], sign: Sign)-> (String, [Variable], Sign) {

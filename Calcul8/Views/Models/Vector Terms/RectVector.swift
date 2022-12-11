@@ -26,6 +26,13 @@ struct RectVector: View {
     @Binding var nav: Bool
     @State var addSecondTerm: Bool = false
     
+//    @State var xComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
+//    @State var yComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
+//    @State var zComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
+    @Binding var toFillComponent: CartesianCoordinateComponent
+    @State var toFillTerms: CartesianTerms = CartesianTerms()
+    @State var toFillTerms2: CartesianTerms = CartesianTerms()
+    
     var body: some View {
         VStack {
             Text(addSecondTerm ? "Second Term" : "First Term")
@@ -294,7 +301,7 @@ struct RectVector: View {
                     
                 } label: {
                     Text("Save")
-            }
+                }
             }
             
             Button {
@@ -320,6 +327,43 @@ struct RectVector: View {
                         coefficient2 = "1"
                     }
                 }
+                
+                // make sure toFillComponent is empty
+//                toFillComponent.component.removeAll()
+                
+                // save user inputs to CartesianComponent
+                var present = false
+                if !component.isEmpty {
+                    toFillTerms.terms.append(contentsOf: component)
+                    present = true
+                }
+                if !coefficient.isEmpty {
+                    toFillTerms.coefficient = coefficient
+                    if !present {
+                        toFillTerms.terms.append(Variable(base: "x", exponent: "0"))
+                    }
+                }
+                toFillComponent.component.append(toFillTerms)
+                toFillTerms.terms.removeAll()
+                toFillTerms.coefficient.removeAll()
+                
+                // second term
+                var present2 = false
+                if !component2.isEmpty {
+                    toFillTerms2.terms.append(contentsOf: component2)
+                    present2 = true
+                }
+                if !coefficient2.isEmpty {
+                    toFillTerms2.coefficient = coefficient
+                    if !present2 {
+                        toFillTerms.terms.append(Variable(base: "x", exponent: "0"))
+                    }
+                }
+                
+                print(toFillComponent.component.count)
+                print(toFillComponent)
+                
+                
                 nav = false
             }label: {
                 Text("Done")
