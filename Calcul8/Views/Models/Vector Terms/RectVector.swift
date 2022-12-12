@@ -26,9 +26,6 @@ struct RectVector: View {
     @Binding var nav: Bool
     @State var addSecondTerm: Bool = false
     
-//    @State var xComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
-//    @State var yComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
-//    @State var zComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
     @Binding var toFillComponent: CartesianCoordinateComponent
     @State var toFillTerms: CartesianTerms = CartesianTerms()
     @State var toFillTerms2: CartesianTerms = CartesianTerms()
@@ -383,6 +380,106 @@ struct RectVector: View {
             }
         }
         return ""
+    }
+    
+    func sortExpression(expression: CartesianCoordinateComponent, toPerform: [AlgebraOperation], symbols: [String]) -> (CartesianCoordinateComponent, [AlgebraOperation], [String]) {
+        var toSetExpression: CartesianCoordinateComponent = CartesianCoordinateComponent()
+        var sortedToPerform = toPerform
+        var express = expression
+        var toSetSymbols = symbols
+        
+        sortedToPerform.insert(.addition, at: 0)
+        toSetSymbols[0] = "+"
+        
+        
+        // algorithm used -> BUBBLE SORT
+        // loop to access each array element
+        for i in (0..<express.component.count) {
+                // loop to compare array elements
+            for j in (0..<((express.component.count) - (i + 1))) {
+                    // compare two adjacent elements
+                    // change > to < to sort in descending order
+                if express.component[j].getBases() > express.component[j + 1].getBases() {
+                    // swapping elements if elements are not in intended order
+                    let temp = express.component[j]
+                    express.component[j] = express.component[j + 1]
+                    express.component[j + 1] = temp
+                    
+                    
+                    let temp2 = sortedToPerform[j]
+                    sortedToPerform[j] = sortedToPerform[j + 1]
+                    sortedToPerform[j + 1] = temp2
+                    
+                    let temp3 = toSetSymbols[j]
+                    toSetSymbols[j] = toSetSymbols[j + 1]
+                    toSetSymbols[j + 1] = temp3
+                    }
+                
+                // swap elements according to their exponents
+                if express.component[j].getBases() == express.component[j + 1].getBases() {
+                    // swapping elements if elements are not in intended order
+                    if express.component[j].getExponents() > express.component[j + 1].getExponents() {
+                        // swapping elements if elements are not in intended order
+                        let temp = express.component[j]
+                        express.component[j] = express.component[j + 1]
+                        express.component[j + 1] = temp
+                        
+                        
+                        let temp2 = sortedToPerform[j]
+                        sortedToPerform[j] = sortedToPerform[j + 1]
+                        sortedToPerform[j + 1] = temp2
+                        
+                        let temp3 = toSetSymbols[j]
+                        toSetSymbols[j] = toSetSymbols[j + 1]
+                        toSetSymbols[j + 1] = temp3
+                    }
+                }
+            }
+            
+            
+            
+            toSetExpression = express
+        }
+        
+        if sortedToPerform[0] == .subtraction {
+            toSetExpression.component[0].coefficient.insert("-", at: coefficient.startIndex)
+        }
+        sortedToPerform.removeFirst()
+        toSetSymbols[0] = ""
+        
+        return (toSetExpression, sortedToPerform, toSetSymbols)
+    }
+        
+    func sortTerms(expression: CartesianCoordinateComponent) -> CartesianCoordinateComponent {
+        var toSetExpression: CartesianCoordinateComponent = CartesianCoordinateComponent()
+//        let toSetExpression: Expression = expression
+        var toSetTerm: [Variable] = []
+        //        var inserted: Bool = false
+        
+        // algorithm used -> BUBBLE SORT
+        expression.component.forEach { express in
+            toSetTerm = express.terms
+            // loop to access each array element
+            for i in (0..<toSetTerm.count) {
+                // loop to compare array elements
+                for j in (0..<((toSetTerm.count) - (i + 1))) {
+                    // compare two adjacent elements
+                    // change > to < to sort in descending order
+                    if toSetTerm[j].base > toSetTerm[j + 1].base {
+                        // swapping elements if elements are not in intended order
+                        let temp = toSetTerm[j]
+                        toSetTerm[j] = toSetTerm[j + 1]
+                        toSetTerm[j + 1] = temp
+                    }
+                }
+            }
+            
+//            toSetExpression.component.append(Variable(coefficient: express.coefficient, terms: toSetTerm))
+            toSetExpression.component.append(CartesianTerms(coefficient: express.coefficient, terms: toSetTerm))
+
+            toSetTerm.removeAll()
+        }
+        return toSetExpression
     }
 }
 
