@@ -85,43 +85,7 @@ struct RectVectorView: View {
                         toFill = .xComp
                         nav = true
                     } label: {
-                        /*
-                        HStack(alignment: .top, spacing: 1) {
-                            Text(vector1XCoefficient == "1" ? "" : vector1XCoefficient)
-                            ForEach(vector1XComp, id: \.base) { term in
-                                HStack(alignment: .top, spacing: 1) {
-                                    Text(term.base)
-                                    Text(term.exponent)
-                                        .font(.caption2)
-                                }
-                            }
-                            Text(vector2XSign == .positive ? "+" : "")
-                            Text(vector2XCoefficient == "1" ? "" : vector2XCoefficient)
-                            ForEach(vector2XComp, id: \.base) { term in
-                                HStack(alignment: .top, spacing: 1) {
-                                    Text(term.base)
-                                    Text(term.exponent)
-                                        .font(.caption2)
-                                }
-                            }
-                        }
-                         */
-                        
                         ComponentText(component: $xComponent)
-//                        HStack(alignment: .top, spacing: 1) {
-//                            ForEach(0..<xComponent.component.count, id: \.self) { i in
-//                                Text(i == 0 ? "" : "+")
-//                                Text(xComponent.component[i].coefficient)
-//                                ForEach(xComponent.component[i].terms) { term in
-//                                    Text(term.base)
-//                                    Text(term.exponent)
-//                                        .font(.caption2)
-//                                }
-//                            }
-//                        }
-//                        .padding()
-//                        .background(RoundedRectangle(cornerRadius: 15)
-//                            .foregroundColor(.gray.opacity(0.4)))
                     }
                     Text(" i")
                         .font(.title)
@@ -144,44 +108,7 @@ struct RectVectorView: View {
                         toFill = .yComp
                         nav = true
                     } label: {
-                        /*
-                        HStack(alignment: .top, spacing: 1) {
-                            Text(vector1YCoefficient == "1" ? "" : vector1YCoefficient)
-                            ForEach(vector1YComp, id: \.base) { term in
-                                HStack(alignment: .top, spacing: 1) {
-                                    Text(term.base)
-                                    Text(term.exponent)
-                                        .font(.caption2)
-                                }
-                            }
-                            Text(vector2YSign == .positive ? "+" : "")
-                            Text(vector2YCoefficient)
-                            ForEach(vector2YComp, id: \.base) { term in
-                                HStack(alignment: .top, spacing: 1) {
-                                    Text(term.base)
-                                    Text(term.exponent)
-                                        .font(.caption2)
-                                }
-                            }
-                        }
-                         */
-                        
                         ComponentText(component: $yComponent)
-                        
-//                        HStack(alignment: .top, spacing: 1) {
-//                            ForEach(0..<yComponent.component.count, id: \.self) { i in
-//                                Text(i == 0 ? "" : "+")
-//                                Text(yComponent.component[i].coefficient)
-//                                ForEach(yComponent.component[i].terms) { term in
-//                                    Text(term.base)
-//                                    Text(term.exponent)
-//                                        .font(.caption2)
-//                                }
-//                            }
-//                        }
-//                        .padding()
-//                        .background(RoundedRectangle(cornerRadius: 15)
-//                            .foregroundColor(.gray.opacity(0.4)))
                     }
                     Text(" j")
                         .font(.title)
@@ -229,7 +156,8 @@ struct RectVectorView: View {
                 Button {
                     showAnswer = true
 //                    answerX = differentiate(base: "x".lowercased(), coefficient: trycoeff, component: tryComp, sign: trySign)
-                    divergence()
+//                    divergence()
+                    xComponent = differentiateComponent(base: "x", component: xComponent)
                 } label: {
                     Text("Solve")
                         .font(.title)
@@ -257,6 +185,52 @@ struct RectVectorView: View {
     
     func curl() {
         
+    }
+    
+    func differentiateComponent(base: String, component: CartesianCoordinateComponent) -> CartesianCoordinateComponent {
+        var returnComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
+//        var returnTerm: CartesianTerms = CartesianTerms()
+        
+        component.component.forEach { comp in
+            let tempCoefficient = differentiateRedo(base: base, coefficient: comp.coefficient, component: comp.terms).0
+            let tempTerm = differentiateRedo(base: base, coefficient: comp.coefficient, component: comp.terms).1
+            
+//            returnTerm.coefficient = tempCoefficient
+//            returnTerm.terms = tempTerm
+            
+            returnComponent.component.append(CartesianTerms(coefficient: tempCoefficient, terms: tempTerm))
+        }
+        print(returnComponent)
+        return returnComponent
+    }
+    
+    func differentiateRedo(base: String, coefficient: String, component: [Variable])-> (String, [Variable]) {
+        var returnCoefficient: String = ""
+        var returnComponent: [Variable] = []
+        var mustReturn: [Variable] = []
+        var a: Bool = false
+        
+        component.forEach { term in
+            if term.base == base {
+                mustReturn.append(Variable(base: base, exponent: String((Double(term.exponent) ?? 1) - 1)))
+                returnCoefficient = String((Double(coefficient) ?? 1) * ((Double(term.exponent) ?? 1)))
+                a = true
+            } else {
+                mustReturn.append(term)
+            }
+        }
+        if returnCoefficient == "0.0" {
+            a = false
+        }
+        
+        if !a {
+            mustReturn.removeAll()
+            mustReturn.append(Variable(base: base, exponent: "0"))
+        }
+        
+        returnComponent = mustReturn
+        
+        return (returnCoefficient, returnComponent)
     }
     
     func subtraction(coeff1: String, term1: [Variable],coeff2: String, term2: [Variable]) -> (Bool, String) {
@@ -402,9 +376,15 @@ struct ComponentText: View {
                 Text(i == 0 ? "" : "+")
                 Text(component.component[i].coefficient)
                 ForEach(component.component[i].terms) { term in
-                    Text(term.base)
-                    Text(term.exponent)
-                        .font(.caption2)
+                    if term.exponent != "0" {
+                        Text(term.base)
+                        if term.exponent != "1.0" {
+                            Text(term.exponent)
+                                .font(.caption2)
+                        }
+                    } else {
+                        Text("1")
+                    }
                 }
             }
         }
