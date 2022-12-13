@@ -271,12 +271,6 @@ struct RectVector: View {
                     }
                 }
             }
-//            ForEach(component, id: \.base) { term in
-//                HStack {
-//                    Text(term.base)
-//                    Text(term.exponent)
-//                }
-//            }
             HStack {
                 Button {
                     var1 = ""
@@ -326,7 +320,7 @@ struct RectVector: View {
                 }
                 
                 // make sure toFillComponent is empty
-//                toFillComponent.component.removeAll()
+                toFillComponent.component.removeAll()
                 
                 // save user inputs to CartesianComponent
                 var present = false
@@ -353,13 +347,18 @@ struct RectVector: View {
                 if !coefficient2.isEmpty {
                     toFillTerms2.coefficient = coefficient
                     if !present2 {
-                        toFillTerms.terms.append(Variable(base: "x", exponent: "0"))
+                        toFillTerms2.terms.append(Variable(base: "x", exponent: "0"))
                     }
                 }
+                toFillComponent.component.append(toFillTerms2)
+                toFillTerms2.terms.removeAll()
+                toFillTerms2.coefficient.removeAll()
                 
                 print(toFillComponent.component.count)
                 print(toFillComponent)
                 
+                toFillComponent = sortTerms(component: toFillComponent)
+                toFillComponent = sortComponent(component: toFillComponent)
                 
                 nav = false
             }label: {
@@ -368,7 +367,7 @@ struct RectVector: View {
         }
         
     }
-    func assign(variable: String, expo: String)-> String {
+    private func assign(variable: String, expo: String)-> String {
         if !variable.isEmpty {
             if expo.isEmpty {
                 component.append(Variable(base: variable.lowercased(), exponent: "1"))
@@ -382,14 +381,14 @@ struct RectVector: View {
         return ""
     }
     
-    func sortExpression(expression: CartesianCoordinateComponent, toPerform: [AlgebraOperation], symbols: [String]) -> (CartesianCoordinateComponent, [AlgebraOperation], [String]) {
+    private func sortComponent(component: CartesianCoordinateComponent) -> CartesianCoordinateComponent {
         var toSetExpression: CartesianCoordinateComponent = CartesianCoordinateComponent()
-        var sortedToPerform = toPerform
-        var express = expression
-        var toSetSymbols = symbols
+//        var sortedToPerform = toPerform
+        var express = component
+//        var toSet?Symbols = symbols
         
-        sortedToPerform.insert(.addition, at: 0)
-        toSetSymbols[0] = "+"
+//        sortedToPerform.insert(.addition, at: 0)
+//        toSetSymbols[0] = "+"
         
         
         // algorithm used -> BUBBLE SORT
@@ -405,15 +404,17 @@ struct RectVector: View {
                     express.component[j] = express.component[j + 1]
                     express.component[j + 1] = temp
                     
-                    
-                    let temp2 = sortedToPerform[j]
-                    sortedToPerform[j] = sortedToPerform[j + 1]
-                    sortedToPerform[j + 1] = temp2
-                    
-                    let temp3 = toSetSymbols[j]
-                    toSetSymbols[j] = toSetSymbols[j + 1]
-                    toSetSymbols[j + 1] = temp3
-                    }
+                    /*
+                     let temp2 = sortedToPerform[j]
+                     sortedToPerform[j] = sortedToPerform[j + 1]
+                     sortedToPerform[j + 1] = temp2
+                     
+                     let temp3 = toSetSymbols[j]
+                     toSetSymbols[j] = toSetSymbols[j + 1]
+                     toSetSymbols[j + 1] = temp3
+                     
+                     */
+                }
                 
                 // swap elements according to their exponents
                 if express.component[j].getBases() == express.component[j + 1].getBases() {
@@ -424,7 +425,7 @@ struct RectVector: View {
                         express.component[j] = express.component[j + 1]
                         express.component[j + 1] = temp
                         
-                        
+                        /*
                         let temp2 = sortedToPerform[j]
                         sortedToPerform[j] = sortedToPerform[j + 1]
                         sortedToPerform[j + 1] = temp2
@@ -432,6 +433,7 @@ struct RectVector: View {
                         let temp3 = toSetSymbols[j]
                         toSetSymbols[j] = toSetSymbols[j + 1]
                         toSetSymbols[j + 1] = temp3
+                         */
                     }
                 }
             }
@@ -441,23 +443,23 @@ struct RectVector: View {
             toSetExpression = express
         }
         
+            /*
         if sortedToPerform[0] == .subtraction {
             toSetExpression.component[0].coefficient.insert("-", at: coefficient.startIndex)
         }
         sortedToPerform.removeFirst()
         toSetSymbols[0] = ""
+             */
         
-        return (toSetExpression, sortedToPerform, toSetSymbols)
+        return toSetExpression
     }
         
-    func sortTerms(expression: CartesianCoordinateComponent) -> CartesianCoordinateComponent {
+    private func sortTerms(component: CartesianCoordinateComponent) -> CartesianCoordinateComponent {
         var toSetExpression: CartesianCoordinateComponent = CartesianCoordinateComponent()
-//        let toSetExpression: Expression = expression
         var toSetTerm: [Variable] = []
-        //        var inserted: Bool = false
         
         // algorithm used -> BUBBLE SORT
-        expression.component.forEach { express in
+        component.component.forEach { express in
             toSetTerm = express.terms
             // loop to access each array element
             for i in (0..<toSetTerm.count) {
@@ -489,7 +491,8 @@ struct RectVector: View {
 //    }
 //}
 
-struct Variable {
+struct Variable: Identifiable {
+    @State var id = UUID()
     @State var base: String
     @State var exponent: String
 }

@@ -85,6 +85,7 @@ struct RectVectorView: View {
                         toFill = .xComp
                         nav = true
                     } label: {
+                        /*
                         HStack(alignment: .top, spacing: 1) {
                             Text(vector1XCoefficient == "1" ? "" : vector1XCoefficient)
                             ForEach(vector1XComp, id: \.base) { term in
@@ -104,14 +105,37 @@ struct RectVectorView: View {
                                 }
                             }
                         }
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(.gray.opacity(0.4)))
+                         */
+                        
+                        ComponentText(component: $xComponent)
+//                        HStack(alignment: .top, spacing: 1) {
+//                            ForEach(0..<xComponent.component.count, id: \.self) { i in
+//                                Text(i == 0 ? "" : "+")
+//                                Text(xComponent.component[i].coefficient)
+//                                ForEach(xComponent.component[i].terms) { term in
+//                                    Text(term.base)
+//                                    Text(term.exponent)
+//                                        .font(.caption2)
+//                                }
+//                            }
+//                        }
+//                        .padding()
+//                        .background(RoundedRectangle(cornerRadius: 15)
+//                            .foregroundColor(.gray.opacity(0.4)))
                     }
                     Text(" i")
                         .font(.title)
                         .fontWeight(.bold)
                     Text(String(xComponent.component.count))
+                    HStack {
+                        ForEach(xComponent.component) { component in
+                            Text(component.coefficient)
+                            ForEach(component.terms) { term in
+                                Text(term.base)
+                                Text(term.exponent)
+                            }
+                        }
+                    }
                 }
                 
                 HStack{
@@ -120,6 +144,7 @@ struct RectVectorView: View {
                         toFill = .yComp
                         nav = true
                     } label: {
+                        /*
                         HStack(alignment: .top, spacing: 1) {
                             Text(vector1YCoefficient == "1" ? "" : vector1YCoefficient)
                             ForEach(vector1YComp, id: \.base) { term in
@@ -139,14 +164,38 @@ struct RectVectorView: View {
                                 }
                             }
                         }
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(.gray.opacity(0.4)))
+                         */
+                        
+                        ComponentText(component: $yComponent)
+                        
+//                        HStack(alignment: .top, spacing: 1) {
+//                            ForEach(0..<yComponent.component.count, id: \.self) { i in
+//                                Text(i == 0 ? "" : "+")
+//                                Text(yComponent.component[i].coefficient)
+//                                ForEach(yComponent.component[i].terms) { term in
+//                                    Text(term.base)
+//                                    Text(term.exponent)
+//                                        .font(.caption2)
+//                                }
+//                            }
+//                        }
+//                        .padding()
+//                        .background(RoundedRectangle(cornerRadius: 15)
+//                            .foregroundColor(.gray.opacity(0.4)))
                     }
                     Text(" j")
                         .font(.title)
                         .fontWeight(.bold)
                     Text(String(yComponent.component.count))
+                    HStack {
+                        ForEach(yComponent.component) { component in
+                            Text(component.coefficient)
+                            ForEach(component.terms) { term in
+                                Text(term.base)
+                                Text(term.exponent)
+                            }
+                        }
+                    }
                 }
                 
                 HStack{
@@ -155,34 +204,22 @@ struct RectVectorView: View {
                         toFill = .zComp
                         nav = true
                     } label: {
-                        HStack(alignment: .top, spacing: 1) {
-                            Text(vector1ZCoefficient == "1" ? "" : vector1ZCoefficient)
-                            ForEach(vector1ZComp, id: \.base) { term in
-                                HStack(alignment: .top, spacing: 1) {
-                                    Text(term.base)
-                                    Text(term.exponent)
-                                        .font(.caption2)
-                                }
-                            }
-                            Text(vector2ZSign == .positive ? "+" : "")
-                            Text(vector2ZCoefficient == "1" ? "" : vector2ZCoefficient)
-                            Text(vector2ZCoefficient)
-                            ForEach(vector2ZComp, id: \.base) { term in
-                                HStack(alignment: .top, spacing: 1) {
-                                    Text(term.base)
-                                    Text(term.exponent)
-                                        .font(.caption2)
-                                }
-                            }
-                        }
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(.gray.opacity(0.4)))
+                        
+                        ComponentText(component: $zComponent)
                     }
                     Text("k")
                         .font(.title)
                         .fontWeight(.bold)
                     Text(String(zComponent.component.count))
+                    HStack {
+                        ForEach(zComponent.component) { component in
+                            Text(component.coefficient)
+                            ForEach(component.terms) { term in
+                                Text(term.base)
+                                Text(term.exponent)
+                            }
+                        }
+                    }
                 }
             }
             
@@ -222,7 +259,7 @@ struct RectVectorView: View {
         
     }
     
-    func subtraction(coeff1: String, term1: [Variable],coeff2: String, term2: [Variable]) -> Bool {
+    func subtraction(coeff1: String, term1: [Variable],coeff2: String, term2: [Variable]) -> (Bool, String) {
         var firstTerm = term1
         var secondTerm = term2
         var i = 0
@@ -231,7 +268,7 @@ struct RectVectorView: View {
         var possibleAnswer: [Variable] = []
         var successful = false
         var answerVars: [Variable] = []
-        var answerCoefficient: String
+        var answerCoefficient: String = ""
         
         if firstTerm.count == secondTerm.count {
             while continueIter {
@@ -260,7 +297,7 @@ struct RectVectorView: View {
             }
         }
         
-        return successful
+        return (successful, answerCoefficient)
     }
     
     func differentiate(base: String, coefficient: String, component: [Variable], sign: Sign)-> (String, [Variable], Sign) {
@@ -347,5 +384,32 @@ struct RectangularVectorAnswers: View {
                 .font(.title)
                 .fontWeight(.bold)
         }
+    }
+}
+
+struct ComponentText: View {
+    @Binding var component: CartesianCoordinateComponent
+    
+    var body: some View {
+        HStack(alignment: .top, spacing: 1) {
+            if component.component.isEmpty {
+                HStack {
+                    Text("Tap to enter")
+                }
+            }
+            
+            ForEach(0..<component.component.count, id: \.self) { i in
+                Text(i == 0 ? "" : "+")
+                Text(component.component[i].coefficient)
+                ForEach(component.component[i].terms) { term in
+                    Text(term.base)
+                    Text(term.exponent)
+                        .font(.caption2)
+                }
+            }
+        }
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 15)
+            .foregroundColor(.gray.opacity(0.4)))
     }
 }

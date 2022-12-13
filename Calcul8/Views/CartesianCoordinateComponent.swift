@@ -1,24 +1,13 @@
 //
-//  SwiftUIView.swift
+//  CartesianCoordinateComponent.swift
 //  Calcul8
 //
-//  Created by Emmanuel Donkor on 10/12/2022.
+//  Created by Emmanuel Donkor on 12/12/2022.
 //
 
+import Foundation
 import SwiftUI
 
-struct CartesianCoordinateComponent {
-    var component: [CartesianTerms] = []
-    
-    subscript(index: Int) -> CartesianTerms {
-        get {
-            return component[index]
-        }
-        set {
-            component[index] = newValue
-        }
-    }
-}
 
 struct CartesianTerms: Identifiable {
     let id = UUID()
@@ -55,4 +44,16 @@ struct CartesianTerms: Identifiable {
         return exponents
     }
 }
-
+struct CartesianCoordinateComponent {
+    var component: [CartesianTerms] = []
+    
+    subscript(index: Int) -> CartesianTerms {
+        get {
+            return component[index]
+        }
+        set {
+            component[index] = newValue
+        }
+    }
+    
+}

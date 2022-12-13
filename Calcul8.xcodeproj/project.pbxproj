@@ -47,13 +47,13 @@
 		25836A20281AC586009A6428 /* ComplexformDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25836A1F281AC586009A6428 /* ComplexformDecider.swift */; };
 		25EB7F4129421BE300653340 /* AdvancedCalculationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F4029421BE300653340 /* AdvancedCalculationListView.swift */; };
 		25EB7F432942236800653340 /* AdvancedCalculationNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F422942236800653340 /* AdvancedCalculationNavigator.swift */; };
-		25EB7F492944CD8100653340 /* CartesianCoordinateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F482944CD8100653340 /* CartesianCoordinateComponent.swift */; };
 		25EB7F512944CFB500653340 /* EnterAlgebraicExpressionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F4D2944CFB500653340 /* EnterAlgebraicExpressionButton.swift */; };
 		25EB7F522944CFB500653340 /* AlgebraViewRedo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F4E2944CFB500653340 /* AlgebraViewRedo.swift */; };
 		25EB7F532944CFB500653340 /* FactoredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F4F2944CFB500653340 /* FactoredView.swift */; };
 		25EB7F542944CFB500653340 /* MyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F502944CFB500653340 /* MyTextField.swift */; };
 		25EB7F562944D02800653340 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F552944D02800653340 /* Expression.swift */; };
 		25EB7F582944D08E00653340 /* AlgebraOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F572944D08E00653340 /* AlgebraOperation.swift */; };
+		25EB7F5A29477AE000653340 /* CartesianCoordinateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F5929477AE000653340 /* CartesianCoordinateComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,13 +98,13 @@
 		25836A1F281AC586009A6428 /* ComplexformDecider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexformDecider.swift; sourceTree = "<group>"; };
 		25EB7F4029421BE300653340 /* AdvancedCalculationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedCalculationListView.swift; sourceTree = "<group>"; };
 		25EB7F422942236800653340 /* AdvancedCalculationNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedCalculationNavigator.swift; sourceTree = "<group>"; };
-		25EB7F482944CD8100653340 /* CartesianCoordinateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartesianCoordinateComponent.swift; sourceTree = "<group>"; };
 		25EB7F4D2944CFB500653340 /* EnterAlgebraicExpressionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterAlgebraicExpressionButton.swift; sourceTree = "<group>"; };
 		25EB7F4E2944CFB500653340 /* AlgebraViewRedo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgebraViewRedo.swift; sourceTree = "<group>"; };
 		25EB7F4F2944CFB500653340 /* FactoredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoredView.swift; sourceTree = "<group>"; };
 		25EB7F502944CFB500653340 /* MyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
 		25EB7F552944D02800653340 /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
 		25EB7F572944D08E00653340 /* AlgebraOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgebraOperation.swift; sourceTree = "<group>"; };
+		25EB7F5929477AE000653340 /* CartesianCoordinateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartesianCoordinateComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,7 +197,6 @@
 			isa = PBXGroup;
 			children = (
 				25EB7F4C2944CFB500653340 /* Algebra View */,
-				25EB7F442944CCD600653340 /* VectorRedo */,
 				258245B02916F00C00740D57 /* Vector Calculations */,
 				258245AA2913425700740D57 /* Settings View */,
 				252947212912ED9000010D4F /* Logo Menu */,
@@ -248,6 +247,7 @@
 			children = (
 				258245B32916F0FD00740D57 /* Models */,
 				258245B62916F44000740D57 /* CoordinateSystemsView.swift */,
+				25EB7F5929477AE000653340 /* CartesianCoordinateComponent.swift */,
 			);
 			name = "Vector Calculations";
 			sourceTree = "<group>";
@@ -323,38 +323,6 @@
 				25836A152818A058009A6428 /* ComplexOperationView.swift */,
 				25836A19281AAE10009A6428 /* PolarFormOperationView.swift */,
 				25836A1D281AC38B009A6428 /* AdvancedCalculationDeciderView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		25EB7F442944CCD600653340 /* VectorRedo */ = {
-			isa = PBXGroup;
-			children = (
-				25EB7F452944CD1700653340 /* Cartesian Coordinate System */,
-			);
-			path = VectorRedo;
-			sourceTree = "<group>";
-		};
-		25EB7F452944CD1700653340 /* Cartesian Coordinate System */ = {
-			isa = PBXGroup;
-			children = (
-				25EB7F472944CD4F00653340 /* Views */,
-				25EB7F462944CD4100653340 /* View Models */,
-			);
-			path = "Cartesian Coordinate System";
-			sourceTree = "<group>";
-		};
-		25EB7F462944CD4100653340 /* View Models */ = {
-			isa = PBXGroup;
-			children = (
-				25EB7F482944CD8100653340 /* CartesianCoordinateComponent.swift */,
-			);
-			path = "View Models";
-			sourceTree = "<group>";
-		};
-		25EB7F472944CD4F00653340 /* Views */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -452,6 +420,7 @@
 				25EB7F432942236800653340 /* AdvancedCalculationNavigator.swift in Sources */,
 				25836A0428115F12009A6428 /* TwoVariableSimultaneousEquationView.swift in Sources */,
 				258369FD28105FC8009A6428 /* QuadraticEquationView.swift in Sources */,
+				25EB7F5A29477AE000653340 /* CartesianCoordinateComponent.swift in Sources */,
 				25836A162818A058009A6428 /* ComplexOperationView.swift in Sources */,
 				257F2CB9280DA4E8009F7DB2 /* Operation.swift in Sources */,
 				25836A082815665E009A6428 /* EquationDeciderView.swift in Sources */,
@@ -471,7 +440,6 @@
 				25836A0A281569EE009A6428 /* EquationDecider.swift in Sources */,
 				257F2CA0280D79DD009F7DB2 /* ContentView.swift in Sources */,
 				25EB7F562944D02800653340 /* Expression.swift in Sources */,
-				25EB7F492944CD8100653340 /* CartesianCoordinateComponent.swift in Sources */,
 				252EDC59280F100400601A54 /* AdvancedButtonsView.swift in Sources */,
 				25EB7F532944CFB500653340 /* FactoredView.swift in Sources */,
 				25836A022810C656009A6428 /* SectionDecider.swift in Sources */,
