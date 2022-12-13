@@ -9,3 +9,4 @@ This is a modern calculator iOS application that is capable of doing basic and m
 * Refining the vector view.
 * Working on improving curl opertion function.
 * Stil working on improving curl opertion function.
+* Working on the function which will differentiate the vector expressions.
