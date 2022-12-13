@@ -8,3 +8,4 @@ This is a modern calculator iOS application that is capable of doing basic and m
 * Transfered files on algebra view from SwiftTry.
 * Refining the vector view.
 * Working on improving curl opertion function.
+* Stil working on improving curl opertion function.
