@@ -235,27 +235,52 @@ struct RectVectorView: View {
     
     func subtraction2(component1: CartesianCoordinateComponent, component2: CartesianCoordinateComponent) -> (Bool, CartesianCoordinateComponent){
         var returnComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
+//        var foundTerm: CartesianTerms = CartesianTerms()
         var successful: Bool = false
         
 //        var i = 0
 //        var j = 0
-        
-        component1.component.forEach { comp in
-            print(comp.getBases())
-            var found = false
-            component2.component.forEach { comp2 in
-                if comp.getBases() == comp2.getBases() && comp.getExponents() == comp2.getExponents() {
-                    returnComponent.component.append(CartesianTerms(coefficient: String((Double(comp.coefficient) ?? 1) - (Double(comp2.coefficient) ?? 1)), terms: comp.terms))
+        if component1.component.count <= component2.component.count {
+            component1.component.forEach { comp in
+                print(comp.getBases())
+                var found = false
+                component2.component.forEach { comp2 in
+                    if comp.getBases() == comp2.getBases() && comp.getExponents() == comp2.getExponents() {
+                        returnComponent.component.append(CartesianTerms(coefficient: String((Double(comp.coefficient) ?? 1) - (Double(comp2.coefficient) ?? 1)), terms: comp.terms))
+                        
+                        found = true
+                        successful = true
+                    } else {
+                        //                    returnComponent.append(CartesianCoordinateComponent(component: [comp2]))
+                        returnComponent.component.append(CartesianTerms(coefficient: String("-" + comp2.coefficient), terms: comp2.terms))
+                    }
+                }
+                if !found {
+                    //                returnComponent.append(CartesianCoordinateComponent(component: [comp]))
+                    returnComponent.component.append(comp)
                     
-                    found = true
-                } else {
-//                    returnComponent.append(CartesianCoordinateComponent(component: [comp2]))
-                    returnComponent.component.append(comp2)
                 }
             }
-            if !found {
-//                returnComponent.append(CartesianCoordinateComponent(component: [comp]))
-                returnComponent.component.append(comp)
+        } else {
+            component2.component.forEach { comp in
+                print(comp.getBases())
+                var found = false
+                component1.component.forEach { comp2 in
+                    if comp.getBases() == comp2.getBases() && comp.getExponents() == comp2.getExponents() {
+                        returnComponent.component.append(CartesianTerms(coefficient: String((Double(comp2.coefficient) ?? 1) - (Double(comp.coefficient) ?? 1)), terms: comp.terms))
+                        
+                        found = true
+                        successful = true
+                    } else {
+                        //                    returnComponent.append(CartesianCoordinateComponent(component: [comp2]))
+                        returnComponent.component.append(comp2)
+                    }
+                }
+                if !found {
+                    //                returnComponent.append(CartesianCoordinateComponent(component: [comp]))
+                    returnComponent.component.append(CartesianTerms(coefficient: String("-" + comp.coefficient), terms: comp.terms))
+                    
+                }
             }
         }
      
