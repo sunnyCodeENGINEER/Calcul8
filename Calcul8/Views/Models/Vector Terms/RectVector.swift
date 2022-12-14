@@ -308,19 +308,23 @@ struct RectVector: View {
             }
             
             Button {
-                if coefficient.isEmpty {
+                if coefficient.isEmpty && !component.isEmpty {
                     if !component.isEmpty {
                         coefficient = "1"
                     }
                 }
-                if coefficient2.isEmpty {
-                    if !component2.isEmpty {
-                        coefficient2 = "1"
-                    }
-                }
+                //                if coefficient2.isEmpty {
+                //                    if !component2.isEmpty {
+                //                        coefficient2 = "1"
+                //                    }
+                //                }
                 
                 // make sure toFillComponent is empty
                 toFillComponent.component.removeAll()
+                toFillTerms.terms.removeAll()
+                toFillTerms.coefficient.removeAll()
+                toFillTerms2.terms.removeAll()
+                toFillTerms2.coefficient.removeAll()
                 
                 // save user inputs to CartesianComponent
                 var present = false
@@ -329,14 +333,16 @@ struct RectVector: View {
                     present = true
                 }
                 if !coefficient.isEmpty {
-                    toFillTerms.coefficient = coefficient
+                    toFillTerms.coefficient = coefficient.isEmpty ? "1" : coefficient
                     if !present {
                         toFillTerms.terms.append(Variable(base: "x", exponent: "0"))
                     }
                 }
-                toFillComponent.component.append(toFillTerms)
-                toFillTerms.terms.removeAll()
-                toFillTerms.coefficient.removeAll()
+                if present {
+                    toFillComponent.component.append(toFillTerms)
+                    toFillTerms.terms.removeAll()
+                    toFillTerms.coefficient.removeAll()
+                }
                 
                 // second term
                 var present2 = false
@@ -345,14 +351,16 @@ struct RectVector: View {
                     present2 = true
                 }
                 if !coefficient2.isEmpty {
-                    toFillTerms2.coefficient = coefficient
+                    toFillTerms2.coefficient = coefficient2.isEmpty ? "1" : coefficient2
                     if !present2 {
                         toFillTerms2.terms.append(Variable(base: "x", exponent: "0"))
                     }
                 }
-                toFillComponent.component.append(toFillTerms2)
-                toFillTerms2.terms.removeAll()
-                toFillTerms2.coefficient.removeAll()
+                if present2 {
+                    toFillComponent.component.append(toFillTerms2)
+                    toFillTerms2.terms.removeAll()
+                    toFillTerms2.coefficient.removeAll()
+                }
                 
                 print(toFillComponent.component.count)
                 print(toFillComponent)

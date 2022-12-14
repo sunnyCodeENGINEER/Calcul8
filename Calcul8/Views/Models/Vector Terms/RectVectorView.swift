@@ -157,7 +157,8 @@ struct RectVectorView: View {
                     showAnswer = true
 //                    answerX = differentiate(base: "x".lowercased(), coefficient: trycoeff, component: tryComp, sign: trySign)
 //                    divergence()
-                    xComponent = differentiateComponent(base: "x", component: xComponent)
+//                    xComponent = differentiateComponent(base: "x", component: xComponent)
+                    curl()
                 } label: {
                     Text("Solve")
                         .font(.title)
@@ -184,19 +185,18 @@ struct RectVectorView: View {
     }
     
     func curl() {
+//        xComponent.component[0].coefficient = subtraction(coeff1: xComponent.component[0].coefficient, term1: xComponent.component[0].terms, coeff2: xComponent.component[1].coefficient, term2: xComponent.component[1].terms).1
+//        xComponent.component[0].terms = subtraction(coeff1: xComponent.component[0].coefficient, term1: xComponent.component[0].terms, coeff2: xComponent.component[1].coefficient, term2: xComponent.component[1].terms).2
         
+        xComponent = subtraction2(component1: xComponent, component2: yComponent).1
     }
     
     func differentiateComponent(base: String, component: CartesianCoordinateComponent) -> CartesianCoordinateComponent {
         var returnComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
-//        var returnTerm: CartesianTerms = CartesianTerms()
         
         component.component.forEach { comp in
             let tempCoefficient = differentiateRedo(base: base, coefficient: comp.coefficient, component: comp.terms).0
             let tempTerm = differentiateRedo(base: base, coefficient: comp.coefficient, component: comp.terms).1
-            
-//            returnTerm.coefficient = tempCoefficient
-//            returnTerm.terms = tempTerm
             
             returnComponent.component.append(CartesianTerms(coefficient: tempCoefficient, terms: tempTerm))
         }
@@ -233,7 +233,36 @@ struct RectVectorView: View {
         return (returnCoefficient, returnComponent)
     }
     
-    func subtraction(coeff1: String, term1: [Variable],coeff2: String, term2: [Variable]) -> (Bool, String) {
+    func subtraction2(component1: CartesianCoordinateComponent, component2: CartesianCoordinateComponent) -> (Bool, CartesianCoordinateComponent){
+        var returnComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
+        var successful: Bool = false
+        
+//        var i = 0
+//        var j = 0
+        
+        component1.component.forEach { comp in
+            print(comp.getBases())
+            var found = false
+            component2.component.forEach { comp2 in
+                if comp.getBases() == comp2.getBases() && comp.getExponents() == comp2.getExponents() {
+                    returnComponent.component.append(CartesianTerms(coefficient: String((Double(comp.coefficient) ?? 1) - (Double(comp2.coefficient) ?? 1)), terms: comp.terms))
+                    
+                    found = true
+                } else {
+//                    returnComponent.append(CartesianCoordinateComponent(component: [comp2]))
+                    returnComponent.component.append(comp2)
+                }
+            }
+            if !found {
+//                returnComponent.append(CartesianCoordinateComponent(component: [comp]))
+                returnComponent.component.append(comp)
+            }
+        }
+     
+        return (successful, returnComponent)
+    }
+    
+    func subtraction(coeff1: String, term1: [Variable],coeff2: String, term2: [Variable]) -> (Bool, String, [Variable]) {
         var firstTerm = term1
         var secondTerm = term2
         var i = 0
@@ -254,7 +283,7 @@ struct RectVectorView: View {
                             secondTerm.remove(at: j)
                             i = -1
                             j = 0
-                            answerCoefficient = String((Double(coeff1) ?? -1) + (Double(coeff2) ?? -1))
+                            answerCoefficient = String((Double(coeff1) ?? -1) - (Double(coeff2) ?? -1))
                             successful = true
                         } else {
                             successful = false
@@ -271,7 +300,7 @@ struct RectVectorView: View {
             }
         }
         
-        return (successful, answerCoefficient)
+        return (successful, answerCoefficient, answerVars)
     }
     
     func differentiate(base: String, coefficient: String, component: [Variable], sign: Sign)-> (String, [Variable], Sign) {
