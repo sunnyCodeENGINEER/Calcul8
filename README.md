@@ -11,3 +11,5 @@ This is a modern calculator iOS application that is capable of doing basic and m
 * Stil working on improving curl opertion function.
 * Working on the function which will differentiate the vector expressions.
 * Working on curl function.
+* Still working on curl function
+  * Subtraction function not working as intended to.
