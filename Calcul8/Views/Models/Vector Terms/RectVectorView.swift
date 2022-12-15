@@ -47,6 +47,10 @@ struct RectVectorView: View {
     @State var answerY: (String, [Variable], Sign) = ("", [], .positive)
     @State var answerZ: (String, [Variable], Sign) = ("", [], .positive)
     
+    @State var answerXComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
+    @State var answerYComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
+    @State var answerZComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
+    
     @Binding var xComponent: CartesianCoordinateComponent
     @Binding var yComponent: CartesianCoordinateComponent
     @Binding var zComponent: CartesianCoordinateComponent
@@ -154,11 +158,16 @@ struct RectVectorView: View {
                 Spacer()
                 
                 Button {
-                    showAnswer = true
+                    
 //                    answerX = differentiate(base: "x".lowercased(), coefficient: trycoeff, component: tryComp, sign: trySign)
 //                    divergence()
 //                    xComponent = differentiateComponent(base: "x", component: xComponent)
-                    curl()
+//                    curl()
+                    answerXComponent = curl(xComponent: xComponent, yComponent: yComponent, zComponent: zComponent).0
+                    answerYComponent = curl(xComponent: xComponent, yComponent: yComponent, zComponent: zComponent).1
+                    answerZComponent = curl(xComponent: xComponent, yComponent: yComponent, zComponent: zComponent).2
+                    
+                    showAnswer = true
                 } label: {
                     Text("Solve")
                         .font(.title)
@@ -168,6 +177,7 @@ struct RectVectorView: View {
             Divider()
             
             if showAnswer {
+                /*
                 HStack {
                     RectangularVectorAnswers(answer: $answerX, axis: .constant("i"))
                     Text("+")
@@ -175,20 +185,48 @@ struct RectVectorView: View {
                     Text("+")
                     RectangularVectorAnswers(answer: $answerZ, axis: .constant("k"))
                 }
+                 */
+                HStack {
+                    ComponentText(component: $answerXComponent)
+                    Text("i")
+                        .fontWeight(.bold)
+                    Text("+")
+                    ComponentText(component: $answerYComponent)
+                    Text("j")
+                        .fontWeight(.bold)
+                    Text("+")
+                    ComponentText(component: $answerZComponent)
+                    Text("k")
+                        .fontWeight(.bold)
+                }
             }
         }
     }
     func divergence() {
+        /*
         answerX = differentiate(base: "x", coefficient: vector1XCoefficient, component: vector1XComp, sign: vector1XSign)
         answerY = differentiate(base: "y", coefficient: vector1YCoefficient, component: vector1YComp, sign: vector1YSign)
         answerZ = differentiate(base: "z", coefficient: vector1ZCoefficient, component: vector1ZComp, sign: vector1ZSign)
+         */
+        
+        answerXComponent = differentiateComponent(base: "x", component: xComponent)
+        answerYComponent = differentiateComponent(base: "y", component: yComponent)
+        answerZComponent = differentiateComponent(base: "z", component: zComponent)
     }
     
-    func curl() {
-//        xComponent.component[0].coefficient = subtraction(coeff1: xComponent.component[0].coefficient, term1: xComponent.component[0].terms, coeff2: xComponent.component[1].coefficient, term2: xComponent.component[1].terms).1
-//        xComponent.component[0].terms = subtraction(coeff1: xComponent.component[0].coefficient, term1: xComponent.component[0].terms, coeff2: xComponent.component[1].coefficient, term2: xComponent.component[1].terms).2
+    func curl(xComponent: CartesianCoordinateComponent, yComponent: CartesianCoordinateComponent, zComponent: CartesianCoordinateComponent) -> (CartesianCoordinateComponent, CartesianCoordinateComponent, CartesianCoordinateComponent) {
+        var x1 = differentiateComponent(base: "y", component: zComponent)
+        var x2 = differentiateComponent(base: "z", component: yComponent)
+        var y1 = differentiateComponent(base: "z", component: xComponent)
+        var y2 = differentiateComponent(base: "x", component: zComponent)
+        var z1 = differentiateComponent(base: "x", component: yComponent)
+        var z2 = differentiateComponent(base: "y", component: xComponent)
         
-        xComponent = subtraction2(component1: xComponent, component2: yComponent).1
+        var answerX = subtraction2(component1: x1, component2: x2)
+        var answerY = subtraction2(component1: y1, component2: y2)
+        var answerZ = subtraction2(component1: z1, component2: z2)
+        
+        return (answerX, answerY, answerZ)
     }
     
     func differentiateComponent(base: String, component: CartesianCoordinateComponent) -> CartesianCoordinateComponent {
@@ -205,14 +243,18 @@ struct RectVectorView: View {
     }
     
     func differentiateRedo(base: String, coefficient: String, component: [Variable])-> (String, [Variable]) {
-        var returnCoefficient: String = ""
+        var returnCoefficient: String = "1"
         var returnComponent: [Variable] = []
         var mustReturn: [Variable] = []
         var a: Bool = false
         
         component.forEach { term in
             if term.base == base {
-                mustReturn.append(Variable(base: base, exponent: String((Double(term.exponent) ?? 1) - 1)))
+                if (Double(term.exponent) ?? 1) - 1 != 0 {
+                    mustReturn.append(Variable(base: base, exponent: String((Double(term.exponent) ?? 1) - 1)))
+                } else {
+                    mustReturn.append(Variable(base: "1", exponent: "0"))
+                }
                 returnCoefficient = String((Double(coefficient) ?? 1) * ((Double(term.exponent) ?? 1)))
                 a = true
             } else {
@@ -225,7 +267,7 @@ struct RectVectorView: View {
         
         if !a {
             mustReturn.removeAll()
-            mustReturn.append(Variable(base: base, exponent: "0"))
+            mustReturn.append(Variable(base: "1", exponent: "0"))
         }
         
         returnComponent = mustReturn
@@ -233,13 +275,10 @@ struct RectVectorView: View {
         return (returnCoefficient, returnComponent)
     }
     
-    func subtraction2(component1: CartesianCoordinateComponent, component2: CartesianCoordinateComponent) -> (Bool, CartesianCoordinateComponent){
+    func subtraction2(component1: CartesianCoordinateComponent, component2: CartesianCoordinateComponent) -> CartesianCoordinateComponent {
         var firstComponent = component1
         var secondComponent = component2
         var returnComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
-//        var foundTerm: CartesianTerms = CartesianTerms()
-        var successful: Bool = false
-        
         var i = 0
         var j = 0
         
@@ -312,7 +351,7 @@ struct RectVectorView: View {
         }
          */
          
-        return (successful, returnComponent)
+        return returnComponent
     }
     
     func subtraction(coeff1: String, term1: [Variable],coeff2: String, term2: [Variable]) -> (Bool, String, [Variable]) {
@@ -455,9 +494,7 @@ struct ComponentText: View {
             }
             
             ForEach(0..<component.component.count, id: \.self) { i in
-//                if component.component[i].coefficient.startIndex != "-" {
-                    Text(i == 0 ? "" : "+")
-//                }
+                Text(i == 0 ? "" : "+")
                 Text("(")
                 Text(component.component[i].coefficient)
                 ForEach(component.component[i].terms) { term in
@@ -479,3 +516,4 @@ struct ComponentText: View {
             .foregroundColor(.gray.opacity(0.4)))
     }
 }
+
