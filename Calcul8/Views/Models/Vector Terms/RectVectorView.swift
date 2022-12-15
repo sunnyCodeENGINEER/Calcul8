@@ -234,12 +234,39 @@ struct RectVectorView: View {
     }
     
     func subtraction2(component1: CartesianCoordinateComponent, component2: CartesianCoordinateComponent) -> (Bool, CartesianCoordinateComponent){
+        var firstComponent = component1
+        var secondComponent = component2
         var returnComponent: CartesianCoordinateComponent = CartesianCoordinateComponent()
 //        var foundTerm: CartesianTerms = CartesianTerms()
         var successful: Bool = false
         
-//        var i = 0
-//        var j = 0
+        var i = 0
+        var j = 0
+        
+        while (i < firstComponent.component.count) {
+            while (j < secondComponent.component.count) {
+                if firstComponent.component[i].getBases() == secondComponent.component[j].getBases() && firstComponent.component[i].getExponents() == secondComponent.component[j].getExponents() {
+                    returnComponent.component.append(CartesianTerms(coefficient: String((Double(firstComponent.component[i].coefficient) ?? 1) - (Double(secondComponent.component[j].coefficient) ?? 1)), terms: firstComponent.component[i].terms))
+                    
+                    firstComponent.component.remove(at: i)
+                    secondComponent.component.remove(at: j)
+                    j = -1
+                }
+                j += 1
+            }
+            i += 1
+        }
+        
+        if !firstComponent.component.isEmpty {
+            returnComponent.component.append(contentsOf: firstComponent.component)
+        }
+        if !secondComponent.component.isEmpty {
+            secondComponent.component.forEach { comp in
+                returnComponent.component.append(CartesianTerms(coefficient: "-" + comp.coefficient, terms: comp.terms))
+            }
+        }
+        
+        /*
         if component1.component.count <= component2.component.count {
             component1.component.forEach { comp in
                 print(comp.getBases())
@@ -283,7 +310,8 @@ struct RectVectorView: View {
                 }
             }
         }
-     
+         */
+         
         return (successful, returnComponent)
     }
     
@@ -427,7 +455,10 @@ struct ComponentText: View {
             }
             
             ForEach(0..<component.component.count, id: \.self) { i in
-                Text(i == 0 ? "" : "+")
+//                if component.component[i].coefficient.startIndex != "-" {
+                    Text(i == 0 ? "" : "+")
+//                }
+                Text("(")
                 Text(component.component[i].coefficient)
                 ForEach(component.component[i].terms) { term in
                     if term.exponent != "0" {
@@ -440,6 +471,7 @@ struct ComponentText: View {
                         Text("1")
                     }
                 }
+                Text(")")
             }
         }
         .padding()
