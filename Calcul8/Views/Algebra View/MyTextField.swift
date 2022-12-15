@@ -8,29 +8,26 @@
 import SwiftUI
 
 struct Components: View {
-    @Binding var expression: Expression
-    @State var index: Int
+    @Binding var terms: Terms
     
     var body: some View {
-        HStack {
-            ForEach(0..<expression.expression[index].terms.count, id: \.self) { item in
-                if expression.expression[index].terms[item].exponent != "0.0" {
-                    if expression.expression[index].terms[item].base != "1" {
-                        if expression.expression[index].terms[item].base != "1.0" {
-                            Text(expression.expression[index].terms[item].base)
-                            
-                            if expression.expression[index].terms[item].exponent != "1" {
-                                if expression.expression[index].terms[item].exponent != "1.0" {
-                                    Text(expression.expression[index].terms[item].exponent)
-                                        .font(.caption2)
-                                }
+        ForEach(0..<terms.terms.count, id: \.self) { item in
+            if terms.terms[item].exponent != "0.0" {
+                if terms.terms[item].base != "1" {
+                    if terms.terms[item].base != "1.0" {
+                        Text(terms.terms[item].base)
+                        
+                        if terms.terms[item].exponent != "1" {
+                            if terms.terms[item].exponent != "1.0" {
+                                Text(terms.terms[item].exponent)
+                                    .font(.caption2)
                             }
                         }
                     }
-                } else {
-                    if expression.expression[index].terms.count < 2 {
-                        Text("1")
-                    }
+                }
+            } else {
+                if terms.terms.count < 2 {
+                    Text("1")
                 }
             }
         }
@@ -57,8 +54,7 @@ struct MyTextField: View {
                             }
                             
                             if expression.expression[index].coefficient != "0.0" {
-                                
-                                Components(expression: $expression, index: index)
+                                Components(terms: $expression.expression[index])
                             }
                             Text(")")
                             
@@ -82,3 +78,4 @@ struct MyTextField_Previews: PreviewProvider {
         MyTextField(expression: .constant(Expression()), toPerform: .constant([]), operationSymbols: .constant([]))
     }
 }
+
