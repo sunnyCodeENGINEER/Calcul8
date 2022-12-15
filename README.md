@@ -14,3 +14,5 @@ This is a modern calculator iOS application that is capable of doing basic and m
 * Still working on curl function
   * Subtraction function not working as intended to.
   * Improved Subtraction function.
+* Completed curl function.  
+
