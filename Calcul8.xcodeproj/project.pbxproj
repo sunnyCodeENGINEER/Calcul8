@@ -11,10 +11,18 @@
 		252EDC57280F069A00601A54 /* AdvancedButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252EDC56280F069A00601A54 /* AdvancedButtons.swift */; };
 		252EDC59280F100400601A54 /* AdvancedButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252EDC58280F100400601A54 /* AdvancedButtonsView.swift */; };
 		252EDC5B280F134100601A54 /* AdvancedOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252EDC5A280F134100601A54 /* AdvancedOperation.swift */; };
-		253AA199292034E80030A32C /* RectNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253AA196292034E80030A32C /* RectNavView.swift */; };
-		253AA19A292034E80030A32C /* RectVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253AA197292034E80030A32C /* RectVector.swift */; };
-		253AA19B292034E80030A32C /* RectVectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253AA198292034E80030A32C /* RectVectorView.swift */; };
-		253AA19D292036DF0030A32C /* RectangularVectorComponentDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253AA19C292036DF0030A32C /* RectangularVectorComponentDecider.swift */; };
+		2555856D2968372A00974678 /* CoordinateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255585692968372900974678 /* CoordinateSystem.swift */; };
+		2555856E2968372A00974678 /* SpericalCoordinateVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2555856A2968372900974678 /* SpericalCoordinateVector.swift */; };
+		2555856F2968372A00974678 /* CylindricalCoordinateVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2555856B2968372900974678 /* CylindricalCoordinateVector.swift */; };
+		255585702968372A00974678 /* CartesianCoordinateVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2555856C2968372A00974678 /* CartesianCoordinateVector.swift */; };
+		25558577296837AE00974678 /* SphericalCoordinateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25558576296837AE00974678 /* SphericalCoordinateView.swift */; };
+		25558579296837BA00974678 /* CylindricalCoordinateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25558578296837BA00974678 /* CylindricalCoordinateView.swift */; };
+		2555857B296837C700974678 /* CartesianCoordinateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2555857A296837C700974678 /* CartesianCoordinateView.swift */; };
+		2555857D296837D300974678 /* CoordinateSystemDeciderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2555857C296837D300974678 /* CoordinateSystemDeciderView.swift */; };
+		255585852968398400974678 /* CylindricalComponentDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255585812968398400974678 /* CylindricalComponentDecider.swift */; };
+		255585862968398400974678 /* CartesianComponentDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255585822968398400974678 /* CartesianComponentDecider.swift */; };
+		255585872968398400974678 /* SphericalComponentDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255585832968398400974678 /* SphericalComponentDecider.swift */; };
+		255585882968398400974678 /* CoordinateSystemDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255585842968398400974678 /* CoordinateSystemDecider.swift */; };
 		257F2C9E280D79DD009F7DB2 /* Calcul8App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F2C9D280D79DD009F7DB2 /* Calcul8App.swift */; };
 		257F2CA0280D79DD009F7DB2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F2C9F280D79DD009F7DB2 /* ContentView.swift */; };
 		257F2CA2280D79E1009F7DB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257F2CA1280D79E1009F7DB2 /* Assets.xcassets */; };
@@ -26,9 +34,6 @@
 		257F2CB9280DA4E8009F7DB2 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F2CB8280DA4E8009F7DB2 /* Operation.swift */; };
 		258245AC2913455A00740D57 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258245AB2913455A00740D57 /* SettingsView.swift */; };
 		258245AE2914498F00740D57 /* SelectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258245AD2914498F00740D57 /* SelectColorView.swift */; };
-		258245B52916F17F00740D57 /* CoordinateSystems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258245B42916F17F00740D57 /* CoordinateSystems.swift */; };
-		258245B72916F44000740D57 /* CoordinateSystemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258245B62916F44000740D57 /* CoordinateSystemsView.swift */; };
-		258245B92916F4BD00740D57 /* RectangularCoordinateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258245B82916F4BD00740D57 /* RectangularCoordinateSystem.swift */; };
 		258369FD28105FC8009A6428 /* QuadraticEquationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258369FC28105FC8009A6428 /* QuadraticEquationView.swift */; };
 		258369FF2810C05B009A6428 /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258369FE2810C05A009A6428 /* SectionPickerView.swift */; };
 		25836A022810C656009A6428 /* SectionDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25836A012810C656009A6428 /* SectionDecider.swift */; };
@@ -53,7 +58,6 @@
 		25EB7F542944CFB500653340 /* MyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F502944CFB500653340 /* MyTextField.swift */; };
 		25EB7F562944D02800653340 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F552944D02800653340 /* Expression.swift */; };
 		25EB7F582944D08E00653340 /* AlgebraOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F572944D08E00653340 /* AlgebraOperation.swift */; };
-		25EB7F5A29477AE000653340 /* CartesianCoordinateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB7F5929477AE000653340 /* CartesianCoordinateComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,10 +65,18 @@
 		252EDC56280F069A00601A54 /* AdvancedButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedButtons.swift; sourceTree = "<group>"; };
 		252EDC58280F100400601A54 /* AdvancedButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedButtonsView.swift; sourceTree = "<group>"; };
 		252EDC5A280F134100601A54 /* AdvancedOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedOperation.swift; sourceTree = "<group>"; };
-		253AA196292034E80030A32C /* RectNavView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectNavView.swift; sourceTree = "<group>"; };
-		253AA197292034E80030A32C /* RectVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectVector.swift; sourceTree = "<group>"; };
-		253AA198292034E80030A32C /* RectVectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectVectorView.swift; sourceTree = "<group>"; };
-		253AA19C292036DF0030A32C /* RectangularVectorComponentDecider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangularVectorComponentDecider.swift; sourceTree = "<group>"; };
+		255585692968372900974678 /* CoordinateSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateSystem.swift; sourceTree = "<group>"; };
+		2555856A2968372900974678 /* SpericalCoordinateVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpericalCoordinateVector.swift; sourceTree = "<group>"; };
+		2555856B2968372900974678 /* CylindricalCoordinateVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CylindricalCoordinateVector.swift; sourceTree = "<group>"; };
+		2555856C2968372A00974678 /* CartesianCoordinateVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartesianCoordinateVector.swift; sourceTree = "<group>"; };
+		25558576296837AE00974678 /* SphericalCoordinateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SphericalCoordinateView.swift; sourceTree = "<group>"; };
+		25558578296837BA00974678 /* CylindricalCoordinateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CylindricalCoordinateView.swift; sourceTree = "<group>"; };
+		2555857A296837C700974678 /* CartesianCoordinateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartesianCoordinateView.swift; sourceTree = "<group>"; };
+		2555857C296837D300974678 /* CoordinateSystemDeciderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateSystemDeciderView.swift; sourceTree = "<group>"; };
+		255585812968398400974678 /* CylindricalComponentDecider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CylindricalComponentDecider.swift; sourceTree = "<group>"; };
+		255585822968398400974678 /* CartesianComponentDecider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartesianComponentDecider.swift; sourceTree = "<group>"; };
+		255585832968398400974678 /* SphericalComponentDecider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SphericalComponentDecider.swift; sourceTree = "<group>"; };
+		255585842968398400974678 /* CoordinateSystemDecider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateSystemDecider.swift; sourceTree = "<group>"; };
 		257F2C9A280D79DD009F7DB2 /* Calcul8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calcul8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		257F2C9D280D79DD009F7DB2 /* Calcul8App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calcul8App.swift; sourceTree = "<group>"; };
 		257F2C9F280D79DD009F7DB2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -77,9 +89,6 @@
 		257F2CB8280DA4E8009F7DB2 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
 		258245AB2913455A00740D57 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		258245AD2914498F00740D57 /* SelectColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorView.swift; sourceTree = "<group>"; };
-		258245B42916F17F00740D57 /* CoordinateSystems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateSystems.swift; sourceTree = "<group>"; };
-		258245B62916F44000740D57 /* CoordinateSystemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateSystemsView.swift; sourceTree = "<group>"; };
-		258245B82916F4BD00740D57 /* RectangularCoordinateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangularCoordinateSystem.swift; sourceTree = "<group>"; };
 		258369FC28105FC8009A6428 /* QuadraticEquationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadraticEquationView.swift; sourceTree = "<group>"; };
 		258369FE2810C05A009A6428 /* SectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionPickerView.swift; sourceTree = "<group>"; };
 		25836A012810C656009A6428 /* SectionDecider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDecider.swift; sourceTree = "<group>"; };
@@ -104,7 +113,6 @@
 		25EB7F502944CFB500653340 /* MyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
 		25EB7F552944D02800653340 /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
 		25EB7F572944D08E00653340 /* AlgebraOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlgebraOperation.swift; sourceTree = "<group>"; };
-		25EB7F5929477AE000653340 /* CartesianCoordinateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartesianCoordinateComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,14 +142,61 @@
 			path = "Advanced Buttons";
 			sourceTree = "<group>";
 		};
-		253AA195292034E80030A32C /* Vector Terms */ = {
+		255585682968370C00974678 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				253AA196292034E80030A32C /* RectNavView.swift */,
-				253AA197292034E80030A32C /* RectVector.swift */,
-				253AA198292034E80030A32C /* RectVectorView.swift */,
+				2555856C2968372A00974678 /* CartesianCoordinateVector.swift */,
+				255585692968372900974678 /* CoordinateSystem.swift */,
+				2555856B2968372900974678 /* CylindricalCoordinateVector.swift */,
+				2555856A2968372900974678 /* SpericalCoordinateVector.swift */,
 			);
-			path = "Vector Terms";
+			path = Models;
+			sourceTree = "<group>";
+		};
+		255585712968375300974678 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2555857C296837D300974678 /* CoordinateSystemDeciderView.swift */,
+				255585752968379700974678 /* Spherical Coordinate */,
+				255585742968378A00974678 /* Cylindrical Coordinate  */,
+				255585722968375F00974678 /* Cartesian Coordinate  */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		255585722968375F00974678 /* Cartesian Coordinate  */ = {
+			isa = PBXGroup;
+			children = (
+				2555857A296837C700974678 /* CartesianCoordinateView.swift */,
+			);
+			path = "Cartesian Coordinate ";
+			sourceTree = "<group>";
+		};
+		255585742968378A00974678 /* Cylindrical Coordinate  */ = {
+			isa = PBXGroup;
+			children = (
+				25558578296837BA00974678 /* CylindricalCoordinateView.swift */,
+			);
+			path = "Cylindrical Coordinate ";
+			sourceTree = "<group>";
+		};
+		255585752968379700974678 /* Spherical Coordinate */ = {
+			isa = PBXGroup;
+			children = (
+				25558576296837AE00974678 /* SphericalCoordinateView.swift */,
+			);
+			path = "Spherical Coordinate";
+			sourceTree = "<group>";
+		};
+		255585802968398400974678 /* Deciders */ = {
+			isa = PBXGroup;
+			children = (
+				255585812968398400974678 /* CylindricalComponentDecider.swift */,
+				255585822968398400974678 /* CartesianComponentDecider.swift */,
+				255585832968398400974678 /* SphericalComponentDecider.swift */,
+				255585842968398400974678 /* CoordinateSystemDecider.swift */,
+			);
+			path = Deciders;
 			sourceTree = "<group>";
 		};
 		257F2C91280D79DD009F7DB2 = {
@@ -245,22 +300,11 @@
 		258245B02916F00C00740D57 /* Vector Calculations */ = {
 			isa = PBXGroup;
 			children = (
-				258245B32916F0FD00740D57 /* Models */,
-				258245B62916F44000740D57 /* CoordinateSystemsView.swift */,
-				25EB7F5929477AE000653340 /* CartesianCoordinateComponent.swift */,
+				255585802968398400974678 /* Deciders */,
+				255585712968375300974678 /* Views */,
+				255585682968370C00974678 /* Models */,
 			);
 			name = "Vector Calculations";
-			sourceTree = "<group>";
-		};
-		258245B32916F0FD00740D57 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				253AA195292034E80030A32C /* Vector Terms */,
-				258245B42916F17F00740D57 /* CoordinateSystems.swift */,
-				258245B82916F4BD00740D57 /* RectangularCoordinateSystem.swift */,
-				253AA19C292036DF0030A32C /* RectangularVectorComponentDecider.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		258369FB28105E5D009A6428 /* Advanced Section */ = {
@@ -410,30 +454,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				253AA19D292036DF0030A32C /* RectangularVectorComponentDecider.swift in Sources */,
 				257F2CAC280D7AE0009F7DB2 /* StandardButtons.swift in Sources */,
 				252947232912EDAD00010D4F /* LogoMenu.swift in Sources */,
 				25836A0E28183FE6009A6428 /* ComplexNumber.swift in Sources */,
-				258245B92916F4BD00740D57 /* RectangularCoordinateSystem.swift in Sources */,
 				252EDC5B280F134100601A54 /* AdvancedOperation.swift in Sources */,
 				258245AE2914498F00740D57 /* SelectColorView.swift in Sources */,
+				2555857D296837D300974678 /* CoordinateSystemDeciderView.swift in Sources */,
 				25EB7F432942236800653340 /* AdvancedCalculationNavigator.swift in Sources */,
 				25836A0428115F12009A6428 /* TwoVariableSimultaneousEquationView.swift in Sources */,
 				258369FD28105FC8009A6428 /* QuadraticEquationView.swift in Sources */,
-				25EB7F5A29477AE000653340 /* CartesianCoordinateComponent.swift in Sources */,
 				25836A162818A058009A6428 /* ComplexOperationView.swift in Sources */,
+				25558579296837BA00974678 /* CylindricalCoordinateView.swift in Sources */,
 				257F2CB9280DA4E8009F7DB2 /* Operation.swift in Sources */,
 				25836A082815665E009A6428 /* EquationDeciderView.swift in Sources */,
+				2555856E2968372A00974678 /* SpericalCoordinateVector.swift in Sources */,
+				255585702968372A00974678 /* CartesianCoordinateVector.swift in Sources */,
 				25836A1028184C55009A6428 /* PolarForm.swift in Sources */,
 				258369FF2810C05B009A6428 /* SectionPickerView.swift in Sources */,
 				25EB7F582944D08E00653340 /* AlgebraOperation.swift in Sources */,
 				25836A0628155B51009A6428 /* ThreeVariableSimultaneousEquationView.swift in Sources */,
-				253AA19A292034E80030A32C /* RectVector.swift in Sources */,
 				25836A1A281AAE10009A6428 /* PolarFormOperationView.swift in Sources */,
 				25836A182818A716009A6428 /* ComplexNumberOperation.swift in Sources */,
+				255585852968398400974678 /* CylindricalComponentDecider.swift in Sources */,
 				25EB7F4129421BE300653340 /* AdvancedCalculationListView.swift in Sources */,
 				25EB7F542944CFB500653340 /* MyTextField.swift in Sources */,
-				253AA199292034E80030A32C /* RectNavView.swift in Sources */,
+				255585872968398400974678 /* SphericalComponentDecider.swift in Sources */,
 				257F2CB7280D8F11009F7DB2 /* MainAppView.swift in Sources */,
 				25836A1228185AA3009A6428 /* Unit.swift in Sources */,
 				25836A1E281AC38B009A6428 /* AdvancedCalculationDeciderView.swift in Sources */,
@@ -441,20 +486,23 @@
 				257F2CA0280D79DD009F7DB2 /* ContentView.swift in Sources */,
 				25EB7F562944D02800653340 /* Expression.swift in Sources */,
 				252EDC59280F100400601A54 /* AdvancedButtonsView.swift in Sources */,
+				255585862968398400974678 /* CartesianComponentDecider.swift in Sources */,
 				25EB7F532944CFB500653340 /* FactoredView.swift in Sources */,
 				25836A022810C656009A6428 /* SectionDecider.swift in Sources */,
 				258245AC2913455A00740D57 /* SettingsView.swift in Sources */,
 				257F2C9E280D79DD009F7DB2 /* Calcul8App.swift in Sources */,
 				252EDC57280F069A00601A54 /* AdvancedButtons.swift in Sources */,
-				253AA19B292034E80030A32C /* RectVectorView.swift in Sources */,
+				255585882968398400974678 /* CoordinateSystemDecider.swift in Sources */,
 				257F2CB4280D8BF0009F7DB2 /* InputFieldView.swift in Sources */,
 				25836A1C281AB215009A6428 /* PolarFormOperation.swift in Sources */,
 				25EB7F512944CFB500653340 /* EnterAlgebraicExpressionButton.swift in Sources */,
+				2555857B296837C700974678 /* CartesianCoordinateView.swift in Sources */,
+				2555856D2968372A00974678 /* CoordinateSystem.swift in Sources */,
 				25EB7F522944CFB500653340 /* AlgebraViewRedo.swift in Sources */,
+				25558577296837AE00974678 /* SphericalCoordinateView.swift in Sources */,
 				257F2CAF280D7C4D009F7DB2 /* StandardButtonsView.swift in Sources */,
 				25836A20281AC586009A6428 /* ComplexformDecider.swift in Sources */,
-				258245B52916F17F00740D57 /* CoordinateSystems.swift in Sources */,
-				258245B72916F44000740D57 /* CoordinateSystemsView.swift in Sources */,
+				2555856F2968372A00974678 /* CylindricalCoordinateVector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

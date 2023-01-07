@@ -18,7 +18,8 @@ struct AdvancedCalculationNavigator: View {
             ComplexformDecider(selection: $selection)
         } else if selection == .vector {
 //            CoordinateSystemsView(operation: $operation)
-            RectangularVectorComponentDecider(selection: $selection)
+//            RectangularVectorComponentDecider(selection: $selection)
+            CoordinateSystemDecider()
         } else if selection == .algebra {
             AlgebraViewRedo()
             

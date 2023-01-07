@@ -10,3 +10,7 @@ import Foundation
 enum AlgebraOperation {
     case addition, subtraction, division, multiplication, factorize, differentiate, integrate, limit, none
 }
+
+enum Sign {
+    case positive, negative
+}
