@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AdvancedCalculationNavigator: View {
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
     @State var selection: AdvancedCalculation = .none
     @State var operation: VectorOperation = .addition
     

@@ -106,23 +106,25 @@ struct SphericalKeyboardDecider: View {
     @Binding var sphericalComponent: SphericalComponent
     @Binding var currentComponent: String
     @Binding var currentVector: Int
+    @Binding var mySolveColor: String
+    @Binding var myColor: String
     
     var body: some View {
         if currentVector == 1 {
             if currentComponent == "R" {
-                SphericalVariableKeyboard(components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector1.xComponent, sphericalComponent: $sphericalComponent)
+                SphericalVariableKeyboard(components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector1.xComponent, sphericalComponent: $sphericalComponent, mySolveColor: $mySolveColor, myColor: $myColor)
             } else if currentComponent == "Φ" || currentComponent == "ϕ" {
-                SphericalVariableKeyboard(components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector1.yComponent, sphericalComponent: $sphericalComponent)
+                SphericalVariableKeyboard(components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector1.yComponent, sphericalComponent: $sphericalComponent, mySolveColor: $mySolveColor, myColor: $myColor)
             } else if currentComponent == "θ" {
-                SphericalVariableKeyboard(components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector1.zComponent, sphericalComponent: $sphericalComponent)
+                SphericalVariableKeyboard(components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector1.zComponent, sphericalComponent: $sphericalComponent, mySolveColor: $mySolveColor, myColor: $myColor)
             }
         } else if currentVector == 2 {
             if currentComponent == "R" {
-                SphericalVariableKeyboard(components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector2.xComponent, sphericalComponent: $sphericalComponent)
+                SphericalVariableKeyboard(components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector2.xComponent, sphericalComponent: $sphericalComponent, mySolveColor: $mySolveColor, myColor: $myColor)
             } else if currentComponent == "Φ" || currentComponent == "ϕ" {
-                SphericalVariableKeyboard(components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector2.yComponent, sphericalComponent: $sphericalComponent)
+                SphericalVariableKeyboard(components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector2.yComponent, sphericalComponent: $sphericalComponent, mySolveColor: $mySolveColor, myColor: $myColor)
             } else if currentComponent == "θ" {
-                SphericalVariableKeyboard(components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector2.zComponent, sphericalComponent: $sphericalComponent)
+                SphericalVariableKeyboard(components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector2.zComponent, sphericalComponent: $sphericalComponent, mySolveColor: $mySolveColor, myColor: $myColor)
             }
         }
     }

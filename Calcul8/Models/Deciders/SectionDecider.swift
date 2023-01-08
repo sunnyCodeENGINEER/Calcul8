@@ -22,7 +22,7 @@ extension EnvironmentValues {
 }
 
 struct SectionDecider: View {
-    
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
     @AppStorage("basicSection") var basicSection: Bool = true
     @AppStorage("complexNumberOperation") var complexNumberOperation: Bool = false
     @AppStorage("equationsection") var equationSection: Bool = false

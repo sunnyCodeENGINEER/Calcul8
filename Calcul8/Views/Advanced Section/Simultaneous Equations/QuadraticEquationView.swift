@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct QuadraticEquationView: View {
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
+    
     @State var firstTerm: String = ""
     @State var secondTerm: String = ""
     @State var thirdTerm: String = ""
@@ -110,7 +112,7 @@ struct QuadraticEquationView: View {
                             .foregroundColor(Color("solve"))
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 15)
-                                .foregroundColor(Color("standardOperator")))
+                                .foregroundColor(Color(standardOperator)))
                     }
                 }
                 .padding(.horizontal)

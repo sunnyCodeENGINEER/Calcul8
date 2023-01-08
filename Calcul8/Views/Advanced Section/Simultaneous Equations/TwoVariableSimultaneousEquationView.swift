@@ -9,6 +9,8 @@ import SwiftUI
 import simd
 
 struct TwoVariableSimultaneousEquationView: View {
+    @Binding var solveColor: String
+    
     @State var eqn1var1: String = ""
     @State var eqn1var2: String = ""
     @State var eqn1var3: String = ""
@@ -158,7 +160,7 @@ struct TwoVariableSimultaneousEquationView: View {
                                 .foregroundColor(Color("solve"))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 15)
-                                    .foregroundColor(Color("standardOperator")))
+                                    .foregroundColor(Color(solveColor)))
                         }
                     }
                     .padding(.horizontal)
@@ -209,6 +211,6 @@ struct TwoVariableSimultaneousEquationView: View {
 
 struct TwoVariableSimultaneousEquationView_Previews: PreviewProvider {
     static var previews: some View {
-        TwoVariableSimultaneousEquationView()
+        TwoVariableSimultaneousEquationView(solveColor: .constant(""))
     }
 }

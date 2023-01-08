@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ComplexformDecider: View {
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
     @AppStorage("complexNumber") var complexNumber: Bool = false
     @AppStorage("polarForm") var polarForm: Bool = false
     
@@ -20,12 +21,12 @@ struct ComplexformDecider: View {
         else {
             if complexNumber {
                 withAnimation{
-                    ComplexOperationView()
+                    ComplexOperationView(solveColor: $standardOperator)
                 }
             }
             else if polarForm {
                 withAnimation{
-                    PolarFormOperationView()
+                    PolarFormOperationView(solveColor: $standardOperator)
                 }
             }
         }

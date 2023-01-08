@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PolarFormOperationView: View {
+    @Binding var solveColor: String
+    
     @State var number1: PolarForm = PolarForm()
     @State var number2: PolarForm = PolarForm()
     @State var number1StringReal : String = ""
@@ -270,7 +272,7 @@ struct PolarFormOperationView: View {
                             .foregroundColor(Color("solve"))
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 15)
-                                .foregroundColor(Color("standardOperator")))
+                                .foregroundColor(Color(solveColor)))
                     }
                     .padding(.bottom)
                 }
@@ -375,6 +377,6 @@ struct PolarFormOperationView: View {
 
 struct PolarFormOperationView_Previews: PreviewProvider {
     static var previews: some View {
-        PolarFormOperationView()
+        PolarFormOperationView(solveColor: .constant(""))
     }
 }

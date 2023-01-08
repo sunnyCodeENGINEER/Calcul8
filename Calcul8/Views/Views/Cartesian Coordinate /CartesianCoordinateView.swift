@@ -80,14 +80,14 @@ struct CartesianCoordinateView: View {
                             ComponentSelectorDecider(vector1: $vector1, vector2: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent, currentVector: $currentVector)
                         }
                         HStack {
-                            VariableConstantButton(title: variables ? "Conatants" : "Variables", variables: $variables)
+                            VariableConstantButton(title: variables ? "Conatants" : "Variables", variables: $variables, mySolveColor: $mySolveColor)
                             
                             CartesianComponentDecider(vector1: $vector1, vector2: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent, currentVector: $currentVector, exponents: $exponents)
                         }
                         if !variables {
-                            VectorKeyBoard(component: $component, variable: $variable)
+                            VectorKeyBoard(component: $component, variable: $variable, mySolveColor: $mySolveColor, myColor: $myColor)
                         } else {
-                            VectorKeyBoardVariables(exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry)
+                            VectorKeyBoardVariables(exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, mySolveColor: $mySolveColor, myColor: $myColor)
                         }
                     }
                     if showAnswer {
@@ -252,19 +252,9 @@ struct SolveButton: View {
         HStack {
             Spacer()
             Button{
-//                answerVector = addition(vector1, vector2)
-//                answerVector.xComponent = multiplication(vector1.xComponent, vector2.xComponent)
-//                answerVector.xComponent = dotProduct(vector1, vector2).xComponent
-//                answerVector.xComponent = CartesianCoordinateSystem().sortAxes().0
-//                answerVector = crossProduct(vector1, vector2)
-//                answerVector.xComponent = magnitude(vector1).xComponent
-//                answerVector = unitVector(vector1)
-//                answerVector = curl(vector1.xComponent, vector1.yComponent, vector1.zComponent)
-//                answerVector = divergence(vector1)
-//                answerVector = gradient(vector1.xComponent)
                 solve(vector1: vector1, vector2: vector2, operation: operation)
                 
-//                answerVector = sortVector(answerVector)
+                
                 vector1 = sortVector(vector1)
                 vector1.xComponent = sortComponent(component: vector1.xComponent)
                 
@@ -285,9 +275,6 @@ struct SolveButton: View {
     }
     private func sortVector(_ vector: CartesianCoordinateSystem) -> CartesianCoordinateSystem {
         var answer: CartesianCoordinateSystem = CartesianCoordinateSystem()
-//        answer.xComponent = sortComponent(component: vector.xComponent)
-//        answer.yComponent = sortComponent(component: vector.yComponent)
-//        answer.zComponent = sortComponent(component: vector.zComponent)
         
         answer.xComponent = sortTerms(component: vector.xComponent)
         answer.yComponent = sortTerms(component: vector.yComponent)
@@ -1229,6 +1216,7 @@ struct ComponentSelector: View {
 
 struct ConstantExponentButton: View {
     @Binding var exponents: Bool
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
@@ -1244,7 +1232,7 @@ struct ConstantExponentButton: View {
                         .padding()
                         .frame(width: UIScreen.main.bounds.width / 3.2)
                         .background(RoundedRectangle(cornerRadius: 30)
-                            .foregroundColor(.green.opacity(0.3)))
+                            .foregroundColor(Color(myColor).opacity(0.3)))
                 }
                 else {
                     HStack(alignment: .top, spacing: 0) {
@@ -1258,7 +1246,7 @@ struct ConstantExponentButton: View {
                     .padding()
                     .frame(width: UIScreen.main.bounds.width / 3.2)
                     .background(RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(.green.opacity(0.3)))
+                        .foregroundColor(Color(myColor).opacity(0.3)))
                 }
             }
         }
@@ -1268,16 +1256,18 @@ struct ConstantExponentButton: View {
 struct VectorKeyBoardConstants: View {
     @Binding var exponents: Bool
     @Binding var coefficient: String
+    @Binding var mySolveColor: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
-            VectorKeyRowConstants(start: 1, end: 3, coefficient: $coefficient)
-            VectorKeyRowConstants(start: 4, end: 6, coefficient: $coefficient)
-            VectorKeyRowConstants(start: 7, end: 9, coefficient: $coefficient)
+            VectorKeyRowConstants(start: 1, end: 3, coefficient: $coefficient, myColor: $myColor)
+            VectorKeyRowConstants(start: 4, end: 6, coefficient: $coefficient, myColor: $myColor)
+            VectorKeyRowConstants(start: 7, end: 9, coefficient: $coefficient, myColor: $myColor)
             HStack {
-                ConstantExponentButton(exponents: $exponents)
-                VectorKeyRowConstants(start: 0, end: 0, coefficient: $coefficient)
-                VectorKeyConstantsSpecial(key: ".", component: $coefficient)
+                ConstantExponentButton(exponents: $exponents, myColor: $mySolveColor)
+                VectorKeyRowConstants(start: 0, end: 0, coefficient: $coefficient, myColor: $myColor)
+                VectorKeyConstantsSpecial(key: ".", component: $coefficient, myColor: $mySolveColor)
             }
         }
     }
@@ -1287,11 +1277,12 @@ struct VectorKeyRowConstants: View {
     @State var start: Int
     @State var end: Int
     @Binding var coefficient: String
+    @Binding var myColor: String
     
     var body: some View {
         HStack {
             ForEach(start..<end + 1, id: \.self) { item in
-                VectorKeyConstants(key: item, coefficient: $coefficient)
+                VectorKeyConstants(key: item, coefficient: $coefficient, myColor: $myColor)
             }
         }
     }
@@ -1300,6 +1291,7 @@ struct VectorKeyRowConstants: View {
 struct VectorKeyConstants: View {
     @State var key: Int
     @Binding var coefficient: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
@@ -1312,7 +1304,7 @@ struct VectorKeyConstants: View {
                     .padding()
                     .frame(width: UIScreen.main.bounds.width / 3.2)
                     .background(RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(.green.opacity(0.3)))
+                        .foregroundColor(Color(myColor).opacity(0.3)))
             }
         }
     }
@@ -1321,6 +1313,7 @@ struct VectorKeyConstants: View {
 struct VectorKeyConstantsSpecial: View {
     @State var key: String
     @Binding var component: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
@@ -1333,7 +1326,7 @@ struct VectorKeyConstantsSpecial: View {
                     .padding()
                     .frame(width: UIScreen.main.bounds.width / 3.2)
                     .background(RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(.green.opacity(0.3)))
+                        .foregroundColor(Color(myColor).opacity(0.3)))
             }
         }
     }
@@ -1345,16 +1338,18 @@ struct VectorKeyBoardExponents: View {
     @Binding var exponents: Bool
     @Binding var exponent: String
     @Binding var variable: Variable
+    @Binding var mySolveColor: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
-            VectorKeyRowExponents(start: 1, end: 3,variable: $variable, exponent: $exponent)
-            VectorKeyRowExponents(start: 4, end: 6,variable: $variable, exponent: $exponent)
-            VectorKeyRowExponents(start: 7, end: 9,variable: $variable, exponent: $exponent)
+            VectorKeyRowExponents(start: 1, end: 3,variable: $variable, exponent: $exponent, myColor: $myColor)
+            VectorKeyRowExponents(start: 4, end: 6,variable: $variable, exponent: $exponent, myColor: $myColor)
+            VectorKeyRowExponents(start: 7, end: 9,variable: $variable, exponent: $exponent, myColor: $myColor)
             HStack {
-                ConstantExponentButton(exponents: $exponents)
-                VectorKeyRowExponents(start: 0, end: 0, variable: $variable, exponent: $exponent)
-                VectorKeyConstantsSpecial(key: ".", component: $exponent)
+                ConstantExponentButton(exponents: $exponents, myColor: $mySolveColor)
+                VectorKeyRowExponents(start: 0, end: 0, variable: $variable, exponent: $exponent, myColor: $myColor)
+                VectorKeyConstantsSpecial(key: ".", component: $exponent, myColor: $mySolveColor)
             }
         }
     }
@@ -1365,11 +1360,12 @@ struct VectorKeyRowExponents: View {
     @State var end: Int
     @Binding var variable: Variable
     @Binding var exponent: String
+    @Binding var myColor: String
     
     var body: some View {
         HStack {
             ForEach(start..<end + 1, id: \.self) { item in
-                VectorKeyExponents(key: item, variable: $variable, exponent: $exponent)
+                VectorKeyExponents(key: item, variable: $variable, exponent: $exponent, myColor: $myColor)
             }
         }
     }
@@ -1379,6 +1375,7 @@ struct VectorKeyExponents: View {
     @State var key: Int
     @Binding var variable: Variable
     @Binding var exponent: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
@@ -1405,7 +1402,7 @@ struct VectorKeyExponents: View {
                 .padding()
                 .frame(width: UIScreen.main.bounds.width / 3.2)
                 .background(RoundedRectangle(cornerRadius: 30)
-                .foregroundColor(.green.opacity(0.3)))
+                .foregroundColor(Color(myColor).opacity(0.3)))
             }
         }
     }
@@ -1416,14 +1413,16 @@ struct VectorKeyBoard: View {
     @State var exponent: String = ""
     @Binding var component: CartesianTerms
     @Binding var variable: Variable
+    @Binding var mySolveColor: String
+    @Binding var myColor: String
     
     
     var body: some View {
         VStack {
             if exponents {
-                VectorKeyBoardExponents(exponents: $exponents, exponent: $exponent, variable: $variable)
+                VectorKeyBoardExponents(exponents: $exponents, exponent: $exponent, variable: $variable, mySolveColor: $mySolveColor, myColor: $myColor)
             } else {
-                VectorKeyBoardConstants(exponents: $exponents, coefficient: $component.coefficient)
+                VectorKeyBoardConstants(exponents: $exponents, coefficient: $component.coefficient, mySolveColor: $mySolveColor, myColor: $myColor)
             }
         }
     }
@@ -1436,6 +1435,7 @@ struct VectorKeyVariable: View {
     @Binding var component: CartesianTerms
     @Binding var variable: Variable
     let label: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
@@ -1480,7 +1480,7 @@ struct VectorKeyVariable: View {
                     .padding()
                     .frame(width: UIScreen.main.bounds.width / 3.2)
                     .background(RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(.green.opacity(0.3)))
+                        .foregroundColor(Color(myColor).opacity(0.3)))
             }
         }
     }
@@ -1492,11 +1492,12 @@ struct VectorKeyRowVariables: View {
     var variableTexts: [String]
     @Binding var component: CartesianTerms
     @Binding var variable: Variable
+    @Binding var myColor: String
     
     var body: some View {
         HStack {
             ForEach(start..<end, id: \.self) { item in
-                VectorKeyVariable(variableText: variableTexts[item], component: $component, variable: $variable, label: variableTexts[item])
+                VectorKeyVariable(variableText: variableTexts[item], component: $component, variable: $variable, label: variableTexts[item], myColor: $myColor)
             }
         }
     }
@@ -1509,17 +1510,19 @@ struct VectorKeyBoardVariables: View {
     @Binding var component: CartesianTerms
     @Binding var variable: Variable
     @Binding var trignometry: Bool
+    @Binding var mySolveColor: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
-            VectorKeyRowVariables(start: 0, end: 3, variableTexts: variableTexts, component: $component, variable: $variable)
-            VectorKeyRowVariables(start: 3, end: 6, variableTexts: variableTexts, component: $component, variable: $variable)
-            VectorKeyRowVariables(start: 6, end: 9, variableTexts: variableTexts, component: $component, variable: $variable)
+            VectorKeyRowVariables(start: 0, end: 3, variableTexts: variableTexts, component: $component, variable: $variable, myColor: $myColor)
+            VectorKeyRowVariables(start: 3, end: 6, variableTexts: variableTexts, component: $component, variable: $variable, myColor: $myColor)
+            VectorKeyRowVariables(start: 6, end: 9, variableTexts: variableTexts, component: $component, variable: $variable, myColor: $myColor)
             HStack {
 //                ConstantExponentButton(exponents: $exponents)
-                TrigConstantButton(trignometry: $trignometry)
-                VectorKeyRowConstants(start: 0, end: 0, coefficient: $coefficient)
-                VectorKeyConstantsSpecial(key: ".", component: $coefficient)
+                TrigConstantButton(trignometry: $trignometry, mySolveColor: $mySolveColor)
+                VectorKeyRowConstants(start: 0, end: 0, coefficient: $coefficient, myColor: $myColor)
+                VectorKeyConstantsSpecial(key: ".", component: $coefficient, myColor: $mySolveColor)
             }
         }
     }
@@ -1528,6 +1531,7 @@ struct VectorKeyBoardVariables: View {
 struct VariableConstantButton: View {
     var title: String
     @Binding var variables: Bool
+    @Binding var mySolveColor: String
     
     var body: some View {
         Button{
@@ -1539,7 +1543,7 @@ struct VariableConstantButton: View {
                 .foregroundColor(.black)
                 .padding()
                 .background(RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(.green.opacity(0.3)))
+                    .foregroundColor(Color(mySolveColor).opacity(0.3)))
         }
     }
 }

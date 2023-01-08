@@ -58,7 +58,9 @@ struct Expression {
 }
 
 struct AlgebraSpecialButton: View {
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
     @State var character: String
+    
     var body: some View {
         Button {
             
@@ -70,7 +72,7 @@ struct AlgebraSpecialButton: View {
                 .padding()
                 .frame(width: UIScreen.main.bounds.width / 3.2)
                 .background(RoundedRectangle(cornerRadius: 30)
-                    .foregroundColor(.green.opacity(0.3)))
+                    .foregroundColor(Color(standardOperator).opacity(0.3)))
         }
     }
 }

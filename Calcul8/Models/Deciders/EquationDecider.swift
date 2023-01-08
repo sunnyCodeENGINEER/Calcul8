@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct EquationDecider : View {
-    
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
     @AppStorage("twoVarSimulEqn") var twoVarSimulEqn: Bool = false
     @AppStorage("threeVarSimulEqn") var threeVarSimulEqn: Bool = false
     @AppStorage("quadraticSection") var quadraticSection: Bool = false
@@ -21,12 +21,12 @@ struct EquationDecider : View {
         else {
             if twoVarSimulEqn {
                 withAnimation{
-                    TwoVariableSimultaneousEquationView()
+                    TwoVariableSimultaneousEquationView(solveColor: $standardOperator)
                 }
             }
             else if threeVarSimulEqn {
                 withAnimation{
-                    ThreeVariableSimultaneousEquationView()
+                    ThreeVariableSimultaneousEquationView(solveColor: $standardOperator)
                 }
             }
             else if quadraticSection {

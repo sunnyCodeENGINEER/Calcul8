@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EnterAlgebraicExpressionButton: View {
+    @AppStorage("standardButton") var standardButton: String = "standardButton"
     @Binding var receive: Bool
     
     @State var terms: [Term] = []
@@ -24,9 +25,11 @@ struct EnterAlgebraicExpressionButton: View {
                     .frame(minWidth: 300)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(.green.opacity(0.3))
+                        .foregroundColor(Color(standardButton).opacity(0.3))
                         .overlay(RoundedRectangle(cornerRadius: 30)
                             .stroke()))
+                    .foregroundColor(.black)
+
             }
         }
     }

@@ -86,14 +86,14 @@ struct SphericalCoordinateView: View {
                         }
                     }
                     HStack {
-                        VariableConstantButton(title: variables ? "Conatants" : "Variables", variables: $variables)
+                        VariableConstantButton(title: variables ? "Conatants" : "Variables", variables: $variables, mySolveColor: $mySolveColor)
                         
                         SphericalComponentSignDecider(vector1: $vector1, vector2: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent, currentVector: $currentVector, exponents: $exponents, term: $term, sphericalComponent: $sphericalComponent)
                     }
                     if !variables {
-                        CylindricalVectorKeyBoard(component: $component, variable: $variable)
+                        CylindricalVectorKeyBoard(component: $component, variable: $variable, mySolveColor: $mySolveColor, myColor: $myColor)
                     } else {
-                        SphericalKeyboardDecider(vector1: $vector1, vector2: $vector2, components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector1.xComponent, sphericalComponent: $sphericalComponent, currentComponent: $currentComponent, currentVector: $currentVector)
+                        SphericalKeyboardDecider(vector1: $vector1, vector2: $vector2, components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector1.xComponent, sphericalComponent: $sphericalComponent, currentComponent: $currentComponent, currentVector: $currentVector, mySolveColor: $mySolveColor, myColor: $myColor)
                     }
                 }
             }
@@ -1357,13 +1357,15 @@ struct SphericalVariableKeyboard: View {
     @Binding var term: SphericalTerms
     @Binding var axis: SphericalCoordinateComponent
     @Binding var sphericalComponent: SphericalComponent
+    @Binding var mySolveColor: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
             if trignometry {
-                SphericalTrigKeyBoardVariables(component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $axis, sphericalComponent: $sphericalComponent)
+                SphericalTrigKeyBoardVariables(component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $axis, sphericalComponent: $sphericalComponent, mySolveColor: $mySolveColor, myColor: $myColor)
             } else {
-                SphericalVectorKeyBoardVariables(exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $axis, sphericalComponent: $sphericalComponent)
+                SphericalVectorKeyBoardVariables(exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $axis, sphericalComponent: $sphericalComponent, mySolveColor: $mySolveColor, myColor: $myColor)
             }
         }
     }
@@ -1375,6 +1377,7 @@ struct SphericalTrigKeyVariable: View {
     @Binding var variable: Variable
     @Binding var term: SphericalTerms
     @Binding var sphericalComponent: SphericalComponent
+    @Binding var myColor: String
     let title: String
     
     var body: some View {
@@ -1416,7 +1419,7 @@ struct SphericalTrigKeyVariable: View {
                     .padding()
                     .frame(width: UIScreen.main.bounds.width / 3.2)
                     .background(RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(.green.opacity(0.3)))
+                        .foregroundColor(Color(myColor).opacity(0.3)))
             }
         }
     }
@@ -1428,6 +1431,7 @@ struct SphericalTrigKeyVariableClose: View {
     @Binding var variable: Variable
     @Binding var term: SphericalTerms
     @Binding var sphericalComponent: SphericalComponent
+    @Binding var mySolveColor: String
     
     var body: some View {
         VStack {
@@ -1468,7 +1472,7 @@ struct SphericalTrigKeyVariableClose: View {
                     .padding()
                     .frame(width: UIScreen.main.bounds.width / 3.2)
                     .background(RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(.green.opacity(0.3)))
+                        .foregroundColor(Color(mySolveColor).opacity(0.3)))
             }
         }
     }
@@ -1482,11 +1486,12 @@ struct SphericalTrigKeyRowVariables: View {
     @Binding var variable: Variable
     @Binding var term: SphericalTerms
     @Binding var sphericalComponent: SphericalComponent
+    @Binding var myColor: String
     
     var body: some View {
         HStack {
             ForEach(start..<end, id: \.self) { item in
-                SphericalTrigKeyVariable(variableText: variableTexts[item], component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent, title: variableTexts[item])
+                SphericalTrigKeyVariable(variableText: variableTexts[item], component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent, myColor: $myColor, title: variableTexts[item])
             }
         }
     }
@@ -1502,16 +1507,18 @@ struct SphericalTrigKeyBoardVariables: View {
     @Binding var term: SphericalTerms
     @Binding var axis: SphericalCoordinateComponent
     @Binding var sphericalComponent: SphericalComponent
+    @Binding var mySolveColor: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
-            SphericalTrigKeyRowVariables(start: 0, end: 3, variableTexts: variableTexts, component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent)
-            SphericalTrigKeyRowVariables(start: 3, end: 6, variableTexts: variableTexts, component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent)
-            SphericalTrigKeyRowVariables(start: 6, end: 9, variableTexts: variableTexts, component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent)
+            SphericalTrigKeyRowVariables(start: 0, end: 3, variableTexts: variableTexts, component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent, myColor: $myColor)
+            SphericalTrigKeyRowVariables(start: 3, end: 6, variableTexts: variableTexts, component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent, myColor: $myColor)
+            SphericalTrigKeyRowVariables(start: 6, end: 9, variableTexts: variableTexts, component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent, myColor: $myColor)
             HStack {
-                TrigConstantButton(trignometry: $trignometry)
-                VectorKeyRowConstants(start: 0, end: 0, coefficient: $coefficient)
-                SphericalTrigKeyVariableClose(axis: $axis, component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent)
+                TrigConstantButton(trignometry: $trignometry, mySolveColor: $mySolveColor)
+                VectorKeyRowConstants(start: 0, end: 0, coefficient: $coefficient, myColor: $myColor)
+                SphericalTrigKeyVariableClose(axis: $axis, component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent, mySolveColor: $mySolveColor)
             }
         }
     }
@@ -1560,16 +1567,19 @@ struct SphericalVectorKeyBoardExponents: View {
     @Binding var exponents: Bool
     @Binding var exponent: String
     @Binding var variable: Variable
+    @Binding var mySolveColor: String
+    @Binding var myColor: String
+    
     
     var body: some View {
         VStack {
-            CylindricalVectorKeyRowExponents(start: 1, end: 3,variable: $variable, exponent: $exponent)
-            CylindricalVectorKeyRowExponents(start: 4, end: 6,variable: $variable, exponent: $exponent)
-            CylindricalVectorKeyRowExponents(start: 7, end: 9,variable: $variable, exponent: $exponent)
+            CylindricalVectorKeyRowExponents(start: 1, end: 3,variable: $variable, exponent: $exponent, myColor: $myColor)
+            CylindricalVectorKeyRowExponents(start: 4, end: 6,variable: $variable, exponent: $exponent, myColor: $myColor)
+            CylindricalVectorKeyRowExponents(start: 7, end: 9,variable: $variable, exponent: $exponent, myColor: $myColor)
             HStack {
-                ConstantExponentButton(exponents: $exponents)
-                CylindricalVectorKeyRowExponents(start: 0, end: 0, variable: $variable, exponent: $exponent)
-                VectorKeyConstantsSpecial(key: ".", component: $exponent)
+                ConstantExponentButton(exponents: $exponents, myColor: $mySolveColor)
+                CylindricalVectorKeyRowExponents(start: 0, end: 0, variable: $variable, exponent: $exponent, myColor: $myColor)
+                VectorKeyConstantsSpecial(key: ".", component: $exponent, myColor: $mySolveColor)
             }
         }
     }
@@ -1580,11 +1590,12 @@ struct SphericalVectorKeyRowExponents: View {
     @State var end: Int
     @Binding var variable: Variable
     @Binding var exponent: String
+    @Binding var myColor: String
     
     var body: some View {
         HStack {
             ForEach(start..<end + 1, id: \.self) { item in
-                CylindricalVectorKeyExponents(key: item, variable: $variable, exponent: $exponent)
+                CylindricalVectorKeyExponents(key: item, variable: $variable, exponent: $exponent, myColor: $myColor)
             }
         }
     }
@@ -1594,6 +1605,7 @@ struct SphericalVectorKeyExponents: View {
     @State var key: Int
     @Binding var variable: Variable
     @Binding var exponent: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
@@ -1620,7 +1632,7 @@ struct SphericalVectorKeyExponents: View {
                 .padding()
                 .frame(width: UIScreen.main.bounds.width / 3.2)
                 .background(RoundedRectangle(cornerRadius: 30)
-                .foregroundColor(.green.opacity(0.3)))
+                .foregroundColor(Color(myColor).opacity(0.3)))
             }
         }
     }
@@ -1632,14 +1644,16 @@ struct SphericalVectorKeyBoard: View {
     @State var exponent: String = ""
     @Binding var component: CartesianTerms
     @Binding var variable: Variable
+    @Binding var mySolveColor: String
+    @Binding var myColor: String
     
     
     var body: some View {
         VStack {
             if exponents {
-                CylindricalVectorKeyBoardExponents(exponents: $exponents, exponent: $exponent, variable: $variable)
+                CylindricalVectorKeyBoardExponents(exponents: $exponents, exponent: $exponent, variable: $variable, mySolveColor: $mySolveColor, myColor: $myColor)
             } else {
-                CylindricalVectorKeyBoardConstants(exponents: $exponents, coefficient: $component.coefficient)
+                CylindricalVectorKeyBoardConstants(exponents: $exponents, coefficient: $component.coefficient, mySolveColor: $mySolveColor, myColor: $myColor)
             }
         }
     }
@@ -1647,6 +1661,7 @@ struct SphericalVectorKeyBoard: View {
 
 struct SphericalConstantExponentButton: View {
     @Binding var exponents: Bool
+    @Binding var mySolveColor: String
     
     var body: some View {
         VStack {
@@ -1676,7 +1691,7 @@ struct SphericalConstantExponentButton: View {
                     .padding()
                     .frame(width: UIScreen.main.bounds.width / 3.2)
                     .background(RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(.green.opacity(0.3)))
+                        .foregroundColor(Color(mySolveColor).opacity(0.3)))
                 }
             }
         }
@@ -1686,16 +1701,18 @@ struct SphericalConstantExponentButton: View {
 struct SphericalVectorKeyBoardConstants: View {
     @Binding var exponents: Bool
     @Binding var coefficient: String
+    @Binding var mySolveColor: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
-            CylindricalVectorKeyRowConstants(start: 1, end: 3, coefficient: $coefficient)
-            CylindricalVectorKeyRowConstants(start: 4, end: 6, coefficient: $coefficient)
-            CylindricalVectorKeyRowConstants(start: 7, end: 9, coefficient: $coefficient)
+            CylindricalVectorKeyRowConstants(start: 1, end: 3, coefficient: $coefficient, myColor: $myColor)
+            CylindricalVectorKeyRowConstants(start: 4, end: 6, coefficient: $coefficient, myColor: $myColor)
+            CylindricalVectorKeyRowConstants(start: 7, end: 9, coefficient: $coefficient, myColor: $myColor)
             HStack {
-                ConstantExponentButton(exponents: $exponents)
-                CylindricalVectorKeyRowConstants(start: 0, end: 0, coefficient: $coefficient)
-                VectorKeyConstantsSpecial(key: ".", component: $coefficient)
+                ConstantExponentButton(exponents: $exponents, myColor: $mySolveColor)
+                CylindricalVectorKeyRowConstants(start: 0, end: 0, coefficient: $coefficient, myColor: $myColor)
+                VectorKeyConstantsSpecial(key: ".", component: $coefficient, myColor: $mySolveColor)
             }
         }
     }
@@ -1705,11 +1722,12 @@ struct SphericalVectorKeyRowConstants: View {
     @State var start: Int
     @State var end: Int
     @Binding var coefficient: String
+    @Binding var myColor: String
     
     var body: some View {
         HStack {
             ForEach(start..<end + 1, id: \.self) { item in
-                VectorKeyConstants(key: item, coefficient: $coefficient)
+                VectorKeyConstants(key: item, coefficient: $coefficient, myColor: $myColor)
             }
         }
     }
@@ -1718,6 +1736,7 @@ struct SphericalVectorKeyRowConstants: View {
 struct SphericalVectorKeyConstants: View {
     @State var key: Int
     @Binding var coefficient: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
@@ -1730,7 +1749,7 @@ struct SphericalVectorKeyConstants: View {
                     .padding()
                     .frame(width: UIScreen.main.bounds.width / 3.2)
                     .background(RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(.green.opacity(0.3)))
+                        .foregroundColor(Color(myColor).opacity(0.3)))
             }
         }
     }
@@ -1743,6 +1762,7 @@ struct SphericalVectorKeyVariable: View {
     @Binding var component: CartesianTerms
     @Binding var variable: Variable
     let label: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
@@ -1781,7 +1801,7 @@ struct SphericalVectorKeyVariable: View {
                     .padding()
                     .frame(width: UIScreen.main.bounds.width / 3.2)
                     .background(RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(.green.opacity(0.3)))
+                        .foregroundColor(Color(myColor).opacity(0.3)))
             }
         }
     }
@@ -1793,11 +1813,12 @@ struct SphericalVectorKeyRowVariables: View {
     var variableTexts: [String]
     @Binding var component: CartesianTerms
     @Binding var variable: Variable
+    @Binding var myColor: String
     
     var body: some View {
         HStack {
             ForEach(start..<end, id: \.self) { item in
-                VectorKeyVariable(variableText: variableTexts[item], component: $component, variable: $variable, label: variableTexts[item])
+                VectorKeyVariable(variableText: variableTexts[item], component: $component, variable: $variable, label: variableTexts[item], myColor: $myColor)
             }
         }
     }
@@ -1813,18 +1834,20 @@ struct SphericalVectorKeyBoardVariables: View {
     @Binding var term: SphericalTerms
     @Binding var axis: SphericalCoordinateComponent
     @Binding var sphericalComponent: SphericalComponent
+    @Binding var mySolveColor: String
+    @Binding var myColor: String
     
     var body: some View {
         VStack {
-            CylindricalVectorKeyRowVariables(start: 0, end: 3, variableTexts: variableTexts, component: $component, variable: $variable)
-            CylindricalVectorKeyRowVariables(start: 3, end: 6, variableTexts: variableTexts, component: $component, variable: $variable)
-            CylindricalVectorKeyRowVariables(start: 6, end: 9, variableTexts: variableTexts, component: $component, variable: $variable)
+            CylindricalVectorKeyRowVariables(start: 0, end: 3, variableTexts: variableTexts, component: $component, variable: $variable, myColor: $myColor)
+            CylindricalVectorKeyRowVariables(start: 3, end: 6, variableTexts: variableTexts, component: $component, variable: $variable, myColor: $myColor)
+            CylindricalVectorKeyRowVariables(start: 6, end: 9, variableTexts: variableTexts, component: $component, variable: $variable, myColor: $myColor)
             HStack {
 //                ConstantExponentButton(exponents: $exponents)
-                TrigConstantButton(trignometry: $trignometry)
-                VectorKeyRowConstants(start: 0, end: 0, coefficient: $coefficient)
+                TrigConstantButton(trignometry: $trignometry, mySolveColor: $mySolveColor)
+                VectorKeyRowConstants(start: 0, end: 0, coefficient: $coefficient, myColor: $myColor)
 //                VectorKeyConstantsSpecial(key: ".", component: $coefficient)
-                SphericalTrigKeyVariableClose(axis: $axis, component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent)
+                SphericalTrigKeyVariableClose(axis: $axis, component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent, mySolveColor: $mySolveColor)
             }
         }
     }
@@ -1833,6 +1856,7 @@ struct SphericalVectorKeyBoardVariables: View {
 struct SphericalVariableConstantButton: View {
     var title: String
     @Binding var variables: Bool
+    @Binding var mySolveColor: String
     
     var body: some View {
         Button{
@@ -1844,7 +1868,7 @@ struct SphericalVariableConstantButton: View {
                 .foregroundColor(.black)
                 .padding()
                 .background(RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(.green.opacity(0.3)))
+                    .foregroundColor(Color(mySolveColor).opacity(0.3)))
         }
     }
 }

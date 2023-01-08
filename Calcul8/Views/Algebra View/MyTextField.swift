@@ -35,6 +35,7 @@ struct Components: View {
 }
 
 struct MyTextField: View {
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
     @Binding var expression: Expression
     @Binding var toPerform: [AlgebraOperation]
     @Binding var operationSymbols: [String]
@@ -62,7 +63,7 @@ struct MyTextField: View {
                     }
                     .padding(.horizontal, 10.0)
                     .background(RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(.green.opacity(0.6)))
+                        .foregroundColor(Color(standardOperator).opacity(0.6)))
                     .padding(.horizontal, 3)
                 }
                 .padding(10)

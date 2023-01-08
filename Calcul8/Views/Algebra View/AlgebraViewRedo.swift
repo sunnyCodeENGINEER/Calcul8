@@ -855,15 +855,7 @@ struct AlgebraViewRedo: View {
                         if isPresent {
                             while (z < toBeFactored.expression.count) {
                                 k = 0
-                                print("\n verify - \(toBeFactored.expression.count)")
-                                print("\n\n Here we are...\n")
-                                print(toBeFactored.expression.count)
-                                print(j)
-                                print(factorizeOutBases)
-                                //MARK: work here
                                 while (k < j) {
-                                    print(j)
-                                    print("\n\n Here we are...\n")
                                     toBeFactored.expression[z].terms[k].exponent = String((Int(toBeFactored.expression[z].terms[k].exponent) ?? 1) - (Int(factorizeOutExpo[k]) ?? 0))
                                     
                                     tryyy = String((Double(toBeFactored.expression[z].terms[k].exponent) ?? 1) - (Double(factorizeOutExpo[k]) ?? 0))
@@ -905,7 +897,6 @@ struct AlgebraViewRedo: View {
                 k = 0
                 
                 
-                //MARK: work here
                 finexpressions = FactoredTerm(expression2: [factored], factors: [factorizeOutBases], factorsExpo: [factorizeOutExpo])
                 print(finexpressions)
                 
@@ -949,13 +940,14 @@ struct AlgebraViewRedo: View {
     }
 }
 
-struct AlgebraViewRedo_Previews: PreviewProvider {
-    static var previews: some View {
-        AlgebraViewRedo()
-    }
-}
+//struct AlgebraViewRedo_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AlgebraViewRedo()
+//    }
+//}
 
 struct AlgebraButtonRedo: View {
+    @AppStorage("standardButton") var standardButton: String = "standardButton"
     @State var number: Int
     @Binding var coefficient: String
     @Binding var operation: AlgebraOperation
@@ -982,13 +974,14 @@ struct AlgebraButtonRedo: View {
                 .padding()
                 .frame(width: UIScreen.main.bounds.width / 3.2)
                 .background(RoundedRectangle(cornerRadius: 30)
-                    .foregroundColor(.green.opacity(0.3)))
+                    .foregroundColor(Color(standardButton).opacity(0.3)))
             
         }
     }
 }
 
 struct AlgebraButtonDecimalRedo: View {
+    @AppStorage("standardButton") var standardButton: String = "standardButton"
     @State var decimal: String
     @Binding var coefficient: String
     var body: some View {
@@ -1002,7 +995,7 @@ struct AlgebraButtonDecimalRedo: View {
                 .padding()
                 .frame(width: UIScreen.main.bounds.width / 3.2)
                 .background(RoundedRectangle(cornerRadius: 30)
-                    .foregroundColor(.green.opacity(0.3)))
+                    .foregroundColor(Color(standardButton).opacity(0.3)))
             
         }
     }
@@ -1044,6 +1037,7 @@ struct AlgebraExponentButtonRedo: View {
 }
 
 struct AlgebraExponentDecimalButtonRedo: View {
+    @AppStorage("standardButton") var standardButton: String = "standardButton"
     @State var number: String
     @Binding var expo: String
     @Binding var base: String
@@ -1073,7 +1067,7 @@ struct AlgebraExponentDecimalButtonRedo: View {
             .padding()
             .frame(width: UIScreen.main.bounds.width / 3.2)
             .background(RoundedRectangle(cornerRadius: 30)
-                .foregroundColor(.green.opacity(0.3)))
+                .foregroundColor(Color(standardButton).opacity(0.3)))
         }
     }
 }
@@ -1085,6 +1079,7 @@ struct AlgebraExponentButtonRedo_Previews: PreviewProvider {
 }
 
 struct AlgebraVariableButtonRedo: View {
+    @AppStorage("standardButton") var standardButton: String = "standardButton"
     @Binding var variable: String
     @Binding var base: String
     @Binding var expo: String
@@ -1135,12 +1130,13 @@ struct AlgebraVariableButtonRedo: View {
                 .padding()
                 .frame(width: UIScreen.main.bounds.width / 3.2)
                 .background(RoundedRectangle(cornerRadius: 30)
-                    .foregroundColor(.green.opacity(0.3)))
+                    .foregroundColor(Color(standardButton).opacity(0.3)))
         }
     }
 }
 
 struct AlgebraSpecialButtonRedo: View {
+    @AppStorage("standardButton") var standardButton: String = "standardButton"
     @State var character: String
     var body: some View {
         Button {
@@ -1153,12 +1149,13 @@ struct AlgebraSpecialButtonRedo: View {
                 .padding()
                 .frame(width: UIScreen.main.bounds.width / 3.2)
                 .background(RoundedRectangle(cornerRadius: 30)
-                    .foregroundColor(.green.opacity(0.3)))
+                    .foregroundColor(Color(standardButton).opacity(0.3)))
         }
     }
 }
 
 struct VarConstButtonsRedo: View {
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
     var title: String
     @Binding var variables: Bool
     
@@ -1172,7 +1169,7 @@ struct VarConstButtonsRedo: View {
                 .foregroundColor(.black)
                 .padding()
                 .background(RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(.green.opacity(0.3)))
+                    .foregroundColor(Color(standardOperator).opacity(0.3)))
         }
     }
 }
@@ -1364,6 +1361,7 @@ struct OperationButtonsRedo: View {
 }
 
 struct AlgebraNumberExponentButtonRedo: View {
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
     @Binding var exponents: Bool
     
     var body: some View {
@@ -1381,12 +1379,13 @@ struct AlgebraNumberExponentButtonRedo: View {
             .padding()
             .frame(width: UIScreen.main.bounds.width / 3.2)
             .background(RoundedRectangle(cornerRadius: 30)
-                .foregroundColor(.green.opacity(0.3)))
+                .foregroundColor(Color(standardOperator).opacity(0.3)))
         }
     }
 }
 
 struct AlgebraExponentNumberButtonRedo: View {
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
     @Binding var exponents: Bool
     
     var body: some View {
@@ -1399,12 +1398,13 @@ struct AlgebraExponentNumberButtonRedo: View {
                 .padding()
                 .frame(width: UIScreen.main.bounds.width / 3.2)
                 .background(RoundedRectangle(cornerRadius: 30)
-                    .foregroundColor(.green.opacity(0.3)))
+                    .foregroundColor(Color(standardOperator).opacity(0.3)))
         }
     }
 }
 
 struct DifferentiateVariableButton: View {
+    @AppStorage("standardButton") var standardButton: String = "standardButton"
     @State var variable: String
     @Binding var differentiateVariable: String
     

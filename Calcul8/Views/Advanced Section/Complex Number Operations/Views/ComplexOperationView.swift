@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ComplexOperationView: View {
+    @Binding var solveColor: String
+    
     @State var number1: ComplexNumber = ComplexNumber()
     @State var number2: ComplexNumber = ComplexNumber()
     @State var number1StringReal : String = ""
@@ -158,7 +160,7 @@ struct ComplexOperationView: View {
                             .foregroundColor(Color("solve"))
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 15)
-                                .foregroundColor(Color("standardOperator")))
+                                .foregroundColor(Color(solveColor)))
                     }
                     .padding(.bottom)
                 }
@@ -226,6 +228,6 @@ struct ComplexOperationView: View {
 
 struct ComplexOperationView_Previews: PreviewProvider {
     static var previews: some View {
-        ComplexOperationView()
+        ComplexOperationView(solveColor: .constant(""))
     }
 }
