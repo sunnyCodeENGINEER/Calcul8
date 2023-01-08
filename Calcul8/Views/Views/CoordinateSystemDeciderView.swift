@@ -10,19 +10,34 @@ import SwiftUI
 struct CoordinateSystemDeciderView: View {
     @Binding var coordinateSystem: CoordinateSystem
     @Binding var standardOperator: String
-    
+    @Binding var selection: AdvancedCalculation
     var body: some View {
-        VStack {
-            CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .cartesian, title: "Cartesian Coordinate System", standardOperator: $standardOperator)
-            CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .cylindrical, title: "Cylindrical Coordinate System", standardOperator: $standardOperator)
-            CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .spherical, title: "Spherical Coordinate System", standardOperator: $standardOperator)
+        ZStack {
+            VStack {
+                HStack {
+                    Button {
+                        selection = .none
+                    } label: {
+                        Text("Back")
+                            .padding()
+                    }
+                    Spacer()
+                }
+                Spacer()
+            }
+            
+            VStack {
+                CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .cartesian, title: "Cartesian Coordinate System", standardOperator: $standardOperator)
+                CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .cylindrical, title: "Cylindrical Coordinate System", standardOperator: $standardOperator)
+                CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .spherical, title: "Spherical Coordinate System", standardOperator: $standardOperator)
+            }
         }
     }
 }
 
 struct CoordinateSystemDeciderView_Previews: PreviewProvider {
     static var previews: some View {
-        CoordinateSystemDeciderView(coordinateSystem: .constant(.none),standardOperator: .constant(""))
+        CoordinateSystemDeciderView(coordinateSystem: .constant(.none),standardOperator: .constant(""), selection: .constant(.none))
     }
 }
 

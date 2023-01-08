@@ -20,9 +20,9 @@ struct AdvancedCalculationNavigator: View {
         } else if selection == .vector {
 //            CoordinateSystemsView(operation: $operation)
 //            RectangularVectorComponentDecider(selection: $selection)
-            CoordinateSystemDecider()
+            CoordinateSystemDecider(selection: $selection)
         } else if selection == .algebra {
-            AlgebraViewRedo()
+            AlgebraViewRedo(selection: $selection)
             
         }
     }

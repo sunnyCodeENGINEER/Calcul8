@@ -8,195 +8,213 @@
 import SwiftUI
 
 struct AlgebraViewRedo: View {
-    @State var expression = Expression()
-    @State var expression2: [Expression] = []
-    @State var previousExpression = Expression()
-    @State var factors: [[String]] = []
-    @State var factorsExpo: [[String]] = []
-    @State var factoredExpression: FactoredExpression = FactoredExpression()
-    @State var coefficient: String = ""
+    @State private var expression = Expression()
+    @State private var expression2: [Expression] = []
+    @State private var previousExpression = Expression()
+    @State private var factors: [[String]] = []
+    @State private var factorsExpo: [[String]] = []
+    @State private var factoredExpression: FactoredExpression = FactoredExpression()
+    @State private var coefficient: String = ""
     
-    @State var receive: Bool = false
-    @State var base: String = ""
-    @State var expo: String = ""
-    @State var currentSign: Sign = .positive
-    @State var operation: AlgebraOperation = .none
-    @State var variables: Bool = false
-    @State var exponents: Bool = false
-    @State var variablesArray: [String] = ["x", "y", "z", "a", "b", "c", "u", "v", "w"]
-    @State var vars: [Term] = []
-    @State var answerVars: [Term] = []
-    @State var toPerform: [AlgebraOperation] = []
-    @State var operationSymbol: String = ""
-    @State var operationSymbols: [String] = [""]
-    @State var rep: [Term] = [Term(base: "1", exponent: "1", sign: .constant(.positive))]
-    @State var differentiateVariable: String = ""
-    @State var receiveDifferentiationVariable: Bool = false
-    @State var answer: (String, [Term]) = ("", [])
+    @State private var receive: Bool = false
+    @State private var base: String = ""
+    @State private var expo: String = ""
+    @State private var currentSign: Sign = .positive
+    @State private var operation: AlgebraOperation = .none
+    @State private var variables: Bool = false
+    @State private var exponents: Bool = false
+    @State private var variablesArray: [String] = ["x", "y", "z", "a", "b", "c", "u", "v", "w"]
+    @State private var vars: [Term] = []
+    @State private var answerVars: [Term] = []
+    @State private var toPerform: [AlgebraOperation] = []
+    @State private var operationSymbol: String = ""
+    @State private var operationSymbols: [String] = [""]
+    @State private var rep: [Term] = [Term(base: "1", exponent: "1", sign: .constant(.positive))]
+    @State private var differentiateVariable: String = ""
+    @State private var receiveDifferentiationVariable: Bool = false
+    @State private var answer: (String, [Term]) = ("", [])
     
-    @State var answerCoefficient = ""
-    @State var showFactorized: Bool = false
-    @State var showTextField: Bool = true
-    @State var tryComp: [Term] = [Term(base: "x", exponent: "7", sign: .constant(.positive)), Term(base: "y", exponent: "12", sign: .constant(.positive))]
-    @State var trycoeff: String = "4"
+    @State private var answerCoefficient = ""
+    @State private var showFactorized: Bool = false
+    @State private var showTextField: Bool = true
+    @State private var tryComp: [Term] = [Term(base: "x", exponent: "7", sign: .constant(.positive)), Term(base: "y", exponent: "12", sign: .constant(.positive))]
+    @State private var trycoeff: String = "4"
+    
+    @Binding var selection: AdvancedCalculation
+    
     var body: some View {
-        VStack {
-            Spacer()
+        ZStack {
             VStack {
-                Text(operationSymbol)
-                if showFactorized {
-                    FactoredView(factoredExpression: $factoredExpression)
-                }
-                if showTextField {
-                    MyTextField(expression: $expression, toPerform: $toPerform, operationSymbols: $operationSymbols)
-                }
-                Button {
-                    if !differentiateVariable.isEmpty {
-                        expression = differentaiteExpression(base: differentiateVariable, expressionDiff: expression)
+                HStack {
+                    Button {
+                        selection = .none
+                    } label: {
+                        Text("Back")
+                            .padding()
                     }
-                } label: {
-                    Text("differentiate Expressions")
+                    Spacer()
                 }
-                Button {
-                    if !differentiateVariable.isEmpty {
-                        expression = integrateExpression(base: differentiateVariable, expressionDiff: expression)
+                Spacer()
+            }
+            
+            VStack {
+                Spacer()
+                VStack {
+                    Text(operationSymbol)
+                    if showFactorized {
+                        FactoredView(factoredExpression: $factoredExpression)
                     }
-                } label: {
-                    Text("integrate Expressions")
+                    if showTextField {
+                        MyTextField(expression: $expression, toPerform: $toPerform, operationSymbols: $operationSymbols)
+                    }
+                    Button {
+                        if !differentiateVariable.isEmpty {
+                            expression = differentaiteExpression(base: differentiateVariable, expressionDiff: expression)
+                        }
+                    } label: {
+                        Text("differentiate Expressions")
+                    }
+                    Button {
+                        if !differentiateVariable.isEmpty {
+                            expression = integrateExpression(base: differentiateVariable, expressionDiff: expression)
+                        }
+                    } label: {
+                        Text("integrate Expressions")
+                    }
+                    
                 }
-                
-            }
-            VStack {
-                Button {
-                    solve(toSolve: expression, perform: toPerform)
-                    answerVars.removeAll()
-                    answerCoefficient.removeAll()
-                    base.removeAll()
-                    expo.removeAll()
-                    coefficient.removeAll()
-                    vars.removeAll()
-                    operationSymbol.removeAll()
-                    showFactorized = true
-                } label: {
-                    Text("Solve")
+                VStack {
+                    Button {
+                        solve(toSolve: expression, perform: toPerform)
+                        answerVars.removeAll()
+                        answerCoefficient.removeAll()
+                        base.removeAll()
+                        expo.removeAll()
+                        coefficient.removeAll()
+                        vars.removeAll()
+                        operationSymbol.removeAll()
+                        showFactorized = true
+                    } label: {
+                        Text("Solve")
+                    }
+                    
+                    Button {
+                        showTextField = false
+                        expression.expression.removeAll()
+                        expression2.removeAll()
+                        answerVars.removeAll()
+                        answerCoefficient.removeAll()
+                        base.removeAll()
+                        expo.removeAll()
+                        coefficient.removeAll()
+                        vars.removeAll()
+                        operationSymbol.removeAll()
+                        operationSymbols = [""]
+                        operation = .none
+                        toPerform.removeAll()
+                        factoredExpression.expressions.removeAll()
+                        showFactorized = false
+                        showTextField = true
+                    } label: {
+                        Text("Clear")
+                    }
                 }
-                
-                Button {
-                    showTextField = false
-                    expression.expression.removeAll()
-                    expression2.removeAll()
-                    answerVars.removeAll()
-                    answerCoefficient.removeAll()
-                    base.removeAll()
-                    expo.removeAll()
-                    coefficient.removeAll()
-                    vars.removeAll()
-                    operationSymbol.removeAll()
-                    operationSymbols = [""]
-                    operation = .none
-                    toPerform.removeAll()
-                    factoredExpression.expressions.removeAll()
-                    showFactorized = false
-                    showTextField = true
-                } label: {
-                    Text("Clear")
-                }
-            }
-            VStack {
-                Text(String(expression.expression.count))
-                Text(String(toPerform.count))
-                if operation == .differentiate {
-                    HStack {
-                        Text("Differentiate in terms of ")
-                        Button {
-                            withAnimation(.easeOut) {
-                                receiveDifferentiationVariable = true
+                VStack {
+                    Text(String(expression.expression.count))
+                    Text(String(toPerform.count))
+                    if operation == .differentiate {
+                        HStack {
+                            Text("Differentiate in terms of ")
+                            Button {
+                                withAnimation(.easeOut) {
+                                    receiveDifferentiationVariable = true
+                                }
+                            } label: {
+                                Text(differentiateVariable.isEmpty ? "Tap to input" : differentiateVariable)
+                                    .padding()
+                                    .frame(width: UIScreen.main.bounds.width / 3.2)
+                                    .background(RoundedRectangle(cornerRadius: 30)
+                                        .foregroundColor(.green.opacity(0.3)))
                             }
-                        } label: {
-                            Text(differentiateVariable.isEmpty ? "Tap to input" : differentiateVariable)
-                                .padding()
-                                .frame(width: UIScreen.main.bounds.width / 3.2)
-                                .background(RoundedRectangle(cornerRadius: 30)
-                                    .foregroundColor(.green.opacity(0.3)))
+                        }
+                    }
+                    if operation == .integrate {
+                        HStack {
+                            Text("Integrate in terms of ")
+                            Button {
+                                withAnimation(.easeOut) {
+                                    receiveDifferentiationVariable = true
+                                }
+                            } label: {
+                                Text(differentiateVariable.isEmpty ? "Tap to input" : differentiateVariable)
+                                    .padding()
+                                    .frame(width: UIScreen.main.bounds.width / 3.2)
+                                    .background(RoundedRectangle(cornerRadius: 30)
+                                        .foregroundColor(.green.opacity(0.3)))
+                            }
                         }
                     }
                 }
-                if operation == .integrate {
-                    HStack {
-                        Text("Integrate in terms of ")
-                        Button {
-                            withAnimation(.easeOut) {
-                                receiveDifferentiationVariable = true
-                            }
-                        } label: {
-                            Text(differentiateVariable.isEmpty ? "Tap to input" : differentiateVariable)
-                                .padding()
-                                .frame(width: UIScreen.main.bounds.width / 3.2)
-                                .background(RoundedRectangle(cornerRadius: 30)
-                                    .foregroundColor(.green.opacity(0.3)))
-                        }
-                    }
-                }
-            }
-            HStack(alignment: .top, spacing: 1){
-                Text(answerCoefficient)
-                ForEach(answerVars) { item in
-                    Text(item.base)
-                    Text(item.exponent)
-                        .font(.caption)
-                }
-                .background(RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(.green.opacity(0.7)))
-            }
-            VStack {
-                Text(expo)
                 HStack(alignment: .top, spacing: 1){
-                    Text(coefficient)
-                    ForEach(vars) { item in
+                    Text(answerCoefficient)
+                    ForEach(answerVars) { item in
                         Text(item.base)
-                        if item.exponent != "1" {
-                            Text(item.exponent)
-                                .font(.caption2)
-                        }
+                        Text(item.exponent)
+                            .font(.caption)
                     }
                     .background(RoundedRectangle(cornerRadius: 10)
                         .foregroundColor(.green.opacity(0.7)))
                 }
-            }
-            OperationButtonsRedo(operation: $operation, base: $base, expo: $expo, vars: $vars, coefficient: $coefficient, expression: $expression, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
-            
-            if operation == .differentiate || operation == .integrate {
-                if receiveDifferentiationVariable {
-                    DifferentiateVariablesButtonsView(variablesArray: variablesArray, differentiateVariable: $differentiateVariable)
-                        .opacity(receiveDifferentiationVariable ? 1 : 0)
-                }
-            } else {
-                
-                HStack{
-                    if !variables {
-                        VarConstButtonsRedo(title: "Variables", variables: $variables)
-                            .opacity(!variables ? 1 : 0)
-                    }
-                    Spacer()
-                    if variables {
-                        VarConstButtonsRedo(title: "Numbers", variables: $variables)
-                            .opacity(variables ? 1 : 0)
+                VStack {
+                    Text(expo)
+                    HStack(alignment: .top, spacing: 1){
+                        Text(coefficient)
+                        ForEach(vars) { item in
+                            Text(item.base)
+                            if item.exponent != "1" {
+                                Text(item.exponent)
+                                    .font(.caption2)
+                            }
+                        }
+                        .background(RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(.green.opacity(0.7)))
                     }
                 }
+                OperationButtonsRedo(operation: $operation, base: $base, expo: $expo, vars: $vars, coefficient: $coefficient, expression: $expression, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
                 
-                
-                if !variables {
-                    if !exponents {
-                        AlgebraConstantButtonsRedo(coefficient: $coefficient, exponents: $exponents, operation: $operation, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
-                    } else {
-                        AlgebraExponentButtonsRedo(expo: $expo, exponents: $exponents, base: $base, vars: $vars)
+                if operation == .differentiate || operation == .integrate {
+                    if receiveDifferentiationVariable {
+                        DifferentiateVariablesButtonsView(variablesArray: variablesArray, differentiateVariable: $differentiateVariable)
+                            .opacity(receiveDifferentiationVariable ? 1 : 0)
                     }
                 } else {
-                    AlgebraVariableButtonsRedo(variablesArray: $variablesArray, base: $base, expo: $expo, vars: $vars, operation: $operation, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
+                    
+                    HStack{
+                        if !variables {
+                            VarConstButtonsRedo(title: "Variables", variables: $variables)
+                                .opacity(!variables ? 1 : 0)
+                        }
+                        Spacer()
+                        if variables {
+                            VarConstButtonsRedo(title: "Numbers", variables: $variables)
+                                .opacity(variables ? 1 : 0)
+                        }
+                    }
+                    
+                    
+                    if !variables {
+                        if !exponents {
+                            AlgebraConstantButtonsRedo(coefficient: $coefficient, exponents: $exponents, operation: $operation, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
+                        } else {
+                            AlgebraExponentButtonsRedo(expo: $expo, exponents: $exponents, base: $base, vars: $vars)
+                        }
+                    } else {
+                        AlgebraVariableButtonsRedo(variablesArray: $variablesArray, base: $base, expo: $expo, vars: $vars, operation: $operation, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
+                    }
                 }
             }
+            .padding()
         }
-        .padding()
     }
     func differentaiteExpression(base: String, expressionDiff: Expression) -> Expression {
         let toDifferentaiate = expressionDiff

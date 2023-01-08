@@ -11,6 +11,7 @@ struct CoordinateSystemDecider: View {
     @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
     @AppStorage("standardButton") var standardButton: String = "standardButton"
     @AppStorage("buttonRadius") var buttonRadius: Double = 0.0
+    @Binding var selection: AdvancedCalculation
     
     @State var coordinateSystem: CoordinateSystem = .none
     
@@ -22,13 +23,13 @@ struct CoordinateSystemDecider: View {
         } else if coordinateSystem == .spherical {
             SphericalCoordinateView(coordinateSystem: $coordinateSystem, myColor: $standardButton, mySolveColor: $standardOperator)
         } else {
-            CoordinateSystemDeciderView(coordinateSystem: $coordinateSystem, standardOperator: $standardOperator)
+            CoordinateSystemDeciderView(coordinateSystem: $coordinateSystem, standardOperator: $standardOperator, selection: $selection)
         }
     }
 }
 
 struct CoordinateSystemDecider_Previews: PreviewProvider {
     static var previews: some View {
-        CoordinateSystemDecider()
+        CoordinateSystemDecider(selection: .constant(.none))
     }
 }
