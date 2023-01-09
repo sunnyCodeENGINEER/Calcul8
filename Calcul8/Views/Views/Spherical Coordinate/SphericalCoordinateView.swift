@@ -31,10 +31,10 @@ struct SphericalCoordinateView: View {
     @State private var trignometry: Bool = false
     @State var exponents: Bool = false
     
-    @State var animateLogo: Bool = false
-    @State var showMenu: Bool = false
-    @State var menuOpacity: Bool = false
-    @State var width: CGFloat = UIScreen.main.bounds.width / 8
+    @State private var animateLogo: Bool = false
+    @State private var showMenu: Bool = false
+    @State private var menuOpacity: Bool = false
+    @State private var width: CGFloat = UIScreen.main.bounds.width / 8
     
     var body: some View {
         ZStack {
@@ -47,6 +47,7 @@ struct SphericalCoordinateView: View {
                     } label: {
                         Image(systemName: "chevron.left")
                         Text("Back")
+//                            .padding()
                     }
                     .padding(.leading)
                     

@@ -15,62 +15,73 @@ struct AdvancedCalculationDeciderView: View {
     
     @Binding var selection: AdvancedCalculation
     
+    @State private var animateLogo: Bool = false
+    @State private var showMenu: Bool = false
+    @State private var menuOpacity: Bool = false
+    @State private var width: CGFloat = UIScreen.main.bounds.width / 8
     
-
     var body: some View {
         ZStack {
-            VStack {
-                HStack {
-                    Button {
-                        withAnimation(.easeOut) {
-                            selection = .none
+            ZStack {
+                VStack {
+                    HStack {
+                        Button {
+                            withAnimation(.easeOut) {
+                                selection = .none
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: "chevron.left")
+                                Text("Back")
+                                    
+                            }.padding(.leading)
                         }
-                    } label: {
-                        Text("Back")
-                            .padding()
+                        Spacer()
                     }
                     Spacer()
                 }
                 
-                Spacer()
-            }
-            
-            VStack {
-                Text("What form are the complex numbers in?")
-                    .font(.title)
-                
-                Button{
-                    withAnimation{
-                        complexNumber = false
-                        polarForm = true
-                    }
-                } label: {
-                    Text("Polar form")
-                        .foregroundColor(Color("solve"))
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 20)
-                            .frame(width: buttonWidth())
-                            .foregroundColor(Color(standardOperator)))
+                VStack {
+                    Text("What form are the complex numbers in?")
+                        .font(.title)
                     
-                }
-                .padding(.bottom)
-                
-                Button{
-                    withAnimation{
-                        complexNumber = true
-                        polarForm = false
+                    Button{
+                        withAnimation{
+                            complexNumber = false
+                            polarForm = true
+                        }
+                    } label: {
+                        Text("Polar form")
+                            .foregroundColor(Color("solve"))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 20)
+                                .frame(width: buttonWidth())
+                                .foregroundColor(Color(standardOperator)))
+                        
                     }
-                } label: {
-                    Text("Rectangular Form")
-                        .foregroundColor(Color("solve"))
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 20)
-                            .frame(width: buttonWidth())
-                            .foregroundColor(Color(standardOperator)))
+                    .padding(.bottom)
+                    
+                    Button{
+                        withAnimation{
+                            complexNumber = true
+                            polarForm = false
+                        }
+                    } label: {
+                        Text("Rectangular Form")
+                            .foregroundColor(Color("solve"))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 20)
+                                .frame(width: buttonWidth())
+                                .foregroundColor(Color(standardOperator)))
+                    }
+                    .padding(.bottom)
                 }
-                .padding(.bottom)
             }
+            .opacity(showMenu ? 0.2 : 1)
+            
+            LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
         }
+        
     }
     
     func buttonWidth() -> CGFloat {

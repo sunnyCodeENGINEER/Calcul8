@@ -11,26 +11,38 @@ struct CoordinateSystemDeciderView: View {
     @Binding var coordinateSystem: CoordinateSystem
     @Binding var standardOperator: String
     @Binding var selection: AdvancedCalculation
+    
+    @State private var animateLogo: Bool = false
+    @State private var showMenu: Bool = false
+    @State private var menuOpacity: Bool = false
+    @State private var width: CGFloat = UIScreen.main.bounds.width / 8
+    
     var body: some View {
         ZStack {
-            VStack {
-                HStack {
-                    Button {
-                        selection = .none
-                    } label: {
-                        Text("Back")
-                            .padding()
+            ZStack {
+                VStack {
+                    HStack {
+                        Button {
+                            selection = .none
+                        } label: {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                                
+                        }.padding(.leading)
+                        Spacer()
                     }
                     Spacer()
                 }
-                Spacer()
+                
+                VStack {
+                    CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .cartesian, title: "Cartesian Coordinate System", standardOperator: $standardOperator)
+                    CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .cylindrical, title: "Cylindrical Coordinate System", standardOperator: $standardOperator)
+                    CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .spherical, title: "Spherical Coordinate System", standardOperator: $standardOperator)
+                }
             }
+            .opacity(showMenu ? 0.2 : 1)
             
-            VStack {
-                CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .cartesian, title: "Cartesian Coordinate System", standardOperator: $standardOperator)
-                CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .cylindrical, title: "Cylindrical Coordinate System", standardOperator: $standardOperator)
-                CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .spherical, title: "Spherical Coordinate System", standardOperator: $standardOperator)
-            }
+            LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
         }
     }
 }
