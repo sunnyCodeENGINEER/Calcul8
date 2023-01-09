@@ -19,6 +19,7 @@ This is a modern calculator iOS application that is capable of doing basic and m
   * Improved Subtraction function.
 * Completed curl function.  
 * Refining the UI.
+* Still working on refining the UI.
 
 ## Had to redo vector view.
 * Added new vector view files from SwiftTry.
