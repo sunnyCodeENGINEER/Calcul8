@@ -20,6 +20,7 @@ This is a modern calculator iOS application that is capable of doing basic and m
 * Completed curl function.  
 * Refining the UI.
 * Still working on refining the UI.
+* Started working on finishing up algebra view.
 
 ## Had to redo vector view.
 * Added new vector view files from SwiftTry.
