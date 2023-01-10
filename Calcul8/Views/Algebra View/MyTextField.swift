@@ -35,7 +35,7 @@ struct Components: View {
 }
 
 struct MyTextField: View {
-    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
+    @AppStorage("standardButton") var standardButton: String = "standardButton"
     @Binding var expression: Expression
     @Binding var toPerform: [AlgebraOperation]
     @Binding var operationSymbols: [String]
@@ -61,16 +61,23 @@ struct MyTextField: View {
                             
                         }
                     }
-                    .padding(.horizontal, 10.0)
-                    .background(RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(Color(standardOperator).opacity(0.6)))
-                    .padding(.horizontal, 3)
+//                    .padding(.horizontal, 10.0)
+//                    .background(RoundedRectangle(cornerRadius: 30)
+//                        .foregroundColor(Color(standardButton).opacity(0.6)))
+//                    .padding(.horizontal, 3)
                 }
-                .padding(10)
-                .background(RoundedRectangle(cornerRadius: 30)
-                    .foregroundColor(.black.opacity(0.3)))
+//                .padding(10)
+//                .background(RoundedRectangle(cornerRadius: 30)
+//                    .foregroundColor(.black.opacity(0.3)))
+            } else {
+                Text("0")
             }
         }
+        .padding(.horizontal, 10.0)
+        .padding(.vertical, 10.0)
+        .background(RoundedRectangle(cornerRadius: 30)
+            .foregroundColor(Color(standardButton).opacity(0.6))
+            .frame(minWidth: 50))
     }
 }
 

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AlgebraViewRedo: View {
+    @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
+    
     @State private var expression = Expression()
     @State private var expression2: [Expression] = []
     @State private var previousExpression = Expression()
@@ -69,43 +71,29 @@ struct AlgebraViewRedo: View {
                     Spacer()
                     VStack {
                         Text(operationSymbol)
-                        if showFactorized {
+                        if operation == .factorize {
                             FactoredView(factoredExpression: $factoredExpression)
                         }
                         if showTextField {
                             MyTextField(expression: $expression, toPerform: $toPerform, operationSymbols: $operationSymbols)
                         }
-                        Button {
-                            if !differentiateVariable.isEmpty {
-                                expression = differentaiteExpression(base: differentiateVariable, expressionDiff: expression)
-                            }
-                        } label: {
-                            Text("differentiate Expressions")
-                        }
-                        Button {
-                            if !differentiateVariable.isEmpty {
-                                expression = integrateExpression(base: differentiateVariable, expressionDiff: expression)
-                            }
-                        } label: {
-                            Text("integrate Expressions")
-                        }
+//                        Button {
+//                            if !differentiateVariable.isEmpty {
+//                                expression = differentaiteExpression(base: differentiateVariable, expressionDiff: expression)
+//                            }
+//                        } label: {
+//                            Text("differentiate Expressions")
+//                        }
+//                        Button {
+//                            if !differentiateVariable.isEmpty {
+//                                expression = integrateExpression(base: differentiateVariable, expressionDiff: expression)
+//                            }
+//                        } label: {
+//                            Text("integrate Expressions")
+//                        }
                         
                     }
-                    VStack {
-                        Button {
-                            solve(toSolve: expression, perform: toPerform)
-                            answerVars.removeAll()
-                            answerCoefficient.removeAll()
-                            base.removeAll()
-                            expo.removeAll()
-                            coefficient.removeAll()
-                            vars.removeAll()
-                            operationSymbol.removeAll()
-                            showFactorized = true
-                        } label: {
-                            Text("Solve")
-                        }
-                        
+                    HStack {
                         Button {
                             showTextField = false
                             expression.expression.removeAll()
@@ -190,6 +178,32 @@ struct AlgebraViewRedo: View {
                     }
                     OperationButtonsRedo(operation: $operation, base: $base, expo: $expo, vars: $vars, coefficient: $coefficient, expression: $expression, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
                     
+                    HStack {
+                        Spacer()
+                        
+                        Button {
+                            solve(toSolve: expression, perform: toPerform)
+                            solvePlus()
+                            answerVars.removeAll()
+                            answerCoefficient.removeAll()
+                            base.removeAll()
+                            expo.removeAll()
+                            coefficient.removeAll()
+                            vars.removeAll()
+                            operationSymbol.removeAll()
+                            showFactorized = true
+                        } label: {
+                            Text("Solve")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color("solve"))
+                                .padding()
+                                .background(RoundedRectangle(cornerRadius: 15)
+                                    .foregroundColor(Color(standardOperator)))
+                                .padding()
+                        }
+                    }
+                    
                     if operation == .differentiate || operation == .integrate {
                         if receiveDifferentiationVariable {
                             DifferentiateVariablesButtonsView(variablesArray: variablesArray, differentiateVariable: $differentiateVariable)
@@ -228,6 +242,18 @@ struct AlgebraViewRedo: View {
             LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
         }
     }
+    func solvePlus() {
+        if operation == .integrate {
+            if !differentiateVariable.isEmpty {
+                expression = integrateExpression(base: differentiateVariable, expressionDiff: expression)
+            }
+        } else if operation == .differentiate {
+            if !differentiateVariable.isEmpty {
+                expression = differentaiteExpression(base: differentiateVariable, expressionDiff: expression)
+            }
+        }
+    }
+    
     func differentaiteExpression(base: String, expressionDiff: Expression) -> Expression {
         let toDifferentaiate = expressionDiff
         var differentiatedExpression: Expression = Expression()
