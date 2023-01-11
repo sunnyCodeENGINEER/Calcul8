@@ -48,6 +48,7 @@ struct ComplexOperationView: View {
                         Image(systemName: "chevron.left")
                         Text("Back")
                     }
+                    .tint(Color(solveColor))
                     .padding(.leading)
                     
                     Spacer()
@@ -94,6 +95,7 @@ struct ComplexOperationView: View {
                         Text("Division").tag(ComplexNumberOperation.division)
                         Text("Convert To Polar Form").tag(ComplexNumberOperation.convertToPolarForm)
                     }
+                    .tint(Color(solveColor))
                     
                 }
                 
@@ -131,8 +133,10 @@ struct ComplexOperationView: View {
                             Text("Radians").tag(Unit.radians)
                             Text("Degrees").tag(Unit.degrees)
                         }
+                        .tint(Color(solveColor))
                         
-                    }            }
+                    }
+                }
                 
                 HStack {
                     Spacer()

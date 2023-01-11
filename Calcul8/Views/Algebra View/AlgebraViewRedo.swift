@@ -60,6 +60,7 @@ struct AlgebraViewRedo: View {
                             Image(systemName: "chevron.left")
                             Text("Back")
                         }
+                        .tint(Color(standardOperator))
                         .padding(.leading)
                         
                         Spacer()
@@ -114,6 +115,7 @@ struct AlgebraViewRedo: View {
                         } label: {
                             Text("Clear")
                         }
+                        .tint(Color(standardOperator))
                     }
                     VStack {
                         Text(String(expression.expression.count))
@@ -177,6 +179,7 @@ struct AlgebraViewRedo: View {
                         }
                     }
                     OperationButtonsRedo(operation: $operation, base: $base, expo: $expo, vars: $vars, coefficient: $coefficient, expression: $expression, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
+                        .tint(Color(standardOperator))
                     
                     HStack {
                         Spacer()
@@ -1408,7 +1411,7 @@ struct OperationButtonsRedo: View {
                     Text("factorize").tag(AlgebraOperation.factorize)
                     Text("differentiate").tag(AlgebraOperation.differentiate)
                     Text("integrate").tag(AlgebraOperation.integrate)
-                    Text("limit").tag(AlgebraOperation.limit)
+//                    Text("limit").tag(AlgebraOperation.limit)
                 }
             }
             .frame(minWidth: UIScreen.main.bounds.width / 5)

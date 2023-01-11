@@ -28,7 +28,9 @@ struct CoordinateSystemDeciderView: View {
                             Image(systemName: "chevron.left")
                             Text("Back")
                                 
-                        }.padding(.leading)
+                        }
+                        .tint(Color(standardOperator))
+                        .padding(.leading)
                         Spacer()
                     }
                     Spacer()

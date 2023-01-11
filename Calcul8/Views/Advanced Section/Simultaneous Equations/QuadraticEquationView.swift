@@ -9,6 +9,7 @@ import SwiftUI
 
 struct QuadraticEquationView: View {
     @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
+    @AppStorage("standardButton") var standardButton: String = "standardButton"
     
     @State var firstTerm: String = ""
     @State var secondTerm: String = ""
@@ -43,6 +44,7 @@ struct QuadraticEquationView: View {
                         Image(systemName: "chevron.left")
                         Text("Back")
                     }
+                    .tint(Color(standardOperator))
                     .padding(.leading)
                     
                     Spacer()
@@ -122,6 +124,7 @@ struct QuadraticEquationView: View {
                     Toggle(isOn: $decimal) {
                         Text("Decimal Form")
                     }
+                    .tint(Color(standardButton))
                 }
                 .padding()
                 .background(Color.gray.opacity(0.3))

@@ -48,6 +48,7 @@ struct CylindricalCoordinateView: View {
                         Image(systemName: "chevron.left")
                         Text("Back")
                     }
+                    .tint(Color(mySolveColor))
                     .padding(.leading)
                     
                     Spacer()
@@ -59,20 +60,27 @@ struct CylindricalCoordinateView: View {
                     VStack {
                         SphericalVectorTextField(vector: $vector1, receiveComponents: $recieveComponents, title: "vector 1", currentVector: $currentVector, setTo: 1, title1: "r", title2: "θ", title3: "z", myColor: $myColor)
                         CylindricalDoneButtonDecider(vector: $vector1, term: $term, component: $component, variable: $variable, currentComponent: $currentComponent, sphericalComponent: $sphericalComponent)
-                        OperationPicker(operation: $operation)
+                            .tint(Color(mySolveColor))
+                        SphericalOperationPicker(operation: $operation)
+                            .tint(Color(mySolveColor))
                         if operation != .curl && operation != .divergence {
                             SphericalVectorTextField(vector: $vector2, receiveComponents: $recieveComponents, title: "vector 2", currentVector: $currentVector, setTo: 2, title1: "r", title2: "θ", title3: "z", myColor: $myColor)
                             CylindricalDoneButtonDecider(vector: $vector2, term: $term, component: $component, variable: $variable, currentComponent: $currentComponent, sphericalComponent: $sphericalComponent)
+                                .tint(Color(mySolveColor))
                         }
                         MyCylindricalSolveButton(vector1: $vector1, vector2: $vector2, answerVector: $answerVector, receiveComponent: $recieveComponents, showAnser: $showAnswer, operation: $operation, myColor: $mySolveColor)
                     }
                 } else {
                     SphericalFunctionField(function: $vector1.xComponent, receiveComponents: $recieveComponents)
-                    OperationPicker(operation: $operation)
+                    SphericalOperationPicker(operation: $operation)
+                        .tint(Color(mySolveColor))
                     HStack {
                         SphericalClearAll(vector: $vector1, term: $term, component: $component)
+                            .tint(Color(mySolveColor))
                         SphericalClearButton(axis: $vector1.xComponent, term: $term, component: $component)
+                            .tint(Color(mySolveColor))
                         SphericalDoneButton(axis: $vector1.xComponent, term: $term, component: $component, variable: $variable, currentComponent: $currentComponent, sphericalComponent: $sphericalComponent)
+                            .tint(Color(mySolveColor))
                     }
                     MyCylindricalSolveButton(vector1: $vector1, vector2: $vector2, answerVector: $answerVector, receiveComponent: $recieveComponents, showAnser: $showAnswer, operation: $operation, myColor: $mySolveColor)
                 }

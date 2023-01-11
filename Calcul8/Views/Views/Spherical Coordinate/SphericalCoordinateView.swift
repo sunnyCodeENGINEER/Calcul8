@@ -47,8 +47,8 @@ struct SphericalCoordinateView: View {
                     } label: {
                         Image(systemName: "chevron.left")
                         Text("Back")
-//                            .padding()
                     }
+                    .tint(Color(mySolveColor))
                     .padding(.leading)
                     
                     Spacer()
@@ -60,20 +60,27 @@ struct SphericalCoordinateView: View {
                     VStack {
                         SphericalVectorTextField(vector: $vector1, receiveComponents: $recieveComponents, title: "vector 1", currentVector: $currentVector, setTo: 1, title1: "R", title2: "θ", title3: "ϕ", myColor: $myColor)
                         SphericalDoneButtonDecider(vector: $vector1, term: $term, component: $component, variable: $variable, currentComponent: $currentComponent, sphericalComponent: $sphericalComponent)
-                        OperationPicker(operation: $operation)
+                            .tint(Color(mySolveColor))
+                        SphericalOperationPicker(operation: $operation)
+                            .tint(Color(mySolveColor))
                         if operation != .curl && operation != .divergence {
                             SphericalVectorTextField(vector: $vector2, receiveComponents: $recieveComponents, title: "vector 2", currentVector: $currentVector, setTo: 2, title1: "R", title2: "θ", title3: "ϕ", myColor: $myColor)
                             SphericalDoneButtonDecider(vector: $vector2, term: $term, component: $component, variable: $variable, currentComponent: $currentComponent, sphericalComponent: $sphericalComponent)
+                                .tint(Color(mySolveColor))
                         }
                         MySphericalSolveButton(vector1: $vector1, vector2: $vector2, answerVector: $answerVector, receiveComponent: $recieveComponents, showAnser: $showAnswer, operation: $operation, myColor: $mySolveColor)
                     }
                 } else {
                     SphericalFunctionField(function: $vector1.xComponent, receiveComponents: $recieveComponents)
-                    OperationPicker(operation: $operation)
+                    SphericalOperationPicker(operation: $operation)
+                        .tint(Color(mySolveColor))
                     HStack {
                         SphericalClearAll(vector: $vector1, term: $term, component: $component)
+                            .tint(Color(mySolveColor))
                         SphericalClearButton(axis: $vector1.xComponent, term: $term, component: $component)
+                            .tint(Color(mySolveColor))
                         SphericalDoneButton(axis: $vector1.xComponent, term: $term, component: $component, variable: $variable, currentComponent: $currentComponent, sphericalComponent: $sphericalComponent)
+                            .tint(Color(mySolveColor))
                     }
                     MySphericalSolveButton(vector1: $vector1, vector2: $vector2, answerVector: $answerVector, receiveComponent: $recieveComponents, showAnser: $showAnswer, operation: $operation, myColor: $mySolveColor)
                 }
@@ -108,6 +115,28 @@ struct SphericalCoordinateView: View {
 struct SphericalCoordinateView_PreviewsRedo: PreviewProvider {
     static var previews: some View {
         SphericalCoordinateView(coordinateSystem: .constant(.spherical), myColor: .constant(""), mySolveColor: .constant(""))
+    }
+}
+
+struct SphericalOperationPicker: View {
+    @Binding var operation: VectorOperation
+    
+    var body: some View {
+        HStack {
+            Spacer(minLength: UIScreen.main.bounds.width / 2.9)
+            Picker("Operation", selection: $operation) {
+                Text("addition").tag(VectorOperation.addition)
+                Text("subtraction").tag(VectorOperation.subtraction)
+//                Text("dot product").tag(VectorOperation.dotProduct)
+//                Text("cross product").tag(VectorOperation.crossProduct)
+//                Text("scalar multiplication").tag(VectorOperation.scalarMultiplication)
+//                Text("unit vector").tag(VectorOperation.unitVector)
+//                Text("magnitude").tag(VectorOperation.magnitude)
+                Text("curl").tag(VectorOperation.curl)
+                Text("divergence").tag(VectorOperation.divergence)
+                Text("gradient").tag(VectorOperation.gradient)
+            }
+        }
     }
 }
 

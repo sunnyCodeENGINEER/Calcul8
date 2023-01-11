@@ -44,6 +44,7 @@ struct CartesianCoordinateView: View {
                         Image(systemName: "chevron.left")
                         Text("Back")
                     }
+                    .tint(Color(mySolveColor))
                     .padding(.leading)
                     
                     Spacer()
@@ -55,20 +56,26 @@ struct CartesianCoordinateView: View {
                     VStack {
                         MyVectorTextField(vector: $vector1, receiveComponents: $recieveComponents, title: "Vector 1", currentVector: $currentVector, setTo: 1, myColor: $myColor)
                         DoneButtonDecider(vector: $vector1, component: $component, variable: $variable, currentComponent: $currentComponent)
+                            .tint(Color(mySolveColor))
                         OperationPicker(operation: $operation)
+                            .tint(Color(mySolveColor))
                         if operation != .curl && operation != .divergence && operation != .unitVector && operation != .magnitude {
                             MyVectorTextField(vector: $vector2, receiveComponents: $recieveComponents, title: "Vector 2", currentVector: $currentVector, setTo: 2, myColor: $myColor)
                             DoneButtonDecider(vector: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent)
+                                .tint(Color(mySolveColor))
                         }
                         SolveButton(vector1: $vector1, vector2: $vector2, answerVector: $answerVector, receiveComponent: $recieveComponents, showAnser: $showAnswer, operation: $operation, myColor: $mySolveColor)
                     }
                 } else {
                     FunctionField(function: $vector1.xComponent, receiveComponents: $recieveComponents)
                     OperationPicker(operation: $operation)
+                        .tint(Color(mySolveColor))
                     HStack {
                         //                    ClearAll(vector: $vector1)
                         ClearButton(axis: $vector1.xComponent)
+                            .tint(Color(mySolveColor))
                         DoneButton(axis: $vector1.xComponent, component: $component, variable: $variable, currentComponent: $currentComponent)
+                            .tint(Color(mySolveColor))
                     }
                     SolveButton(vector1: $vector1, vector2: $vector2, answerVector: $answerVector, receiveComponent: $recieveComponents, showAnser: $showAnswer, operation: $operation, myColor: $mySolveColor)
                     

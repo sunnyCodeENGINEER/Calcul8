@@ -57,6 +57,7 @@ struct ThreeVariableSimultaneousEquationView: View {
                         Image(systemName: "chevron.left")
                         Text("Back")
                     }
+                    .tint(Color(solveColor))
                     .padding(.leading)
                     
                     Spacer()

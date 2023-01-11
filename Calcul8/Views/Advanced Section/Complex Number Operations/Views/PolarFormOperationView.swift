@@ -50,6 +50,7 @@ struct PolarFormOperationView: View {
                         Image(systemName: "chevron.left")
                         Text("Back")
                     }
+                    .tint(Color(solveColor))
                     .padding(.leading)
                     
                     Spacer()
@@ -147,6 +148,7 @@ struct PolarFormOperationView: View {
                         Text("Division").tag(PolarFormOperation.division)
                         Text("Convert To Rectangular form").tag(PolarFormOperation.convertToComplexForm)
                     }
+                    .tint(Color(solveColor))
                     
                 }
                 
@@ -242,6 +244,7 @@ struct PolarFormOperationView: View {
                         Text("Radians").tag(Unit.radians)
                         Text("Degrees").tag(Unit.degrees)
                     }
+                    .tint(Color(solveColor))
                     
                 }
                 
