@@ -10,6 +10,7 @@ import simd
 
 struct ThreeVariableSimultaneousEquationView: View {
     @Binding var solveColor: String
+    @Binding var textfieldBackground: String
     
     @State var eqn1var1: String = ""
     @State var eqn1var2: String = ""
@@ -77,8 +78,9 @@ struct ThreeVariableSimultaneousEquationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         Text("x + ")
@@ -87,8 +89,9 @@ struct ThreeVariableSimultaneousEquationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         Text("y + ")
@@ -97,8 +100,9 @@ struct ThreeVariableSimultaneousEquationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         Text("z = ")
@@ -107,8 +111,9 @@ struct ThreeVariableSimultaneousEquationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         
@@ -122,8 +127,9 @@ struct ThreeVariableSimultaneousEquationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         Text("x + ")
@@ -132,8 +138,9 @@ struct ThreeVariableSimultaneousEquationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         Text("y + ")
@@ -142,8 +149,9 @@ struct ThreeVariableSimultaneousEquationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         Text("z = ")
@@ -152,8 +160,9 @@ struct ThreeVariableSimultaneousEquationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         
@@ -166,8 +175,9 @@ struct ThreeVariableSimultaneousEquationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         Text("x + ")
@@ -176,8 +186,9 @@ struct ThreeVariableSimultaneousEquationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         Text("y + ")
@@ -186,8 +197,9 @@ struct ThreeVariableSimultaneousEquationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         Text("z = ")
@@ -196,8 +208,9 @@ struct ThreeVariableSimultaneousEquationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: QuadraticEquationView().textfieldWidth(), height: QuadraticEquationView().textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         
@@ -275,6 +288,6 @@ struct ThreeVariableSimultaneousEquationView: View {
 
 struct ThreeVariableSimultaneousEquationView_Previews: PreviewProvider {
     static var previews: some View {
-        ThreeVariableSimultaneousEquationView(solveColor: .constant(""))
+        ThreeVariableSimultaneousEquationView(solveColor: .constant(""), textfieldBackground: .constant(""))
     }
 }

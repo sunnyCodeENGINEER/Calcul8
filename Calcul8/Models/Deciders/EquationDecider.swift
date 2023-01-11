@@ -10,6 +10,7 @@ import SwiftUI
 
 struct EquationDecider : View {
     @AppStorage("standardOperator") var standardOperator: String = "standardOperator"
+    @AppStorage("standardButton") var standardButton: String = "standardButton"
     @AppStorage("twoVarSimulEqn") var twoVarSimulEqn: Bool = false
     @AppStorage("threeVarSimulEqn") var threeVarSimulEqn: Bool = false
     @AppStorage("quadraticSection") var quadraticSection: Bool = false
@@ -21,12 +22,12 @@ struct EquationDecider : View {
         else {
             if twoVarSimulEqn {
                 withAnimation{
-                    TwoVariableSimultaneousEquationView(solveColor: $standardOperator)
+                    TwoVariableSimultaneousEquationView(solveColor: $standardOperator, textfieldBackground: $standardButton)
                 }
             }
             else if threeVarSimulEqn {
                 withAnimation{
-                    ThreeVariableSimultaneousEquationView(solveColor: $standardOperator)
+                    ThreeVariableSimultaneousEquationView(solveColor: $standardOperator, textfieldBackground: $standardButton)
                 }
             }
             else if quadraticSection {
