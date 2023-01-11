@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ComplexOperationView: View {
     @Binding var solveColor: String
+    @Binding var textfieldBackground: String
     
     @State var number1: ComplexNumber = ComplexNumber()
     @State var number2: ComplexNumber = ComplexNumber()
@@ -64,8 +65,9 @@ struct ComplexOperationView: View {
                         .multilineTextAlignment(.trailing)
                         .padding()
                         .frame(width: textfieldWidth(), height: textfieldWidth())
-                        .background(.gray.opacity(0.3))
+                        .background(Color(textfieldBackground).opacity(0.5))
                         .cornerRadius(15)
+                        .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                         .keyboardType(.numberPad)
                         .focused($isFocused)
                     Text(" + ")
@@ -74,8 +76,9 @@ struct ComplexOperationView: View {
                         .multilineTextAlignment(.trailing)
                         .padding()
                         .frame(width: textfieldWidth(), height: textfieldWidth())
-                        .background(.gray.opacity(0.3))
+                        .background(Color(textfieldBackground).opacity(0.5))
                         .cornerRadius(15)
+                        .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                         .keyboardType(.numberPad)
                         .focused($isFocused)
                     Text("i")
@@ -105,8 +108,9 @@ struct ComplexOperationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: textfieldWidth(), height: textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         Text(" + ")
@@ -115,8 +119,9 @@ struct ComplexOperationView: View {
                             .multilineTextAlignment(.trailing)
                             .padding()
                             .frame(width: textfieldWidth(), height: textfieldWidth())
-                            .background(.gray.opacity(0.3))
+                            .background(Color(textfieldBackground).opacity(0.5))
                             .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 2).foregroundColor(Color(solveColor)))
                             .keyboardType(.numberPad)
                             .focused($isFocused)
                         Text("i")
@@ -232,6 +237,6 @@ struct ComplexOperationView: View {
 
 struct ComplexOperationView_Previews: PreviewProvider {
     static var previews: some View {
-        ComplexOperationView(solveColor: .constant(""))
+        ComplexOperationView(solveColor: .constant(""), textfieldBackground: .constant(""))
     }
 }
