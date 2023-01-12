@@ -177,6 +177,8 @@ struct SphericalClearAll: View {
                 component = CartesianTerms()
             } label: {
                 Text("Clear All")
+                    .padding(8)
+                    .background(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 2))
             }
         }
     }

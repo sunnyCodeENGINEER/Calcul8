@@ -75,8 +75,8 @@ struct CylindricalCoordinateView: View {
                     SphericalOperationPicker(operation: $operation)
                         .tint(Color(mySolveColor))
                     HStack {
-                        SphericalClearAll(vector: $vector1, term: $term, component: $component)
-                            .tint(Color(mySolveColor))
+//                        SphericalClearAll(vector: $vector1, term: $term, component: $component)
+//                            .tint(Color(mySolveColor))
                         SphericalClearButton(axis: $vector1.xComponent, term: $term, component: $component)
                             .tint(Color(mySolveColor))
                         SphericalDoneButton(axis: $vector1.xComponent, term: $term, component: $component, variable: $variable, currentComponent: $currentComponent, sphericalComponent: $sphericalComponent)

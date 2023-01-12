@@ -158,6 +158,8 @@ struct ClearAll: View {
                 vector.zComponent.component.removeAll()
             } label: {
                 Text("Clear All")
+                    .padding(8)
+                    .background(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 2))
             }
         }
     }
@@ -175,6 +177,8 @@ struct ClearButton: View {
                 axis.component.removeAll()
             } label: {
                 Text("Clear")
+                    .padding(8)
+                    .background(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 2))
             }
         }
     }
@@ -215,6 +219,8 @@ struct DoneButton: View {
                 
             } label: {
                 Text("Done")
+                    .padding(8)
+                    .background(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 2))
             }
         }
     }

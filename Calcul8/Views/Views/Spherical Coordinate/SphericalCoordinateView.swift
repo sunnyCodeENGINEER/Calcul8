@@ -75,8 +75,8 @@ struct SphericalCoordinateView: View {
                     SphericalOperationPicker(operation: $operation)
                         .tint(Color(mySolveColor))
                     HStack {
-                        SphericalClearAll(vector: $vector1, term: $term, component: $component)
-                            .tint(Color(mySolveColor))
+//                        SphericalClearAll(vector: $vector1, term: $term, component: $component)
+//                            .tint(.red)
                         SphericalClearButton(axis: $vector1.xComponent, term: $term, component: $component)
                             .tint(Color(mySolveColor))
                         SphericalDoneButton(axis: $vector1.xComponent, term: $term, component: $component, variable: $variable, currentComponent: $currentComponent, sphericalComponent: $sphericalComponent)
@@ -1012,6 +1012,8 @@ struct SphericalClearButton: View {
                 component = CartesianTerms()
             } label: {
                 Text("Clear")
+                    .padding(8)
+                    .background(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 2))
             }
         }
     }
@@ -1092,6 +1094,8 @@ struct SphericalDoneButton: View {
                 
             } label: {
                 Text("Done")
+                    .padding(8)
+                    .background(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 2))
             }
         }
     }
