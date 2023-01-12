@@ -26,6 +26,7 @@ This is a modern calculator iOS application that is capable of doing basic and m
   * Added background color to equation view textfields.
   * Added background color to complex number view textfields.
   * Worked on distinguishing buttons beneath vector view textfields.
+  * Made some improvements to the settings view.
 
 ## Had to redo vector view.
 * Added new vector view files from SwiftTry.
