@@ -47,11 +47,7 @@ struct SettingsView: View {
                             
                             Spacer()
                             
-                            RoundedRectangle(cornerRadius: 0)
-                                .scaledToFit()
-                                .frame(width: UIScreen.main.bounds.width / 9)
-                                .overlay(RoundedRectangle(cornerRadius: 0)
-                                    .stroke(Color("solve"), lineWidth: 4))
+                            ThemeIcon(primaryColor: $standardOperator, secondaryColor: $standardButton)
                             
                         }
                         
@@ -127,5 +123,45 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+//        ThemeIcon(primaryColor: .constant("standardOperator"), secondaryColor: .constant("standardButton"))
+    }
+}
+
+
+
+struct ThemeIcon: View {
+    @Binding var  primaryColor: String
+    @Binding var secondaryColor: String
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 0)
+                .scaledToFit()
+                .frame(width: UIScreen.main.bounds.width / 9)
+                .overlay(RoundedRectangle(cornerRadius: 0)
+                .stroke(Color("solve"), lineWidth: 4))
+            
+            RoundedRectangle(cornerRadius: 0)
+                .scaledToFit()
+                .foregroundColor(Color(secondaryColor))
+                .frame(width: UIScreen.main.bounds.width / 8.1)
+                .overlay(RoundedRectangle(cornerRadius: 0)
+                .stroke(Color("solve"), lineWidth: 4))
+                .rotationEffect(Angle(degrees: 45))
+                .offset(x: UIScreen.main.bounds.width / 21, y: UIScreen.main.bounds.width / 21)
+            
+            RoundedRectangle(cornerRadius: 0)
+                .scaledToFit()
+                .foregroundColor(Color(primaryColor))
+                .frame(width: UIScreen.main.bounds.width / 9)
+                .overlay(RoundedRectangle(cornerRadius: 0)
+                .stroke(Color("solve"), lineWidth: 4))
+                .rotationEffect(Angle(degrees: 45))
+                .offset(x: UIScreen.main.bounds.width / -21, y: UIScreen.main.bounds.width / -21)
+        }
+        .frame(width: UIScreen.main.bounds.width / 9, height: UIScreen.main.bounds.width / 9)
+        .clipped()
+        .background(Rectangle()
+            .stroke(Color("solve"), lineWidth: 6))
     }
 }

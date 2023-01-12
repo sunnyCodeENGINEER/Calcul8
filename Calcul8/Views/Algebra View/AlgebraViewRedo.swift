@@ -114,6 +114,8 @@ struct AlgebraViewRedo: View {
                             showTextField = true
                         } label: {
                             Text("Clear")
+                                .padding(8)
+                                .background(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 2))
                         }
                         .tint(Color(standardOperator))
                     }

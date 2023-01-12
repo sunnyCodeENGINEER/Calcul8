@@ -78,7 +78,7 @@ struct MyTextField: View {
         .padding(.vertical, 10.0)
         .background(RoundedRectangle(cornerRadius: 30)
             .foregroundColor(Color(standardButton).opacity(0.5))
-            .frame(minWidth: 50)
+            .frame(minWidth: 100)
             .overlay(RoundedRectangle(cornerRadius: 30).stroke(lineWidth: 2).foregroundColor(Color(standardOperator))))
 //        .overlay(RoundedRectangle(cornerRadius: 30).stroke(lineWidth: 2).foregroundColor(Color(standardOperator)))
     }
