@@ -58,20 +58,20 @@ struct SphericalCoordinateView: View {
                 
                 if operation != .gradient {
                     VStack {
-                        SphericalVectorTextField(vector: $vector1, receiveComponents: $recieveComponents, title: "vector 1", currentVector: $currentVector, setTo: 1, title1: "R", title2: "θ", title3: "ϕ", myColor: $myColor)
+                        SphericalVectorTextField(vector: $vector1, receiveComponents: $recieveComponents, title: "vector 1", currentVector: $currentVector, setTo: 1, title1: "R", title2: "θ", title3: "ϕ", myColor: $myColor, borderColor: $mySolveColor)
                         SphericalDoneButtonDecider(vector: $vector1, term: $term, component: $component, variable: $variable, currentComponent: $currentComponent, sphericalComponent: $sphericalComponent)
                             .tint(Color(mySolveColor))
                         SphericalOperationPicker(operation: $operation)
                             .tint(Color(mySolveColor))
                         if operation != .curl && operation != .divergence {
-                            SphericalVectorTextField(vector: $vector2, receiveComponents: $recieveComponents, title: "vector 2", currentVector: $currentVector, setTo: 2, title1: "R", title2: "θ", title3: "ϕ", myColor: $myColor)
+                            SphericalVectorTextField(vector: $vector2, receiveComponents: $recieveComponents, title: "vector 2", currentVector: $currentVector, setTo: 2, title1: "R", title2: "θ", title3: "ϕ", myColor: $myColor, borderColor: $mySolveColor)
                             SphericalDoneButtonDecider(vector: $vector2, term: $term, component: $component, variable: $variable, currentComponent: $currentComponent, sphericalComponent: $sphericalComponent)
                                 .tint(Color(mySolveColor))
                         }
                         MySphericalSolveButton(vector1: $vector1, vector2: $vector2, answerVector: $answerVector, receiveComponent: $recieveComponents, showAnser: $showAnswer, operation: $operation, myColor: $mySolveColor)
                     }
                 } else {
-                    SphericalFunctionField(function: $vector1.xComponent, receiveComponents: $recieveComponents)
+                    SphericalFunctionField(function: $vector1.xComponent, receiveComponents: $recieveComponents, myColor: $myColor, borderColor: $mySolveColor)
                     SphericalOperationPicker(operation: $operation)
                         .tint(Color(mySolveColor))
                     HStack {
@@ -1273,6 +1273,7 @@ struct SphericalVectorTextField: View {
     var title2: String
     var title3: String
     @Binding var myColor: String
+    @Binding var borderColor: String
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -1298,7 +1299,8 @@ struct SphericalVectorTextField: View {
                 .foregroundColor(.black)
                 .padding()
                 .frame(width: UIScreen.main.bounds.width * 0.9)
-                .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(myColor).opacity(0.7)))
+                .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(myColor).opacity(0.5)))
+                .overlay(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 2).foregroundColor(Color(borderColor)))
             }
         }
     }

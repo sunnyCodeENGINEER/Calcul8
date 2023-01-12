@@ -54,20 +54,20 @@ struct CartesianCoordinateView: View {
                 
                 if operation != .gradient {
                     VStack {
-                        MyVectorTextField(vector: $vector1, receiveComponents: $recieveComponents, title: "Vector 1", currentVector: $currentVector, setTo: 1, myColor: $myColor)
+                        MyVectorTextField(vector: $vector1, receiveComponents: $recieveComponents, title: "Vector 1", currentVector: $currentVector, setTo: 1, myColor: $myColor, borderColor: $mySolveColor)
                         DoneButtonDecider(vector: $vector1, component: $component, variable: $variable, currentComponent: $currentComponent)
                             .tint(Color(mySolveColor))
                         OperationPicker(operation: $operation)
                             .tint(Color(mySolveColor))
                         if operation != .curl && operation != .divergence && operation != .unitVector && operation != .magnitude {
-                            MyVectorTextField(vector: $vector2, receiveComponents: $recieveComponents, title: "Vector 2", currentVector: $currentVector, setTo: 2, myColor: $myColor)
+                            MyVectorTextField(vector: $vector2, receiveComponents: $recieveComponents, title: "Vector 2", currentVector: $currentVector, setTo: 2, myColor: $myColor, borderColor: $mySolveColor)
                             DoneButtonDecider(vector: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent)
                                 .tint(Color(mySolveColor))
                         }
                         SolveButton(vector1: $vector1, vector2: $vector2, answerVector: $answerVector, receiveComponent: $recieveComponents, showAnser: $showAnswer, operation: $operation, myColor: $mySolveColor)
                     }
                 } else {
-                    FunctionField(function: $vector1.xComponent, receiveComponents: $recieveComponents)
+                    FunctionField(function: $vector1.xComponent, receiveComponents: $recieveComponents, myColor: $myColor, borderColor: $mySolveColor)
                     OperationPicker(operation: $operation)
                         .tint(Color(mySolveColor))
                     HStack {
@@ -118,6 +118,8 @@ struct CartesianCoordinateView_Previews: PreviewProvider {
 struct FunctionField: View {
     @Binding var function: CartesianCoordinateComponent
     @Binding var receiveComponents: Bool
+    @Binding var myColor: String
+    @Binding var borderColor: String
     
     var body: some View {
         VStack {
@@ -136,7 +138,8 @@ struct FunctionField: View {
                     .foregroundColor(.black)
                     .padding()
                     .frame(width: UIScreen.main.bounds.width * 0.9)
-                    .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color("standardButton").opacity(0.7)))
+                    .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(myColor).opacity(0.5)))
+                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 2).foregroundColor(Color(borderColor)))
                 }
             }
         }
@@ -1103,6 +1106,7 @@ struct MyVectorTextField: View {
     @Binding var currentVector: Int
     var setTo: Int
     @Binding var myColor: String
+    @Binding var borderColor: String
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -1128,7 +1132,8 @@ struct MyVectorTextField: View {
                 .foregroundColor(.black)
                 .padding()
                 .frame(width: UIScreen.main.bounds.width * 0.9)
-                .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(myColor).opacity(0.7)))
+                .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(myColor).opacity(0.5)))
+                .overlay(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 2).foregroundColor(Color(borderColor)))
             }
         }
     }
