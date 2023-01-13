@@ -58,7 +58,9 @@ struct AdvancedCalculationDeciderView: View {
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 20)
                                 .frame(width: buttonWidth())
-                                .foregroundColor(Color(standardOperator)))
+                                .foregroundColor(Color(standardOperator))
+                                .blur(radius: 1))
+                            .shadow(color: .black, radius: 10, x: -5, y: 5)
                         
                     }
                     .padding(.bottom)
@@ -74,7 +76,9 @@ struct AdvancedCalculationDeciderView: View {
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 20)
                                 .frame(width: buttonWidth())
-                                .foregroundColor(Color(standardOperator)))
+                                .foregroundColor(Color(standardOperator))
+                                .blur(radius: 1))
+                            .shadow(color: .black, radius: 10, x: -5, y: 5)
                     }
                     .padding(.bottom)
                 }

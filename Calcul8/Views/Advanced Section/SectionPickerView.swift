@@ -44,6 +44,8 @@ struct SectionPickerView: View {
                     }
                 } label: {
                     sectionButton(buttonLabel: label1)
+                        .shadow(color: .black, radius: 10, x: -5, y: 5)
+                        .padding(.bottom)
                 }
             }
             
@@ -61,6 +63,8 @@ struct SectionPickerView: View {
                     }
                 } label: {
                     sectionButton(buttonLabel: label2)
+                        .shadow(color: .black, radius: 10, x: -5, y: 5)
+                        .padding(.bottom)
                 }
             }
             
@@ -78,6 +82,8 @@ struct SectionPickerView: View {
                     }
                 } label: {
                     sectionButton(buttonLabel: label3)
+                        .shadow(color: .black, radius: 10, x: -5, y: 5)
+                        .padding(.bottom)
                 }
             }
         }
@@ -102,7 +108,8 @@ struct sectionButton: View {
                 .padding()
                 .frame(width: buttonWidthAdvanced(), height: buttonHeighttAdvanced())
                 .background(RoundedRectangle(cornerRadius: 20)
-                    .foregroundColor(Color(standardOperator)))
+                    .foregroundColor(Color(standardOperator))
+                    .blur(radius: 1))
         }
     }
     

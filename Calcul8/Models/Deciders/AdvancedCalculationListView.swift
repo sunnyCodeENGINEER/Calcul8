@@ -22,16 +22,34 @@ struct AdvancedCalculationListView: View {
     
     var body: some View {
         ZStack {
-            VStack {
-                AdvancedCalculationListRow(title: "Complex Number calculations", selection: $selection, toSet: .complex)
-                AdvancedCalculationListRow(title: "Vector calculations", selection: $selection, toSet: .vector)
-                AdvancedCalculationListRow(title: "Algebra calculations", selection: $selection, toSet: .algebra)
+            ZStack {
+                VStack {
+                    HStack {
+                        Text("Advanced\nCalculations".uppercased())
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding()
+                        Spacer()
+                    }.padding(.leading)
+                    
+                    Spacer()
+                }.padding()
+                VStack {
+                    AdvancedCalculationListRow(title: "Complex Number calculations", selection: $selection, toSet: .complex)
+                        .shadow(color: .black, radius: 10, x: -5, y: 5)
+                        .padding(.bottom)
+                    AdvancedCalculationListRow(title: "Vector calculations", selection: $selection, toSet: .vector)
+                        .shadow(color: .black, radius: 10, x: -5, y: 5)
+                        .padding(.bottom)
+                    AdvancedCalculationListRow(title: "Algebra calculations", selection: $selection, toSet: .algebra)
+                        .shadow(color: .black, radius: 10, x: -5, y: 5)
+                }
             }
             .opacity(showMenu ? 0.2 : 1)
             .animation(.easeInOut(duration: 0.8), value: showMenu)
             
             LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
-                .padding(.horizontal)
+//                .padding(.horizontal)
         }
     }
     
@@ -63,7 +81,8 @@ struct AdvancedCalculationListRow: View {
                 .padding(.horizontal)
                 .background(RoundedRectangle(cornerRadius: 20)
                     .frame(width: buttonWidth())
-                    .foregroundColor(Color(standardOperator)))
+                    .foregroundColor(Color(standardOperator))
+                    .blur(radius: 1))
             
         }
     }

@@ -37,9 +37,19 @@ struct CoordinateSystemDeciderView: View {
                 }
                 
                 VStack {
+                    Text("Choose a vector coordinate system.")
+                        .font(.title)
+                        .padding()
+                    
                     CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .cartesian, title: "Cartesian Coordinate System", standardOperator: $standardOperator)
+                        .shadow(color: .black, radius: 10, x: -5, y: 5)
+                        .padding(.bottom)
                     CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .cylindrical, title: "Cylindrical Coordinate System", standardOperator: $standardOperator)
+                        .shadow(color: .black, radius: 10, x: -5, y: 5)
+                        .padding(.bottom)
                     CoordinateButton(coordinateSystem: $coordinateSystem, setTo: .spherical, title: "Spherical Coordinate System", standardOperator: $standardOperator)
+                        .shadow(color: .black, radius: 10, x: -5, y: 5)
+                        .padding(.bottom)
                 }
             }
             .opacity(showMenu ? 0.2 : 1)
@@ -70,7 +80,8 @@ struct CoordinateButton: View {
                 .padding()
                 .background(RoundedRectangle(cornerRadius: 20)
                     .frame(width: buttonWidth())
-                    .foregroundColor(Color(standardOperator)))
+                    .foregroundColor(Color(standardOperator))
+                    .blur(radius: 1))
         }
     }
     func buttonWidth() -> CGFloat {

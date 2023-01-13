@@ -67,7 +67,7 @@ struct LogoMenu: View {
                         Image(appLogo)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: animateLogo ? width : width * 1.3)
+                            .frame(width: animateLogo ? width  * 0.7 : width * 0.5)
                             .animation(.easeInOut(duration: 3.5).repeatForever(autoreverses: true), value: animateLogo)
                     }
                     if showMenu {
@@ -108,7 +108,7 @@ struct LogoMenu: View {
                         .padding()
                     }
                 }
-                .padding()
+                .padding(.trailing)
             }
             .onAppear {
                 animateLogo = true

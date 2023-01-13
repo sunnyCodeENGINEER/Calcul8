@@ -21,60 +21,79 @@ struct EquationDeciderView: View {
 
     var body: some View {
         ZStack {
-            VStack {
-                Button{
-                    withAnimation{
-                        twoVarSimulEqn = false
-                        threeVarSimulEqn = false
-                        quadraticSection = true
-                    }
-                } label: {
-                    Text("Solve Quadratic Equation")
-                        .foregroundColor(Color("solve"))
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 20)
-                            .frame(width: buttonWidth())
-                            .foregroundColor(Color(standardOperator)))
+            ZStack {
+                VStack {
+                    HStack {
+                        Text("Equations".uppercased())
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding()
+                        Spacer()
+                    }.padding(.leading)
                     
-                }
-                .padding(.bottom)
-                
-                Button{
-                    withAnimation{
-                        twoVarSimulEqn = true
-                        threeVarSimulEqn = false
-                        quadraticSection = false
+                    Spacer()
+                }.padding()
+                VStack {
+                    Button{
+                        withAnimation{
+                            twoVarSimulEqn = false
+                            threeVarSimulEqn = false
+                            quadraticSection = true
+                        }
+                    } label: {
+                        Text("Solve Quadratic Equation")
+                            .foregroundColor(Color("solve"))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 20)
+                                .frame(width: buttonWidth())
+                                .foregroundColor(Color(standardOperator))
+                                .blur(radius: 1))
+                            .shadow(color: .black, radius: 10, x: -5, y: 5)
+                        
                     }
-                } label: {
-                    Text("Simultaneous Equation with two variables")
-                        .foregroundColor(Color("solve"))
-                        .padding()
-                        .padding(.horizontal)
-                        .padding(.horizontal)
-                        .background(RoundedRectangle(cornerRadius: 20)
-                            .frame(width: buttonWidth())
-                            .foregroundColor(Color(standardOperator)))
+                    .padding(.bottom)
                     
-                }
-                .padding(.bottom)
-                
-                Button{
-                    withAnimation{
-                        twoVarSimulEqn = false
-                        threeVarSimulEqn = true
-                        quadraticSection = false
+                    Button{
+                        withAnimation{
+                            twoVarSimulEqn = true
+                            threeVarSimulEqn = false
+                            quadraticSection = false
+                        }
+                    } label: {
+                        Text("Simultaneous Equation with two variables")
+                            .foregroundColor(Color("solve"))
+                            .padding()
+                            .padding(.horizontal)
+                            .padding(.horizontal)
+                            .background(RoundedRectangle(cornerRadius: 20)
+                                .frame(width: buttonWidth())
+                                .foregroundColor(Color(standardOperator))
+                                .blur(radius: 1))
+                            .shadow(color: .black, radius: 10, x: -5, y: 5)
+                        
                     }
-                } label: {
-                    Text("Simultaneous Equation with three variables")
-                        .foregroundColor(Color("solve"))
-                        .padding()
-                    .padding(.horizontal)
-                    .padding(.horizontal)
-                        .background(RoundedRectangle(cornerRadius: 20)
-                            .frame(width: buttonWidth())
-                            .foregroundColor(Color(standardOperator)))
+                    .padding(.bottom)
+                    
+                    Button{
+                        withAnimation{
+                            twoVarSimulEqn = false
+                            threeVarSimulEqn = true
+                            quadraticSection = false
+                        }
+                    } label: {
+                        Text("Simultaneous Equation with three variables")
+                            .foregroundColor(Color("solve"))
+                            .padding()
+                            .padding(.horizontal)
+                            .padding(.horizontal)
+                            .background(RoundedRectangle(cornerRadius: 20)
+                                .frame(width: buttonWidth())
+                                .foregroundColor(Color(standardOperator))
+                                .blur(radius: 1))
+                            .shadow(color: .black, radius: 10, x: -5, y: 5)
+                    }
+                    .padding(.bottom)
                 }
-                .padding(.bottom)
             }
             .opacity(showMenu ? 0.2 : 1)
             

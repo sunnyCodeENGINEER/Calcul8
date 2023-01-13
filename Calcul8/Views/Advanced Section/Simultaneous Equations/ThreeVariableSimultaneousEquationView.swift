@@ -237,11 +237,13 @@ struct ThreeVariableSimultaneousEquationView: View {
                                 .foregroundColor(Color("solve"))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 15)
-                                    .foregroundColor(Color(solveColor)))
+                                    .foregroundColor(Color(solveColor))
+                                    .blur(radius: 1)
+                                    .shadow(color: .black, radius: 10, x: 3, y: 5))
                         }
                     }
                     .padding(.horizontal)
-                    .padding(.bottom, 3)
+                    .padding(.bottom, 5)
                     
                     HStack{
                         Spacer()

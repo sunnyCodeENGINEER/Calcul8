@@ -204,7 +204,9 @@ struct AlgebraViewRedo: View {
                                 .foregroundColor(Color("solve"))
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 15)
-                                    .foregroundColor(Color(standardOperator)))
+                                    .foregroundColor(Color(standardOperator))
+                                    .blur(radius: 1))
+                                .shadow(color: .black, radius: 10, x: 3, y: 5)
                                 .padding()
                         }
                     }

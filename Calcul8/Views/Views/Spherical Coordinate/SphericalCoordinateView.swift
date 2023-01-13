@@ -172,7 +172,9 @@ struct MySphericalSolveButton: View {
                     .foregroundColor(Color("solve"))
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 15)
-                        .foregroundColor(Color(myColor)))
+                        .foregroundColor(Color(myColor))
+                        .blur(radius: 1)
+                        .shadow(color: .black, radius: 10, x: 3, y: 5))
                     .padding()
             }
         }
@@ -1280,7 +1282,7 @@ struct SphericalVectorTextField: View {
     @Binding var borderColor: String
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 1) {
             Text(title.uppercased())
                 .padding(.leading)
             
