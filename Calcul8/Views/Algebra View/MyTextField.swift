@@ -44,32 +44,27 @@ struct MyTextField: View {
     var body: some View {
         VStack {
             if !expression.expression.isEmpty {
-                HStack(alignment: .top, spacing: 1) {
-                    ForEach(0..<expression.expression.count, id: \.self) { index in
-                        HStack(alignment: .top, spacing: 1) {
-                            Text(operationSymbols[index])
-                            Text("(")
-                            if expression.expression[index].coefficient != "1" {
-                                if expression.expression[index].coefficient != "1.0" {
-                                    Text(expression.expression[index].coefficient)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(alignment: .top, spacing: 1) {
+                        ForEach(0..<expression.expression.count, id: \.self) { index in
+                            HStack(alignment: .top, spacing: 1) {
+                                Text(operationSymbols[index])
+                                Text("(")
+                                if expression.expression[index].coefficient != "1" {
+                                    if expression.expression[index].coefficient != "1.0" {
+                                        Text(expression.expression[index].coefficient)
+                                    }
                                 }
+                                
+                                if expression.expression[index].coefficient != "0.0" {
+                                    Components(terms: $expression.expression[index])
+                                }
+                                Text(")")
+                                
                             }
-                            
-                            if expression.expression[index].coefficient != "0.0" {
-                                Components(terms: $expression.expression[index])
-                            }
-                            Text(")")
-                            
                         }
                     }
-//                    .padding(.horizontal, 10.0)
-//                    .background(RoundedRectangle(cornerRadius: 30)
-//                        .foregroundColor(Color(standardButton).opacity(0.6)))
-//                    .padding(.horizontal, 3)
                 }
-//                .padding(10)
-//                .background(RoundedRectangle(cornerRadius: 30)
-//                    .foregroundColor(.black.opacity(0.3)))
             } else {
                 Text("0")
             }

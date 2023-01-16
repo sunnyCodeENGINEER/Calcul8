@@ -1065,6 +1065,7 @@ struct AlgebraButtonDecimalRedo: View {
 }
 
 struct AlgebraExponentButtonRedo: View {
+    @AppStorage("standardButton") var standardButton: String = "standardButton"
     @State var number: Int
     @Binding var expo: String
     @Binding var base: String
@@ -1094,7 +1095,7 @@ struct AlgebraExponentButtonRedo: View {
             .padding()
             .frame(width: UIScreen.main.bounds.width / 3.2)
             .background(RoundedRectangle(cornerRadius: 30)
-                .foregroundColor(.green.opacity(0.3)))
+                .foregroundColor(Color(standardButton).opacity(0.3)))
         }
     }
 }

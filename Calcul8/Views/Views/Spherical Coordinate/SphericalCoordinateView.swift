@@ -972,27 +972,40 @@ struct SphericalAnswerBoard: View {
         VStack(alignment: .leading) {
             if !answerVector.xComponent.component.isEmpty {
                 HStack(spacing: 2) {
-                    Text("(")
-                    MySphericalText(axis: $answerVector.xComponent)
-                    Text(")")
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 2) {
+                            Text("(")
+                            MySphericalText(axis: $answerVector.xComponent)
+                            Text(")")
+                        }
+                    }
                     Text(title1)
-                }
+                    Spacer()
+                }.frame(width: 200)
             }
             if !answerVector.yComponent.component.isEmpty {
                 HStack(spacing: 2) {
                     Text("+")
-                    Text("(")
-                    MySphericalText(axis: $answerVector.yComponent)
-                    Text(")")
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 2) {
+                            Text("(")
+                            MySphericalText(axis: $answerVector.yComponent)
+                            Text(")")
+                        }
+                    }
                     Text(title2)
                 }
             }
             if !answerVector.zComponent.component.isEmpty {
                 HStack(spacing: 2) {
                     Text("+")
-                    Text("(")
-                    MySphericalText(axis: $answerVector.zComponent)
-                    Text(")")
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 2) {
+                            Text("(")
+                            MySphericalText(axis: $answerVector.zComponent)
+                            Text(")")
+                        }
+                    }
                     Text(title3)
                 }
             }
@@ -1293,14 +1306,22 @@ struct SphericalVectorTextField: View {
                 }
             } label: {
                 HStack(spacing: 2) {
-                    MySphericalText(axis: $vector.xComponent)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        MySphericalText(axis: $vector.xComponent)
+                    }
                     Text(title1)
+                        .padding(.horizontal)
                         Text("+")
-                    MySphericalText(axis: $vector.yComponent)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        MySphericalText(axis: $vector.yComponent)
+                    }
                     Text(title2)
+                        .padding(.horizontal)
                         Text("+")
-                    MySphericalText(axis: $vector.zComponent)
-                    Text(title3)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        MySphericalText(axis: $vector.zComponent)
+                    }
+                    Text(title3).padding(.trailing)
                 }
                 .foregroundColor(.black)
                 .padding()
@@ -1369,8 +1390,13 @@ struct MySphericalText: View {
     var body: some View {
         HStack(alignment: .top, spacing: 1) {
             if axis.component.isEmpty {
-                Text("0")
+                HStack {
+                    Spacer()
+                    Text("0")
+                    Spacer()
+                }
             }
+            
             
             ForEach(0..<axis.component.count, id: \.self) { index in
                 SphericalCoefficientText(coefficient: $axis.component[index].trigCoefficient)

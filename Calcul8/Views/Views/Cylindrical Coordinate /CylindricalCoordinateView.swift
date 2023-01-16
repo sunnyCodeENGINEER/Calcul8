@@ -1007,7 +1007,9 @@ struct SphericalFunctionField: View {
                     }
                 } label: {
                     HStack(spacing: 2) {
-                        MySphericalText(axis: $function)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            MySphericalText(axis: $function)
+                        }
                         
                     }
                     .foregroundColor(.black)

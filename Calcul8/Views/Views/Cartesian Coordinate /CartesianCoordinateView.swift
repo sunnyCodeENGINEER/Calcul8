@@ -132,7 +132,9 @@ struct FunctionField: View {
                     }
                 } label: {
                     HStack(spacing: 2) {
-                        MyText(axis: $function)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            MyText(axis: $function)
+                        }
                         
                     }
                     .foregroundColor(.black)
@@ -232,24 +234,39 @@ struct AnswerBoard: View {
     var body: some View {
         HStack(spacing: 2) {
             if !answerVector.xComponent.component.isEmpty {
-                Text("(")
-                MyText(axis: $answerVector.xComponent)
-                Text(")")
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 2) {
+                        Text("(")
+                        MyText(axis: $answerVector.xComponent)
+                        Text(")")
+                    }
+                }
                 Text("i")
+                    .padding(.horizontal)
             }
             if !answerVector.yComponent.component.isEmpty {
                 Text("+")
-                Text("(")
-                MyText(axis: $answerVector.yComponent)
-                Text(")")
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 2) {
+                        Text("(")
+                        MyText(axis: $answerVector.yComponent)
+                        Text(")")
+                    }
+                }
                 Text("j")
+                    .padding(.horizontal)
             }
             if !answerVector.zComponent.component.isEmpty {
                 Text("+")
-                Text("(")
-                MyText(axis: $answerVector.zComponent)
-                Text(")")
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 2) {
+                        Text("(")
+                        MyText(axis: $answerVector.zComponent)
+                        Text(")")
+                    }
+                }
                 Text("k")
+                    .padding(.horizontal)
             }
         }
     }
@@ -1128,14 +1145,23 @@ struct MyVectorTextField: View {
                 }
             } label: {
                 HStack(spacing: 2) {
-                    MyText(axis: $vector.xComponent)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        MyText(axis: $vector.xComponent)
+                    }
                     Text("i")
-                        Text("+")
-                    MyText(axis: $vector.yComponent)
+                        .padding(.horizontal)
+                    Text("+")
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        MyText(axis: $vector.yComponent)
+                    }
                     Text("j")
-                        Text("+")
-                    MyText(axis: $vector.zComponent)
+                        .padding(.horizontal)
+                    Text("+")
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        MyText(axis: $vector.zComponent)
+                    }
                     Text("k")
+                        .padding(.trailing)
                 }
                 .foregroundColor(.black)
                 .padding()
