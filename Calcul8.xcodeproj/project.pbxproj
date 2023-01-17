@@ -23,6 +23,12 @@
 		255585862968398400974678 /* CartesianComponentDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255585822968398400974678 /* CartesianComponentDecider.swift */; };
 		255585872968398400974678 /* SphericalComponentDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255585832968398400974678 /* SphericalComponentDecider.swift */; };
 		255585882968398400974678 /* CoordinateSystemDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255585842968398400974678 /* CoordinateSystemDecider.swift */; };
+		2570132B2974D5C700B407A8 /* AppBackgroundSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257013262974D5C700B407A8 /* AppBackgroundSettingsView.swift */; };
+		2570132C2974D5C700B407A8 /* AppBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257013272974D5C700B407A8 /* AppBackgroundView.swift */; };
+		2570132D2974D5C700B407A8 /* AppBckgroundColorSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257013282974D5C700B407A8 /* AppBckgroundColorSetting.swift */; };
+		2570132E2974D5C700B407A8 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257013292974D5C700B407A8 /* SplashScreen.swift */; };
+		2570132F2974D5C700B407A8 /* AppBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570132A2974D5C700B407A8 /* AppBackground.swift */; };
+		257013312974DDC800B407A8 /* PreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257013302974DDC800B407A8 /* PreferenceKeys.swift */; };
 		257F2C9E280D79DD009F7DB2 /* Calcul8App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F2C9D280D79DD009F7DB2 /* Calcul8App.swift */; };
 		257F2CA0280D79DD009F7DB2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257F2C9F280D79DD009F7DB2 /* ContentView.swift */; };
 		257F2CA2280D79E1009F7DB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257F2CA1280D79E1009F7DB2 /* Assets.xcassets */; };
@@ -77,6 +83,12 @@
 		255585822968398400974678 /* CartesianComponentDecider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartesianComponentDecider.swift; sourceTree = "<group>"; };
 		255585832968398400974678 /* SphericalComponentDecider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SphericalComponentDecider.swift; sourceTree = "<group>"; };
 		255585842968398400974678 /* CoordinateSystemDecider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateSystemDecider.swift; sourceTree = "<group>"; };
+		257013262974D5C700B407A8 /* AppBackgroundSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBackgroundSettingsView.swift; sourceTree = "<group>"; };
+		257013272974D5C700B407A8 /* AppBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBackgroundView.swift; sourceTree = "<group>"; };
+		257013282974D5C700B407A8 /* AppBckgroundColorSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBckgroundColorSetting.swift; sourceTree = "<group>"; };
+		257013292974D5C700B407A8 /* SplashScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		2570132A2974D5C700B407A8 /* AppBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBackground.swift; sourceTree = "<group>"; };
+		257013302974DDC800B407A8 /* PreferenceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceKeys.swift; sourceTree = "<group>"; };
 		257F2C9A280D79DD009F7DB2 /* Calcul8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calcul8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		257F2C9D280D79DD009F7DB2 /* Calcul8App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calcul8App.swift; sourceTree = "<group>"; };
 		257F2C9F280D79DD009F7DB2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -199,6 +211,18 @@
 			path = Deciders;
 			sourceTree = "<group>";
 		};
+		257013252974D5C700B407A8 /* App Background */ = {
+			isa = PBXGroup;
+			children = (
+				257013262974D5C700B407A8 /* AppBackgroundSettingsView.swift */,
+				257013272974D5C700B407A8 /* AppBackgroundView.swift */,
+				257013282974D5C700B407A8 /* AppBckgroundColorSetting.swift */,
+				257013292974D5C700B407A8 /* SplashScreen.swift */,
+				2570132A2974D5C700B407A8 /* AppBackground.swift */,
+			);
+			path = "App Background";
+			sourceTree = "<group>";
+		};
 		257F2C91280D79DD009F7DB2 = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +268,7 @@
 				257F2CAB280D7AE0009F7DB2 /* StandardButtons.swift */,
 				257F2CB8280DA4E8009F7DB2 /* Operation.swift */,
 				252EDC5A280F134100601A54 /* AdvancedOperation.swift */,
+				257013302974DDC800B407A8 /* PreferenceKeys.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -251,6 +276,7 @@
 		257F2CB0280D7C52009F7DB2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				257013252974D5C700B407A8 /* App Background */,
 				25EB7F4C2944CFB500653340 /* Algebra View */,
 				258245B02916F00C00740D57 /* Vector Calculations */,
 				258245AA2913425700740D57 /* Settings View */,
@@ -461,6 +487,7 @@
 				258245AE2914498F00740D57 /* SelectColorView.swift in Sources */,
 				2555857D296837D300974678 /* CoordinateSystemDeciderView.swift in Sources */,
 				25EB7F432942236800653340 /* AdvancedCalculationNavigator.swift in Sources */,
+				2570132C2974D5C700B407A8 /* AppBackgroundView.swift in Sources */,
 				25836A0428115F12009A6428 /* TwoVariableSimultaneousEquationView.swift in Sources */,
 				258369FD28105FC8009A6428 /* QuadraticEquationView.swift in Sources */,
 				25836A162818A058009A6428 /* ComplexOperationView.swift in Sources */,
@@ -475,8 +502,11 @@
 				25836A0628155B51009A6428 /* ThreeVariableSimultaneousEquationView.swift in Sources */,
 				25836A1A281AAE10009A6428 /* PolarFormOperationView.swift in Sources */,
 				25836A182818A716009A6428 /* ComplexNumberOperation.swift in Sources */,
+				257013312974DDC800B407A8 /* PreferenceKeys.swift in Sources */,
+				2570132D2974D5C700B407A8 /* AppBckgroundColorSetting.swift in Sources */,
 				255585852968398400974678 /* CylindricalComponentDecider.swift in Sources */,
 				25EB7F4129421BE300653340 /* AdvancedCalculationListView.swift in Sources */,
+				2570132F2974D5C700B407A8 /* AppBackground.swift in Sources */,
 				25EB7F542944CFB500653340 /* MyTextField.swift in Sources */,
 				255585872968398400974678 /* SphericalComponentDecider.swift in Sources */,
 				257F2CB7280D8F11009F7DB2 /* MainAppView.swift in Sources */,
@@ -485,11 +515,13 @@
 				25836A0A281569EE009A6428 /* EquationDecider.swift in Sources */,
 				257F2CA0280D79DD009F7DB2 /* ContentView.swift in Sources */,
 				25EB7F562944D02800653340 /* Expression.swift in Sources */,
+				2570132B2974D5C700B407A8 /* AppBackgroundSettingsView.swift in Sources */,
 				252EDC59280F100400601A54 /* AdvancedButtonsView.swift in Sources */,
 				255585862968398400974678 /* CartesianComponentDecider.swift in Sources */,
 				25EB7F532944CFB500653340 /* FactoredView.swift in Sources */,
 				25836A022810C656009A6428 /* SectionDecider.swift in Sources */,
 				258245AC2913455A00740D57 /* SettingsView.swift in Sources */,
+				2570132E2974D5C700B407A8 /* SplashScreen.swift in Sources */,
 				257F2C9E280D79DD009F7DB2 /* Calcul8App.swift in Sources */,
 				252EDC57280F069A00601A54 /* AdvancedButtons.swift in Sources */,
 				255585882968398400974678 /* CoordinateSystemDecider.swift in Sources */,

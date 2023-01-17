@@ -12,7 +12,6 @@ struct MainAppView: View {
     
     var body: some View {
         VStack{
-            
             StandardButtonsView(output: outputDigit)
         }
     }

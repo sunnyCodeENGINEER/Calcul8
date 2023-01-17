@@ -17,17 +17,33 @@ struct ComplexformDecider: View {
     
     var body: some View {
         if !complexNumber && !polarForm {
-            AdvancedCalculationDeciderView(selection: $selection)
+            ZStack {
+                AppBackgroundView()
+                
+                AdvancedCalculationDeciderView(selection: $selection)
+                    .respectSafeARea()
+            }
         }
         else {
             if complexNumber {
                 withAnimation{
-                    ComplexOperationView(solveColor: $standardOperator, textfieldBackground: $standardButton)
+                    ZStack {
+                        AppBackgroundView()
+                        
+                        ComplexOperationView(solveColor: $standardOperator, textfieldBackground: $standardButton)
+                            .respectSafeARea()
+                    }
                 }
             }
             else if polarForm {
                 withAnimation{
-                    PolarFormOperationView(solveColor: $standardOperator, textfieldBackground: $standardButton)
+                    ZStack {
+                        AppBackgroundView()
+                        
+                        PolarFormOperationView(solveColor: $standardOperator, textfieldBackground: $standardButton)
+                            .respectSafeARea()
+                            
+                    }
                 }
             }
         }

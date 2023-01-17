@@ -102,6 +102,7 @@ struct LogoMenu: View {
                                 .scaledToFit()
                                 .foregroundColor(Color(standardOperator))
                                 .frame(width: UIScreen.main.bounds.width / 7)
+                                .padding(.bottom, 40)
                         }
                         .opacity(menuOpacity ? 1 : 0)
                         .animation(.easeOut(duration: 1.2), value: menuOpacity)

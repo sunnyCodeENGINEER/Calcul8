@@ -14,15 +14,27 @@ struct AdvancedCalculationNavigator: View {
     
     var body: some View {
         if selection == .none {
-            AdvancedCalculationListView(selection: $selection)
+            ZStack {
+                AppBackgroundView()
+                
+                AdvancedCalculationListView(selection: $selection)
+                    .respectSafeARea()
+            }
         } else if selection == .complex {
             ComplexformDecider(selection: $selection)
         } else if selection == .vector {
-//            CoordinateSystemsView(operation: $operation)
-//            RectangularVectorComponentDecider(selection: $selection)
             CoordinateSystemDecider(selection: $selection)
         } else if selection == .algebra {
-            AlgebraViewRedo(selection: $selection)
+            ZStack {
+                AppBackgroundView()
+                
+                VStack {
+                    AlgebraViewRedo(selection: $selection)
+    //                    .padding(.horizontal)
+                        
+                    .respectSafeARea()
+                }.frame(width: UIScreen.main.bounds.width)
+            }
             
         }
     }

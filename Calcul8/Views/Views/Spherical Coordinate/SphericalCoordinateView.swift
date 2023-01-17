@@ -45,8 +45,11 @@ struct SphericalCoordinateView: View {
                             coordinateSystem = .none
                         }
                     } label: {
-                        Image(systemName: "chevron.left")
-                        Text("Back")
+                        HStack {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
+                        .padding(.top)
                     }
                     .tint(Color(mySolveColor))
                     .padding(.leading)
@@ -75,8 +78,6 @@ struct SphericalCoordinateView: View {
                     SphericalOperationPicker(operation: $operation)
                         .tint(Color(mySolveColor))
                     HStack {
-//                        SphericalClearAll(vector: $vector1, term: $term, component: $component)
-//                            .tint(.red)
                         SphericalClearButton(axis: $vector1.xComponent, term: $term, component: $component)
                             .tint(Color(mySolveColor))
                         SphericalDoneButton(axis: $vector1.xComponent, term: $term, component: $component, variable: $variable, currentComponent: $currentComponent, sphericalComponent: $sphericalComponent)
@@ -87,23 +88,34 @@ struct SphericalCoordinateView: View {
                 if showAnswer {
                     SphericalAnswerBoard(answerVector: $answerVector, title1: "R", title2: "θ", title3: "ϕ")
                 }
-                if recieveComponents {
-                    if operation != .gradient {
+                VStack {
+                    if recieveComponents {
                         VStack {
-                            SphericalComponentSelectorDecider(vector1: $vector1, vector2: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent, currentVector: $currentVector, term: $term, sphericalComponent: $sphericalComponent)
+                            if operation != .gradient {
+                                VStack {
+                                    SphericalComponentSelectorDecider(vector1: $vector1, vector2: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent, currentVector: $currentVector, term: $term, sphericalComponent: $sphericalComponent)
+                                }
+                            }
+                            HStack {
+                                VariableConstantButton(title: variables ? "Conatants" : "Variables", variables: $variables, mySolveColor: $mySolveColor)
+                                
+                                SphericalComponentSignDecider(vector1: $vector1, vector2: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent, currentVector: $currentVector, exponents: $exponents, term: $term, sphericalComponent: $sphericalComponent)
+                            }
+                            if !variables {
+                                CylindricalVectorKeyBoard(component: $component, variable: $variable, mySolveColor: $mySolveColor, myColor: $myColor)
+                            } else {
+                                SphericalKeyboardDecider(vector1: $vector1, vector2: $vector2, components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector1.xComponent, sphericalComponent: $sphericalComponent, currentComponent: $currentComponent, currentVector: $currentVector, mySolveColor: $mySolveColor, myColor: $myColor)
+                            }
                         }
-                    }
-                    HStack {
-                        VariableConstantButton(title: variables ? "Conatants" : "Variables", variables: $variables, mySolveColor: $mySolveColor)
-                        
-                        SphericalComponentSignDecider(vector1: $vector1, vector2: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent, currentVector: $currentVector, exponents: $exponents, term: $term, sphericalComponent: $sphericalComponent)
-                    }
-                    if !variables {
-                        CylindricalVectorKeyBoard(component: $component, variable: $variable, mySolveColor: $mySolveColor, myColor: $myColor)
-                    } else {
-                        SphericalKeyboardDecider(vector1: $vector1, vector2: $vector2, components: $components, exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, term: $term, axis: $vector1.xComponent, sphericalComponent: $sphericalComponent, currentComponent: $currentComponent, currentVector: $currentVector, mySolveColor: $mySolveColor, myColor: $myColor)
+                        .padding(.horizontal)
+                        .padding(.top)
+                        .background(RoundedRectangle(cornerRadius: 30)
+                            .foregroundColor(Color("white"))
+                            .shadow(radius: 10, y: -10)
+                            .ignoresSafeArea())
                     }
                 }
+                .keyboardRespectSafeArea()
             }
             .opacity(showMenu ? 0.2 : 1)
             
@@ -251,18 +263,9 @@ struct MySphericalSolveButton: View {
                         if !isZero {
                             answer.component.append(SphericalTerms(trigCoefficient: ret, component: component.component))
                         }
-                        /*
-                        component.trigCoefficient.forEach { term in
-                            component2.trigCoefficient.forEach { term2 in
-                                ret.append(CartesianTerms(coefficient: String((Double(term.coefficient) ?? 1) + (Double(term2.coefficient) ?? 1)), terms: term.terms))
-                            }
-                        }
-                        */
                         isAdded1 = true
                         
-//                        answer.component.append(SphericalTerms(trigCoefficient: ret, component: component.component))
                     } else {
-//                        answer.component.append(SphericalTerms(trigCoefficient: component.trigCoefficient, component: component.component))
                         if !(check(comp1: component, comp2: added1)) {
                             if !isAdded1 {
                                 added1.append(component)
@@ -346,14 +349,8 @@ struct MySphericalSolveButton: View {
                         if !isZero {
                             answer.component.append(SphericalTerms(trigCoefficient: ret, component: component.component))
                         }
-                        
-//                        if (check(comp1: component, comp2: added1)) {
                             isAdded1 = true
-//                            added1.removeLast()
-//                        }
-                        
                     } else {
-//                        answer.component.append(SphericalTerms(trigCoefficient: component.trigCoefficient, component: component.component))
                         if !(check(comp1: component2, comp2: added)) {
                             added.append(component2)
                         }
@@ -392,7 +389,6 @@ struct MySphericalSolveButton: View {
                     answer.component.append(SphericalTerms(trigCoefficient: ret, component: term.component))
                     
                 }
-//                answer.component.append(SphericalTerms(trigCoefficient: ret, component: term.component))
             }
             
             added.removeAll()
@@ -428,10 +424,8 @@ struct MySphericalSolveButton: View {
                             k = 0
                             p = -1
                         }
-//                        returnTerms.terms.append(contentsOf: secondComponent[j].terms)
                         p += 1
                     }
-//                    returnTerms.terms.append(contentsOf: firstComponent[i].terms)
                     k += 1
                 }
                 
@@ -444,7 +438,6 @@ struct MySphericalSolveButton: View {
                 
                 j += 1
             }
-//            returnTerms.terms.append(contentsOf: firstComponent[i].terms)
             
             i += 1
         }
@@ -486,7 +479,6 @@ struct MySphericalSolveButton: View {
                 }
                 
                 returnTerms.terms.append(contentsOf: firstComponent[i].terms)
-//                returnTerms.terms.append(contentsOf: secondComponent[j].terms)
                 secondComponent[j].terms.forEach { variable in
                     returnTerms.terms.append(Variable(base: variable.base, exponent: String((Double(variable.exponent) ?? 1) * -1)))
                 }
@@ -568,15 +560,12 @@ struct MySphericalSolveButton: View {
                                 k += 1
                             }
                             
-                            //                    if !component1.component[i].component.isEmpty {
                             secondComponent.component[j].component.forEach { component in
                                 resultTerm.component.append(SphericalComponent(trigID: component.trigID, component: component.component))
                             }
-                            //                    }
                             
                             j += 1
                         }
-                        //                if !component2.component[j - 1].component.isEmpty {
                         firstComponent.component[i].component.forEach { component in
                             resultTerm.component.append(SphericalComponent(trigID: component.trigID, component: component.component))
                         }
@@ -635,7 +624,6 @@ struct MySphericalSolveButton: View {
             var secondComponent = component2
             
             var coefficientResult: [CartesianTerms] = []
-//            var componentResult: [CartesianTerms] = []
             var trigIDResult: String = ""
             
             var start: Bool = true
@@ -796,10 +784,6 @@ struct MySphericalSolveButton: View {
         returnVector.xComponent = addition(tempX, tempY).xComponent
         returnVector.xComponent = addition(returnVector, tempZ).xComponent
         
-//        returnVector.xComponent = tempZ.xComponent
-        
-        
-        
         return returnVector
     }
     
@@ -869,8 +853,6 @@ struct MySphericalSolveButton: View {
                     let temp = differentiateComponent(base: base.lowercased(), component: component.component)
                     differentiatedComponent.append(contentsOf: temp)
                     
-//                }
-//                    var temp2: [CartesianTerms] = []
                     if !differentiatedComponent.isEmpty {
                         switch component.trigID {
                         case "sin":
@@ -882,9 +864,6 @@ struct MySphericalSolveButton: View {
                             term.trigCoefficient.forEach { coefficient in
                                 temp2.append(CartesianTerms(coefficient: String((Double(coefficient.coefficient) ?? 1) * -1),
                                                             terms: coefficient.terms))
-                                
-//                                temp2.append(CartesianTerms(coefficient: "-" + coefficient.coefficient,
-//                                                            terms: coefficient.terms))
                             }
                             differentiatedCoefficient = temp
                             break
@@ -898,31 +877,25 @@ struct MySphericalSolveButton: View {
                     }
                     diffComp.append(SphericalComponent(trigID: differentiatedTrigID, component: component.component))
                     
-//                    answer.component.append(SphericalTerms(trigCoefficient: temp2, component: [SphericalComponent(trigID: differentiatedTrigID, component: component.component)]))
                 }
                 answer.component.append(SphericalTerms(trigCoefficient: temp2, component: diffComp))
             }
             
             return answer
         }
-//        print("\n\nmust check\n", returnVector)
         
         return returnVector
     }
     
     private func differentiateComponent(base: String, component: [CartesianTerms]) -> [CartesianTerms] {
         var returnComponent: [CartesianTerms] = []
-//        var returnVector: CartesianCoordinateSystem = CartesianCoordinateSystem()
         
         component.forEach { comp in
             let tempCoefficient = differentiateTerm(base: base, coefficient: comp.coefficient, component: comp.terms).0
             let tempTerm = differentiateTerm(base: base, coefficient: comp.coefficient, component: comp.terms).1
-//            print(comp.coefficient)
-            
+
             returnComponent.append(CartesianTerms(coefficient: tempCoefficient, terms: tempTerm))
         }
-//        print(returnComponent)
-//        returnVector.xComponent = returnComponent
         return returnComponent
     }
     
@@ -937,9 +910,6 @@ struct MySphericalSolveButton: View {
                 if (Double(term.exponent) ?? 1) - 1 != 0 {
                     mustReturn.append(Variable(base: base, exponent: String((Double(term.exponent) ?? 1) - 1)))
                 }
-//                else {
-//                    mustReturn.append(Variable(base: "1", exponent: "0"))
-//                }
                 returnCoefficient = String((Double(coefficient) ?? 1) * ((Double(term.exponent) ?? 1)))
                 a = true
             } else {
@@ -952,7 +922,6 @@ struct MySphericalSolveButton: View {
         
         if !a {
             mustReturn.removeAll()
-//            mustReturn.append(Variable(base: "1", exponent: "0"))
         }
         
         returnComponent = mustReturn
@@ -970,6 +939,18 @@ struct SphericalAnswerBoard: View {
     
     var body: some View {
         VStack(alignment: .leading) {
+            HStack{
+                Spacer()
+                
+                Text("Answers".uppercased())
+                    .font(.title)
+                
+                Spacer()
+                
+            }
+            .frame(height: QuadraticEquationView().textfieldWidth())
+            .background(Color.gray.opacity(0.3))
+            
             if !answerVector.xComponent.component.isEmpty {
                 HStack(spacing: 2) {
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -1082,9 +1063,6 @@ struct SphericalDoneButton: View {
                         }
                     }
                     
-//                    if component.coefficient.isEmpty {
-//                        component.coefficient = "1"
-//                    }
                     if sphericalComponent.trigID == "" {
                         term.trigCoefficient = [component]
                         
@@ -1155,9 +1133,6 @@ struct SphericalSignButton: View {
                     }
                 }
                 
-//                if component.coefficient.isEmpty {
-//                    component.coefficient = "1"
-//                }
                 if component.coefficient != "+" && component.coefficient != "-" {
                     if sphericalComponent.trigID == "" {
                         term.trigCoefficient = [component]
@@ -1174,7 +1149,6 @@ struct SphericalSignButton: View {
                     component.terms.removeAll()
                     component = CartesianTerms()
                 }
-//                sphericalComponent = SphericalComponent()
                 
                 if component.coefficient.isEmpty {
                     component.coefficient.append(sign)
@@ -1907,10 +1881,8 @@ struct SphericalVectorKeyBoardVariables: View {
             CylindricalVectorKeyRowVariables(start: 3, end: 6, variableTexts: variableTexts, component: $component, variable: $variable, myColor: $myColor)
             CylindricalVectorKeyRowVariables(start: 6, end: 9, variableTexts: variableTexts, component: $component, variable: $variable, myColor: $myColor)
             HStack {
-//                ConstantExponentButton(exponents: $exponents)
                 TrigConstantButton(trignometry: $trignometry, mySolveColor: $mySolveColor)
                 VectorKeyRowConstants(start: 0, end: 0, coefficient: $coefficient, myColor: $myColor)
-//                VectorKeyConstantsSpecial(key: ".", component: $coefficient)
                 SphericalTrigKeyVariableClose(axis: $axis, component: $component, variable: $variable, term: $term, sphericalComponent: $sphericalComponent, mySolveColor: $mySolveColor)
             }
         }

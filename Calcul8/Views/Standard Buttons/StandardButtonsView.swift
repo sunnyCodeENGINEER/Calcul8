@@ -95,7 +95,7 @@ struct StandardButtonsView: View {
             .opacity(showMenu ? 0.2 : 1)
             
             LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
-                .padding(.horizontal)
+                .padding([.horizontal, .top])
         }
         
         

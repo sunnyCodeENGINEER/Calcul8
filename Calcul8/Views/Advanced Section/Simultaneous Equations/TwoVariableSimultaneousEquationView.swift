@@ -30,10 +30,6 @@ struct TwoVariableSimultaneousEquationView: View {
     @State var menuOpacity: Bool = false
     @State var width: CGFloat = UIScreen.main.bounds.width / 8
     
-    //    var variableMatrix: [[Double]] = [
-    //        [0.00, 0.00],
-    //        [0.00, 0.00]
-    //    ]
     
     @State var variableMatrix = simd_double2x2(rows: [
         simd_double2(0, 0),
@@ -188,14 +184,12 @@ struct TwoVariableSimultaneousEquationView: View {
                     .frame(height: QuadraticEquationView().textfieldWidth())
                     .background(Color.gray.opacity(0.3))
                     
-                    //            Text("x = \(answerMatrix.x) \ny = \(answerMatrix.y)")
                     if showAnswers {
                         Text(String(format: "x = %.4f \ny = %.4f", answerMatrix.x, answerMatrix.y))
                     }
                 }
                 Spacer()
                 
-//                SectionPickerView()
             }
             .opacity(showMenu ? 0.2 : 1)
             

@@ -17,13 +17,33 @@ struct CoordinateSystemDecider: View {
     
     var body: some View {
         if coordinateSystem == .cartesian {
-            CartesianCoordinateView(coordinateSystem: $coordinateSystem, myColor: $standardButton, mySolveColor: $standardOperator)
+            ZStack {
+                AppBackgroundView()
+                
+                CartesianCoordinateView(coordinateSystem: $coordinateSystem, myColor: $standardButton, mySolveColor: $standardOperator)
+                    .respectSafeARea()
+            }
         } else if coordinateSystem == .cylindrical {
-            CylindricalCoordinateView(coordinateSystem: $coordinateSystem, myColor: $standardButton, mySolveColor: $standardOperator)
+            ZStack {
+                AppBackgroundView()
+                
+                CylindricalCoordinateView(coordinateSystem: $coordinateSystem, myColor: $standardButton, mySolveColor: $standardOperator)
+                    .respectSafeARea()
+            }
         } else if coordinateSystem == .spherical {
-            SphericalCoordinateView(coordinateSystem: $coordinateSystem, myColor: $standardButton, mySolveColor: $standardOperator)
+            ZStack {
+                AppBackgroundView()
+                
+                SphericalCoordinateView(coordinateSystem: $coordinateSystem, myColor: $standardButton, mySolveColor: $standardOperator)
+                    .respectSafeARea()
+            }
         } else {
-            CoordinateSystemDeciderView(coordinateSystem: $coordinateSystem, standardOperator: $standardOperator, selection: $selection)
+            ZStack {
+                AppBackgroundView()
+                
+                CoordinateSystemDeciderView(coordinateSystem: $coordinateSystem, standardOperator: $standardOperator, selection: $selection)
+                    .respectSafeARea()
+            }
         }
     }
 }
@@ -31,5 +51,36 @@ struct CoordinateSystemDecider: View {
 struct CoordinateSystemDecider_Previews: PreviewProvider {
     static var previews: some View {
         CoordinateSystemDecider(selection: .constant(.none))
+    }
+}
+
+struct RespectSafeArea: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .safeAreaInset(edge: .top) {
+                Color.clear
+                    .frame( height: 40)
+                    .padding(.bottom)
+            }
+    }
+}
+
+extension View {
+    func respectSafeARea() -> some View {
+        modifier(RespectSafeArea())
+    }
+    
+    func keyboardRespectSafeArea() -> some View {
+        modifier(KeyboardRespectSafeArea())
+    }
+}
+
+struct KeyboardRespectSafeArea: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .safeAreaInset(edge: .bottom) {
+                Color.clear
+                    .frame( height: 40)
+            }
     }
 }

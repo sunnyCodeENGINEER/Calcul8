@@ -17,22 +17,42 @@ struct EquationDecider : View {
     
     var body: some View {
         if !twoVarSimulEqn && ( !threeVarSimulEqn && !quadraticSection) {
-            EquationDeciderView()
+            ZStack {
+                AppBackgroundView()
+                
+                EquationDeciderView()
+                    .respectSafeARea()
+            }
         }
         else {
             if twoVarSimulEqn {
                 withAnimation{
-                    TwoVariableSimultaneousEquationView(solveColor: $standardOperator, textfieldBackground: $standardButton)
+                    ZStack {
+                        AppBackgroundView()
+                        
+                        TwoVariableSimultaneousEquationView(solveColor: $standardOperator, textfieldBackground: $standardButton)
+                            .respectSafeARea()
+                    }
                 }
             }
             else if threeVarSimulEqn {
                 withAnimation{
-                    ThreeVariableSimultaneousEquationView(solveColor: $standardOperator, textfieldBackground: $standardButton)
+                    ZStack {
+                        AppBackgroundView()
+                        
+                        ThreeVariableSimultaneousEquationView(solveColor: $standardOperator, textfieldBackground: $standardButton)
+                            .respectSafeARea()
+                    }
                 }
             }
             else if quadraticSection {
                 withAnimation {
-                    QuadraticEquationView()
+                    ZStack {
+                        AppBackgroundView()
+                        
+                        QuadraticEquationView()
+                            .respectSafeARea()
+                    }
                 }
             }
         }

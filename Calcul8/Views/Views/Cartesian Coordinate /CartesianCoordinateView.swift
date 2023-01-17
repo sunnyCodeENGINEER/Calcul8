@@ -41,8 +41,11 @@ struct CartesianCoordinateView: View {
                             coordinateSystem = .none
                         }
                     } label: {
-                        Image(systemName: "chevron.left")
-                        Text("Back")
+                        HStack {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
+                        .padding(.top)
                     }
                     .tint(Color(mySolveColor))
                     .padding(.leading)
@@ -71,7 +74,6 @@ struct CartesianCoordinateView: View {
                     OperationPicker(operation: $operation)
                         .tint(Color(mySolveColor))
                     HStack {
-                        //                    ClearAll(vector: $vector1)
                         ClearButton(axis: $vector1.xComponent)
                             .tint(Color(mySolveColor))
                         DoneButton(axis: $vector1.xComponent, component: $component, variable: $variable, currentComponent: $currentComponent)
@@ -81,26 +83,37 @@ struct CartesianCoordinateView: View {
                     
                 }
                 VStack {
-                    if recieveComponents {
-    //                    ComponentSelectorRow(axis: $axis, component: $component, variable: $variable,currentComponent: $currentComponent)
-                        if operation != .gradient {
-                            ComponentSelectorDecider(vector1: $vector1, vector2: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent, currentVector: $currentVector)
-                        }
-                        HStack {
-                            VariableConstantButton(title: variables ? "Conatants" : "Variables", variables: $variables, mySolveColor: $mySolveColor)
+                    VStack {
+                        if recieveComponents {
+                            VStack {
+                                if operation != .gradient {
+                                    ComponentSelectorDecider(vector1: $vector1, vector2: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent, currentVector: $currentVector)
+                                }
+                                HStack {
+                                    VariableConstantButton(title: variables ? "Conatants" : "Variables", variables: $variables, mySolveColor: $mySolveColor)
+                                    
+                                    CartesianComponentDecider(vector1: $vector1, vector2: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent, currentVector: $currentVector, exponents: $exponents)
+                                }
+                                if !variables {
+                                    VectorKeyBoard(component: $component, variable: $variable, mySolveColor: $mySolveColor, myColor: $myColor)
+                                } else {
+                                    VectorKeyBoardVariables(exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, mySolveColor: $mySolveColor, myColor: $myColor)
+                                }
+                            }
+                            .padding(.horizontal)
+                            .padding(.top)
+                            .background(RoundedRectangle(cornerRadius: 30)
+                                .foregroundColor(Color("white"))
+                                .shadow(radius: 10, y: -10)
+                                .ignoresSafeArea())
                             
-                            CartesianComponentDecider(vector1: $vector1, vector2: $vector2, component: $component, variable: $variable, currentComponent: $currentComponent, currentVector: $currentVector, exponents: $exponents)
+                            if showAnswer {
+                                AnswerBoard(answerVector: $answerVector)
+                            }
                         }
-                        if !variables {
-                            VectorKeyBoard(component: $component, variable: $variable, mySolveColor: $mySolveColor, myColor: $myColor)
-                        } else {
-                            VectorKeyBoardVariables(exponents: $exponents, component: $component, variable: $variable, trignometry: $trignometry, mySolveColor: $mySolveColor, myColor: $myColor)
-                        }
-                    }
-                    if showAnswer {
-                        AnswerBoard(answerVector: $answerVector)
                     }
                 }
+                .keyboardRespectSafeArea()
             }
             .opacity(showMenu ? 0.2 : 1)
             
@@ -169,9 +182,6 @@ struct ClearAll: View {
 
 struct ClearButton: View {
     @Binding var axis: CartesianCoordinateComponent
-//    @Binding var component: CartesianTerms
-//    @Binding var variable: Variable
-//    @Binding var currentComponent: String
     
     var body: some View {
         HStack{
@@ -232,41 +242,55 @@ struct AnswerBoard: View {
     @Binding var answerVector: CartesianCoordinateSystem
     
     var body: some View {
-        HStack(spacing: 2) {
-            if !answerVector.xComponent.component.isEmpty {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 2) {
-                        Text("(")
-                        MyText(axis: $answerVector.xComponent)
-                        Text(")")
-                    }
-                }
-                Text("i")
-                    .padding(.horizontal)
+        VStack {
+            HStack{
+                Spacer()
+                
+                Text("Answers".uppercased())
+                    .font(.title)
+                
+                Spacer()
+                
             }
-            if !answerVector.yComponent.component.isEmpty {
-                Text("+")
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 2) {
-                        Text("(")
-                        MyText(axis: $answerVector.yComponent)
-                        Text(")")
+            .frame(height: QuadraticEquationView().textfieldWidth())
+            .background(Color.gray.opacity(0.3))
+            
+            HStack(spacing: 2) {
+                if !answerVector.xComponent.component.isEmpty {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 2) {
+                            Text("(")
+                            MyText(axis: $answerVector.xComponent)
+                            Text(")")
+                        }
                     }
+                    Text("i")
+                        .padding(.horizontal)
                 }
-                Text("j")
-                    .padding(.horizontal)
-            }
-            if !answerVector.zComponent.component.isEmpty {
-                Text("+")
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 2) {
-                        Text("(")
-                        MyText(axis: $answerVector.zComponent)
-                        Text(")")
+                if !answerVector.yComponent.component.isEmpty {
+                    Text("+")
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 2) {
+                            Text("(")
+                            MyText(axis: $answerVector.yComponent)
+                            Text(")")
+                        }
                     }
+                    Text("j")
+                        .padding(.horizontal)
                 }
-                Text("k")
-                    .padding(.horizontal)
+                if !answerVector.zComponent.component.isEmpty {
+                    Text("+")
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 2) {
+                            Text("(")
+                            MyText(axis: $answerVector.zComponent)
+                            Text(")")
+                        }
+                    }
+                    Text("k")
+                        .padding(.horizontal)
+                }
             }
         }
     }
@@ -379,7 +403,6 @@ struct SolveButton: View {
                 }
             }
             
-//            toSetExpression.component.append(Variable(coefficient: express.coefficient, terms: toSetTerm))
             toSetExpression.component.append(CartesianTerms(coefficient: express.coefficient, terms: toSetTerm))
 
             toSetTerm.removeAll()
@@ -437,12 +460,10 @@ struct SolveButton: View {
             return isPresent
         }
         
-        // loop over every component of each vector
         var added: [CartesianTerms] = []
         vector1.xComponent.component.forEach { component in
             
             vector2.xComponent.component.forEach { component2 in
-                // if getBase() and getExpomnents() are equal append terms and sum of coefficient to corressponding component of returnVector
                 if component.getBases() == component2.getBases() && component.getExponents() == component2.getExponents() {
                     returnVector.xComponent.component.append(CartesianTerms(coefficient: String((Double(component.coefficient) ?? 1) + (Double(component2.coefficient) ?? 1)), terms: component.terms))
                 } else {
@@ -469,12 +490,11 @@ struct SolveButton: View {
         
         vector1.yComponent.component.forEach { component in
             vector2.yComponent.component.forEach { component2 in
-                // if getBase() and getExpomnents() are equal append terms and sum of coefficient to corressponding component of returnVector
                 if component.getBases() == component2.getBases() && component.getExponents() == component2.getExponents() {
                     returnVector.yComponent.component.append(CartesianTerms(coefficient: String((Double(component.coefficient) ?? 1) + (Double(component2.coefficient) ?? 1)), terms: component.terms))
                 } else {
                     returnVector.yComponent.component.append(CartesianTerms(coefficient: component.coefficient, terms: component.terms))
-//                    returnVector.yComponent.component.append(CartesianTerms(coefficient: "+" + component2.coefficient, terms: component2.terms))
+                  
                     if !(check(comp1: component2, comp2: added)) {
                         added.append(component2)
                     }
@@ -497,12 +517,11 @@ struct SolveButton: View {
         
         vector1.zComponent.component.forEach { component in
             vector2.zComponent.component.forEach { component2 in
-                // if getBase() and getExpomnents() are equal append terms and sum of coefficient to corressponding component of returnVector
                 if component.getBases() == component2.getBases() && component.getExponents() == component2.getExponents() {
                     returnVector.zComponent.component.append(CartesianTerms(coefficient: String((Double(component.coefficient) ?? 1) + (Double(component2.coefficient) ?? 1)), terms: component.terms))
                 } else {
                     returnVector.zComponent.component.append(CartesianTerms(coefficient: component.coefficient, terms: component.terms))
-//                    returnVector.zComponent.component.append(CartesianTerms(coefficient: "+" + component2.coefficient, terms: component2.terms))
+                   
                     if !(check(comp1: component2, comp2: added)) {
                         added.append(component2)
                     }
@@ -539,19 +558,17 @@ struct SolveButton: View {
             return isPresent
         }
         
-        // loop over every component of each vector
         var added: [CartesianTerms] = []
         
         vector1.xComponent.component.forEach { component in
             vector2.xComponent.component.forEach { component2 in
-                // if getBase() and getExpomnents() are equal append terms and sum of coefficient to corressponding component of returnVector
                 if component.getBases() == component2.getBases() && component.getExponents() == component2.getExponents() {
                     if (Double(component.coefficient) ?? 1) - (Double(component2.coefficient) ?? 1) != Double(0) {
                         returnVector.xComponent.component.append(CartesianTerms(coefficient: String((Double(component.coefficient) ?? 1) - (Double(component2.coefficient) ?? 1)), terms: component.terms))
                     }
                 } else {
                     returnVector.xComponent.component.append(CartesianTerms(coefficient: component.coefficient, terms: component.terms))
-//                    returnVector.xComponent.component.append(CartesianTerms(coefficient: "-" + component2.coefficient, terms: component2.terms))
+                    
                     if !(check(comp1: component2, comp2: added)) {
                         added.append(component2)
                     }
@@ -564,7 +581,6 @@ struct SolveButton: View {
         }
         
         if vector1.xComponent.component.isEmpty {
-//            returnVector.xComponent.component.append(contentsOf: vector2.xComponent.component)
             vector2.xComponent.component.forEach { comp in
                 returnVector.xComponent.component.append(CartesianTerms(coefficient: "-" + comp.coefficient, terms: comp.terms))
             }
@@ -577,14 +593,13 @@ struct SolveButton: View {
         
         vector1.yComponent.component.forEach { component in
             vector2.yComponent.component.forEach { component2 in
-                // if getBase() and getExpomnents() are equal append terms and sum of coefficient to corressponding component of returnVector
                 if component.getBases() == component2.getBases() && component.getExponents() == component2.getExponents() {
                     if (Double(component.coefficient) ?? 1) - (Double(component2.coefficient) ?? 1) != Double(0) {
                         returnVector.yComponent.component.append(CartesianTerms(coefficient: String((Double(component.coefficient) ?? 1) - (Double(component2.coefficient) ?? 1)), terms: component.terms))
                     }
                 } else {
                     returnVector.yComponent.component.append(CartesianTerms(coefficient: component.coefficient, terms: component.terms))
-//                    returnVector.yComponent.component.append(CartesianTerms(coefficient: "-" + component2.coefficient, terms: component2.terms))
+                    
                     if !(check(comp1: component2, comp2: added)) {
                         added.append(component2)
                     }
@@ -610,14 +625,13 @@ struct SolveButton: View {
         
         vector1.zComponent.component.forEach { component in
             vector2.zComponent.component.forEach { component2 in
-                // if getBase() and getExpomnents() are equal append terms and sum of coefficient to corressponding component of returnVector
                 if component.getBases() == component2.getBases() && component.getExponents() == component2.getExponents() {
                     if (Double(component.coefficient) ?? 1) - (Double(component2.coefficient) ?? 1) != Double(0) {
                         returnVector.zComponent.component.append(CartesianTerms(coefficient: String((Double(component.coefficient) ?? 1) - (Double(component2.coefficient) ?? 1)), terms: component.terms))
                     }
                 } else {
                     returnVector.zComponent.component.append(CartesianTerms(coefficient: component.coefficient, terms: component.terms))
-//                    returnVector.zComponent.component.append(CartesianTerms(coefficient: "-" + component2.coefficient, terms: component2.terms))
+                    
                     if !(check(comp1: component2, comp2: added)) {
                         added.append(component2)
                     }
@@ -630,7 +644,6 @@ struct SolveButton: View {
         }
         
         if vector1.zComponent.component.isEmpty {
-//            returnVector.zComponent.component.append(contentsOf: vector2.zComponent.component)
             vector2.zComponent.component.forEach { comp in
                 returnVector.zComponent.component.append(CartesianTerms(coefficient: "-" + comp.coefficient, terms: comp.terms))
             }
@@ -705,40 +718,6 @@ struct SolveButton: View {
             return isPresent
         }
         
-        
-        // WORKING FUNCTION
-        /*
-        component1.component.forEach { comp in
-            component2.component.forEach { comp2 in
-//                var isPresent: Bool = false
-                comp.terms.forEach { term in
-                    var isPresent: Bool = false
-                    comp2.terms.forEach { term2 in
-                        if term.base == term2.base {
-                            returnTerms.terms.append(Variable(base: term.base, exponent: String((Double(term.exponent) ?? 1) + (Double(term2.exponent) ?? 1))))
-                            isPresent = true
-                        } else {
-                            returnTerms.terms.append(term2)
-                            
-                        }
-                    }
-                    if !isPresent {
-                        returnTerms.terms.append(term)
-                    }
-                    
-//                    returnTerms.coefficient = String((Double(comp.coefficient) ?? 1) * (Double(comp2.coefficient) ?? 1))
-//
-//                    returnComponent.component.append(CartesianTerms(coefficient: returnTerms.coefficient, terms: returnTerms.terms))
-//                    returnTerms.terms.removeAll()
-                }
-                returnTerms.coefficient = String((Double(comp.coefficient) ?? 1) * (Double(comp2.coefficient) ?? 1))
-                
-                returnComponent.component.append(CartesianTerms(coefficient: returnTerms.coefficient, terms: returnTerms.terms))
-                returnTerms.terms.removeAll()
-            }
-        }
-         */
-        
         return returnComponent
     }
     
@@ -759,8 +738,6 @@ struct SolveButton: View {
                 print(comp2)
                 while(i < comp.terms.count) {
                     var isPresent: Bool = false
-//                    var isPresent2: Bool = false
-//                    var set = 0
                     isPresent2 = isPresentt(comp, comp2)
                     j = set
                     while(j < comp2.terms.count) {
@@ -775,7 +752,6 @@ struct SolveButton: View {
                         } else {
                             if !toPass {
                                 if !isPresent2 {
-                                    //                                returnTerms.terms.append(comp2[j])
                                     returnTerms.terms.append(Variable(base: comp2[j].base, exponent: "-" + comp2[j].exponent))
                                     toPass = true
                                 }
@@ -786,11 +762,8 @@ struct SolveButton: View {
                     if !isPresent {
                         returnTerms.terms.append(comp[i])
                     }
-//                    j = 0
                     i += 1
                 }
-//                returnTerms.coefficient = String((Double(comp.coefficient) ?? 1) / (Double(comp2.coefficient) ?? 1))
-                // round coeeficient off to two decimal places.
                 returnTerms.coefficient = String(format: "%.4f", ((Double(comp.coefficient) ?? 1) / (Double(comp2.coefficient) ?? 1)))
                 
                 returnComponent.component.append(CartesianTerms(coefficient: returnTerms.coefficient, terms: returnTerms.terms))
@@ -827,7 +800,6 @@ struct SolveButton: View {
         yProduct.xComponent = multiplication(vector1.yComponent, vector2.yComponent)
         zProduct.xComponent = multiplication(vector1.zComponent, vector2.zComponent)
         
-        // since addition vector takes a vector we create vectors witj the components and only deal with the xAxis.
         answer.xComponent = addition(xProduct, yProduct).xComponent
         debugPrint("\n" , answer.xComponent)
         answer.xComponent = addition(answer, zProduct).xComponent
@@ -868,16 +840,12 @@ struct SolveButton: View {
     private func magnitude(_ vector1: CartesianCoordinateSystem) -> CartesianCoordinateSystem {
         var returnVector: CartesianCoordinateSystem = CartesianCoordinateSystem()
         var subX: CartesianCoordinateSystem = CartesianCoordinateSystem()
-//        var subY: CartesianCoordinateSystem = CartesianCoordinateSystem()
-//        var subZ: CartesianCoordinateSystem = CartesianCoordinateSystem()
         
         var prodX: CartesianCoordinateSystem  = CartesianCoordinateSystem()
         var prodY: CartesianCoordinateSystem  = CartesianCoordinateSystem()
         var prodZ: CartesianCoordinateSystem  = CartesianCoordinateSystem()
         
         subX = subtraction(vector1, vector2)
-//        subY.yComponent = subtraction(vector1, vector2).yComponent
-//        subZ.zComponent = subtraction(vector1, vector2).zComponent
         
         prodX.xComponent = multiplication(subX.xComponent, subX.xComponent)
         prodY.xComponent = multiplication(subX.yComponent, subX.yComponent)
@@ -901,7 +869,6 @@ struct SolveButton: View {
                 rootTerms.append(Variable(base: term.base, exponent: String((Double(term.exponent) ?? 1) / 2)))
             }
             root.component.append(CartesianTerms(coefficient: String(format: "%.4f", sqrt(Double(comp.coefficient) ?? 1)), terms: rootTerms))
-//            root.component.append(CartesianTerms(coefficient: String(sqrt(Double(comp.coefficient) ?? 1)), terms: rootTerms))
         }
         
         return root
@@ -928,10 +895,6 @@ struct SolveButton: View {
         let z1 = differentiateComponent(base: "x", component: yComponent)
         let z2 = differentiateComponent(base: "y", component: xComponent)
         
-        
-//        let answerX = subtraction(x1, x2)
-//        let answerY = subtraction(y1, y2)
-//        let answerZ = subtraction(z1, z2)
         answer.xComponent = subtraction(x1, x2).xComponent
         print(subtraction(x1, x2).xComponent)
         answer.yComponent = subtraction(y1, y2).xComponent
@@ -989,9 +952,6 @@ struct SolveButton: View {
                 if (Double(term.exponent) ?? 1) - 1 != 0 {
                     mustReturn.append(Variable(base: base, exponent: String((Double(term.exponent) ?? 1) - 1)))
                 }
-//                else {
-//                    mustReturn.append(Variable(base: "1", exponent: "0"))
-//                }
                 returnCoefficient = String((Double(coefficient) ?? 1) * ((Double(term.exponent) ?? 1)))
                 a = true
             } else {
@@ -1004,7 +964,6 @@ struct SolveButton: View {
         
         if !a {
             mustReturn.removeAll()
-//            mustReturn.append(Variable(base: "1", exponent: "0"))
         }
         
         returnComponent = mustReturn
@@ -1023,11 +982,6 @@ struct SignButton: View {
     
     var body: some View {
         Button {
-//            if component.coefficient.count == 1 {
-//                if component.coefficient == "+" || component.coefficient == "-" {
-//                    component.coefficient.removeAll()
-//                }
-//            }
             
             if !exponents {
                 if !variable.base.isEmpty {
@@ -1098,7 +1052,6 @@ struct MyText: View {
             ForEach(axis.component) { term in
                 if term.coefficient != "0" {
                     if term.coefficient != "-1" {
-                        //                    Text(term.coefficient == "1" || term.coefficient == "+1" ? "" : term.coefficient)
                         if term.coefficient != "+1" {
                             Text(term.coefficient == "1" ? "" : term.coefficient)
                         } else {
@@ -1273,7 +1226,6 @@ struct ConstantExponentButton: View {
             } label: {
                 if exponents {
                     Text(String("12..."))
-//                        .font(.title)
                         .foregroundColor(.black)
                         .padding()
                         .frame(width: UIScreen.main.bounds.width / 3.2)
@@ -1502,15 +1454,10 @@ struct VectorKeyVariable: View {
                         variableText = temp
                         
                         variable = Variable()
-//                        variable.base.append(variableText + ")")
                     }
                     if variable.exponent.isEmpty {
                         component.terms.append(Variable(base: variable.base, exponent: "1"))
                     } else {
-//                        if component.coefficient == "-" {
-//                            component.coefficient.append("1")
-//
-//                        }
                         component.terms.append(variable)
                         variable.exponent.removeAll()
                     }

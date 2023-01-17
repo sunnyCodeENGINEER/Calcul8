@@ -17,24 +17,26 @@ struct SettingsView: View {
     @State var menuOpacity: Bool = false
     @State var width: CGFloat = UIScreen.main.bounds.width / 8
     @State var selectTheme: Bool = false
+    @State private var editBG: Bool = false
+    
+    @State private var hasScrolled: Bool = false
     
     var body: some View {
         ZStack {
             ScrollView(.vertical) {
                 VStack(alignment: .leading)  {
-                    Spacer(minLength: 20)
-                    
-                    HStack{
-                        Image(systemName: "gearshape.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(minWidth: UIScreen.main.bounds.width / 4.5)
-                            .padding()
-                        Text("Settings".uppercased())
-                            .fontWeight(.bold)
+                    GeometryReader { geometry in
+                        Color.clear.preference(key: ScrollPreferenceKey.self, value: geometry.frame(in: .named("scroll")).minY)
                     }
-                    .font(.largeTitle)
-                    .padding(.trailing)
+                    .onPreferenceChange(ScrollPreferenceKey.self) { value in
+                        if value < -50 {
+                            hasScrolled = true
+                        } else {
+                            hasScrolled = false
+                        }
+                    }
+                    
+                    MySettingTitle()
                     
                     Text("Customize the app to suit your taste.")
                         .padding()
@@ -106,10 +108,55 @@ struct SettingsView: View {
                             .stroke(Color("solve"), lineWidth: 2)
                             .shadow(color: .black, radius: 30))
                     )
-                    
+                    VStack {
+                        VStack{
+                            HStack {
+                                Text("Customize App")
+                                
+                                Spacer()
+                                
+                            }
+                            
+                            Button {
+                                withAnimation(.easeInOut(duration: 0.5)) {
+                                    editBG.toggle()
+                                }
+                                
+                            } label: {
+                                Text(editBG ? "Done" : "Customize App Background")
+                                    .padding()
+                                    .foregroundColor(Color("buttonText"))
+                                    .frame(width: UIScreen.main.bounds.width * 0.8)
+                                    .background(Color.gray)
+                                    .cornerRadius(30)
+                            }
+                        }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 30)
+                            .foregroundColor(Color(standardButton).opacity(0.5))
+                            .overlay(RoundedRectangle(cornerRadius: 30)
+                                .stroke(Color("solve"), lineWidth: 2)
+                                .shadow(color: .black, radius: 30))
+                        )
+                        
+                        if editBG {
+                            AppBackgroundSettingsView()
+                        }
+                    }
+                    .background(RoundedRectangle(cornerRadius: 30)
+                        .foregroundColor(Color(standardButton).opacity(0.5))
+                        .overlay(RoundedRectangle(cornerRadius: 30)
+                            .stroke(Color("solve"), lineWidth: 2)
+                            .shadow(color: .black, radius: 30))
+                    )
                 }
-                .padding()
+                .padding(.horizontal)
+//                .overlay(MyNavigationBar())
             }
+            .coordinateSpace(name: "scroll")
+            .overlay(MyNavigationBar()
+                .opacity(hasScrolled ? 1 : 0)
+            )
             .opacity(showMenu ? 0.2 : 1)
             
             LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
@@ -163,5 +210,50 @@ struct ThemeIcon: View {
         .clipped()
         .background(Rectangle()
             .stroke(Color("solve"), lineWidth: 6))
+    }
+}
+
+struct MyNavigationBar: View {
+    var body: some View {
+        VStack {
+            HStack{
+                Image(systemName: "gearshape.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: UIScreen.main.bounds.width / 10)
+                    .padding()
+                Text("Settings".uppercased())
+                    .fontWeight(.bold)
+                Spacer()
+            }
+            .font(.largeTitle)
+            .padding([.trailing, .bottom])
+            .background(RoundedRectangle(cornerRadius: 0)
+                .frame(height: 300)
+                .position(x: UIScreen.main.bounds.width / 2, y: -50)
+                .foregroundColor(Color("white"))
+            .blur(radius: 20))
+            
+            Spacer()
+        }
+    }
+}
+
+struct MySettingTitle: View {
+    var body: some View {
+        VStack {
+            HStack{
+                Image(systemName: "gearshape.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: UIScreen.main.bounds.width / 5)
+                    .padding()
+                Text("Settings".uppercased())
+                    .fontWeight(.bold)
+                Spacer()
+            }
+            .font(.largeTitle)
+            .padding([.trailing, .bottom])
+        }
     }
 }

@@ -72,26 +72,12 @@ struct AlgebraViewRedo: View {
                     Spacer()
                     VStack {
                         Text(operationSymbol)
-                        if operation == .factorize {
+//                        if operation == .factorize {
                             FactoredView(factoredExpression: $factoredExpression)
-                        }
+//                        }
                         if showTextField {
                             MyTextField(expression: $expression, toPerform: $toPerform, operationSymbols: $operationSymbols)
                         }
-//                        Button {
-//                            if !differentiateVariable.isEmpty {
-//                                expression = differentaiteExpression(base: differentiateVariable, expressionDiff: expression)
-//                            }
-//                        } label: {
-//                            Text("differentiate Expressions")
-//                        }
-//                        Button {
-//                            if !differentiateVariable.isEmpty {
-//                                expression = integrateExpression(base: differentiateVariable, expressionDiff: expression)
-//                            }
-//                        } label: {
-//                            Text("integrate Expressions")
-//                        }
                         
                     }
                     HStack {
@@ -181,6 +167,7 @@ struct AlgebraViewRedo: View {
                         }
                     }
                     OperationButtonsRedo(operation: $operation, base: $base, expo: $expo, vars: $vars, coefficient: $coefficient, expression: $expression, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
+                        .padding(.leading, 40)
                         .tint(Color(standardOperator))
                     
                     HStack {
@@ -217,33 +204,43 @@ struct AlgebraViewRedo: View {
                                 .opacity(receiveDifferentiationVariable ? 1 : 0)
                         }
                     } else {
-                        
-                        HStack{
-                            if !variables {
-                                VarConstButtonsRedo(title: "Variables", variables: $variables)
-                                    .opacity(!variables ? 1 : 0)
+                        VStack {
+                            HStack{
+                                if !variables {
+                                    VarConstButtonsRedo(title: "Variables", variables: $variables)
+                                        .opacity(!variables ? 1 : 0)
+                                }
+                                Spacer()
+                                if variables {
+                                    VarConstButtonsRedo(title: "Numbers", variables: $variables)
+                                        .opacity(variables ? 1 : 0)
+                                }
                             }
-                            Spacer()
-                            if variables {
-                                VarConstButtonsRedo(title: "Numbers", variables: $variables)
-                                    .opacity(variables ? 1 : 0)
+                            
+                            VStack {
+                                if !variables {
+                                    if !exponents {
+                                        AlgebraConstantButtonsRedo(coefficient: $coefficient, exponents: $exponents, operation: $operation, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
+                                    } else {
+                                        AlgebraExponentButtonsRedo(expo: $expo, exponents: $exponents, base: $base, vars: $vars)
+                                    }
+                                } else {
+                                    AlgebraVariableButtonsRedo(variablesArray: $variablesArray, base: $base, expo: $expo, vars: $vars, operation: $operation, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
+                                }
                             }
+                            .keyboardRespectSafeArea()
                         }
-                        
-                        
-                        if !variables {
-                            if !exponents {
-                                AlgebraConstantButtonsRedo(coefficient: $coefficient, exponents: $exponents, operation: $operation, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
-                            } else {
-                                AlgebraExponentButtonsRedo(expo: $expo, exponents: $exponents, base: $base, vars: $vars)
-                            }
-                        } else {
-                            AlgebraVariableButtonsRedo(variablesArray: $variablesArray, base: $base, expo: $expo, vars: $vars, operation: $operation, toPerform: $toPerform, operationSymbol: $operationSymbol, operationSymbols: $operationSymbols)
-                        }
+                        .padding(.horizontal)
+                        .padding(.top)
+                        .background(RoundedRectangle(cornerRadius: 30)
+                            .foregroundColor(Color("white"))
+                            .shadow(radius: 10, y: -10)
+                            .ignoresSafeArea())
                     }
                 }
                 .padding()
             }
+            .frame(width: UIScreen.main.bounds.width)
             .opacity(showMenu ? 0.2 : 1)
             
             LogoMenu(animateLogo: $animateLogo, showMenu: $showMenu, menuOpacity: $menuOpacity, width: $width)
@@ -506,19 +503,14 @@ struct AlgebraViewRedo: View {
     
     func solve(toSolve: Expression, perform: [AlgebraOperation]) {
         var i = 0
-        // empty coefficient
         if coefficient.isEmpty {
-            // vars not empty
             if !vars.isEmpty {
                 expression.expression.append(Terms(coefficient: "1", terms: vars))
             }
         } else {
-            // not empty coefficient
-            // vars empty
             if vars.isEmpty {
                 expression.expression.append(Terms(coefficient: coefficient, terms: rep))
             } else {
-                // vars not empty
                 expression.expression.append(Terms(coefficient: coefficient, terms: vars))
             }
         }
@@ -527,10 +519,8 @@ struct AlgebraViewRedo: View {
         expo.removeAll()
         coefficient.removeAll()
         
-        // sort expressions
         expression = sortTerms(expression: expression)
         
-        // if an operation in operations is == multiplication
         while (i < toPerform.count) {
             if toPerform[i] == .division {
                 division(coeff1: expression.expression[i].coefficient, term1: expression.expression[i].terms, coeff2: expression.expression[i + 1].coefficient, term2: expression.expression[i + 1].terms)
@@ -727,7 +717,6 @@ struct AlgebraViewRedo: View {
         if firstTerm.count == secondTerm.count {
             while continueIter {
                 while (i < firstTerm.count) {
-//                    while (j < secondTerm.count) {
                         if firstTerm[i].base == secondTerm[j].base && firstTerm[i].exponent == secondTerm[j].exponent{
                             possibleAnswer.append(Term(base: firstTerm[i].base, exponent: String((Double(firstTerm[i].exponent) ?? 1)), sign: .constant(.positive)))
                             
@@ -751,8 +740,6 @@ struct AlgebraViewRedo: View {
                 continueIter = false
             }
         } else {
-            //            answerVars.append(contentsOf: firstTerm)
-            //            answerVars.append(contentsOf: secondTerm)
         }
         return successful
     }
@@ -819,9 +806,7 @@ struct AlgebraViewRedo: View {
             if i == 0 {
                 setDivisor = gcd(a: factorOut, b: expression.expression[i].coefficient)
             }
-            print(i)
-            print(gcd(a: factorOut, b: expression.expression[i].coefficient))
-            print(setDivisor > gcd(a: factorOut, b: expression.expression[i].coefficient))
+            
             if setDivisor < gcd(a: factorOut, b: expression.expression[i].coefficient) {
                 setDivisor.removeAll()
                 setDivisor = gcd(a: factorOut, b: expression.expression[i].coefficient)
@@ -831,8 +816,6 @@ struct AlgebraViewRedo: View {
         if foundOne {
             setDivisor = "1"
         }
-        print("divisor")
-        print(setDivisor)
         return setDivisor
     }
     
@@ -865,18 +848,9 @@ struct AlgebraViewRedo: View {
             factorizeOutExpo = expos.map { String($0) }
             factorizeOutCoefficient = expression.expression[i].coefficient
             
-            // getting terms with similar bases
-            
             expression.expression.forEach { express in
-                print(j)
-                print("I am in here")
-                print(express.terms[j].base, "--", factorizeOutBases[j])
-                print(factorizeOutExpo[j])
                 if express.terms[j].base == factorizeOutBases[j] {
-                    print("I am in here too")
                     toBeFactored.expression.append(express)
-                    print(express.terms[j].base, "--", factorizeOutBases[j])
-                    print(toBeFactored.expression.count)
                     i += 1
                 }
             }
@@ -889,8 +863,6 @@ struct AlgebraViewRedo: View {
                     j = 0
                     factorizeOutBases.forEach { term in
                         if express.terms[j].base == factorizeOutBases[j] {
-                            print("I am in here too")
-                            print(express.terms[j].base, "--", factorizeOutBases[j])
                             
                             j += 1
                         }
@@ -898,10 +870,7 @@ struct AlgebraViewRedo: View {
                 }
             }
                 
-                print(toBeFactored.expression.count)
                 var divisor = getDivisor(factorOut: factorizeOutCoefficient, expression: toBeFactored)
-                print("\n")
-                print(toBeFactored)
                 var tryyy = ""
                 while (isPresent) {
                     factorizeOutBases.forEach { base in
@@ -922,7 +891,7 @@ struct AlgebraViewRedo: View {
                                     toBeFactored.expression[z].terms[k].exponent = String((Int(toBeFactored.expression[z].terms[k].exponent) ?? 1) - (Int(factorizeOutExpo[k]) ?? 0))
                                     
                                     tryyy = String((Double(toBeFactored.expression[z].terms[k].exponent) ?? 1) - (Double(factorizeOutExpo[k]) ?? 0))
-                                    print(tryyy)
+                                    
                                     factoredTerms.append(Term(base: toBeFactored.expression[z].terms[k].base, exponent: tryyy, sign: .constant(.positive)))
                                     k += 1
                                 }
@@ -935,23 +904,14 @@ struct AlgebraViewRedo: View {
                                     }
                                 }
                                 factoredCoefficient = toBeFactored.expression[z].coefficient
-                                print("divisor - \(divisor)")
-                                print("factoredOutCoefficient - \(factoredCoefficient)")
                                 
                                 factored.expression.append(Terms(coefficient: String((Int(factoredCoefficient) ?? 1) / ((Int(divisor) ?? 1))), terms: factoredTerms))
-                                print("\n\n")
-                                print(tryyy)
-                                print(factoredTerms)
-                                print(factored)
-                                print(factored.expression.count)
-                                print("\n\n")
-                                print(factorizeOutExpo)
+                                
                                 tryyy.removeAll()
                                 factoredTerms.removeAll()
                                 factoredCoefficient.removeAll()
                                 z += 1
                             }
-                            //                        facotredCoefficient = toBeFactored.expression[z].coefficient
                         }
                     }
                     isPresent = false
@@ -961,15 +921,10 @@ struct AlgebraViewRedo: View {
                 
                 
                 finexpressions = FactoredTerm(expression2: [factored], factors: [factorizeOutBases], factorsExpo: [factorizeOutExpo])
-                print(finexpressions)
                 
-                print("\n\n Here we are...\n")
-                print(j)
-                print(factorizeOutBases)
                 expression2.append(factored)
                 factors.append(factorizeOutBases)
                 factorsExpo.append(factorizeOutExpo)
-                //            factorsCoefficient.append(factorizeOutCoefficient)
                 factorsCoefficient.append(divisor)
                 
                 factoredExpression.expressions.append(FactoredTerm(expression2: [factored], factors: [factorizeOutBases], factorsExpo: [factorizeOutExpo]))
@@ -982,32 +937,13 @@ struct AlgebraViewRedo: View {
                 divisor.removeAll()
                 isPresent = true
                 
-                print("\nFine Expression")
-                print(finexpressions)
-                print("\n")
-                print(factored)
-                print(factored.expression.count)
-                print(i)
-                print(tryyy)
+                
             }
-//        }
-        print("\n")
-        print(expression2)
         factoredExpression = FactoredExpression(expressions: [FactoredTerm(expression2: expression2, factors: factors, factorsExpo: factorsExpo, factorsCoefficient: factorsCoefficient)])
-        print(factors)
-        print(factorsExpo)
-        print("\nFactored expression components")
-        print(factoredExpression)
         
         return factoredExpression
     }
 }
-
-//struct AlgebraViewRedo_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AlgebraViewRedo()
-//    }
-//}
 
 struct AlgebraButtonRedo: View {
     @AppStorage("standardButton") var standardButton: String = "standardButton"
@@ -1078,9 +1014,7 @@ struct AlgebraExponentButtonRedo: View {
                 if expo.isEmpty {
                     vars.append(Term(base: base, exponent: "1", sign: .constant(.positive)))
                 } else {
-                    // exponent is not empty
                     vars.append(Term(base: base, exponent: expo, sign: .constant(.positive)))
-                    //                    expo.removeAll()
                 }
             }
         } label: {
@@ -1114,9 +1048,7 @@ struct AlgebraExponentDecimalButtonRedo: View {
                 if expo.isEmpty {
                     vars.append(Term(base: base, exponent: "1", sign: .constant(.positive)))
                 } else {
-                    // exponent is not empty
                     vars.append(Term(base: base, exponent: expo, sign: .constant(.positive)))
-                    //                    expo.removeAll()
                 }
             }
         } label: {
@@ -1157,23 +1089,16 @@ struct AlgebraVariableButtonRedo: View {
     @State var express = Expression()
     var body: some View {
         Button {
-            // not empty base
             if !base.isEmpty {
                 base.removeAll()
             }
             base = variable
-            // exponent is empty
             expo.removeAll()
-            
-            //            if operation != .none {
-            //                toPerform.append(operation)
-            //            }
             
             if !base.isEmpty {
                 if expo.isEmpty {
                     vars.append(Term(base: variable, exponent: "1", sign: .constant(.positive)))
                 } else {
-                    // exponent is not empty
                     vars.append(Term(base: variable, exponent: expo, sign: .constant(.positive)))
                     expo.removeAll()
                 }
@@ -1359,19 +1284,14 @@ struct OperationButtonsRedo: View {
         HStack{
             ForEach(0..<4) { index in
                 Button {
-                    // empty coefficient
                     if coefficient.isEmpty {
-                        // vars not empty
                         if !vars.isEmpty {
                             expression.expression.append(Terms(coefficient: "1", terms: vars))
                         }
                     } else {
-                        // not empty coefficient
-                        // vars empty
                         if vars.isEmpty {
                             expression.expression.append(Terms(coefficient: coefficient, terms: rep))
                         } else {
-                            // vars not empty
                             expression.expression.append(Terms(coefficient: coefficient, terms: vars))
                         }
                     }
@@ -1382,7 +1302,6 @@ struct OperationButtonsRedo: View {
                     
                     operation = operations[index]
                     operationSymbol = titles[index]
-                    //                    toPerform.append(operation)
                     if operationSymbol == "+" {
                         coefficient.removeAll()
                     }
