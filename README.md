@@ -28,6 +28,7 @@ This is a modern calculator iOS application that is capable of doing basic and m
   * Worked on distinguishing buttons beneath vector view textfields.
   * Made some improvements to the settings view.
   * Added shadows to certain UI elements.
+  * Added a background to the app UI.
   
 
 ## Had to redo vector view.
